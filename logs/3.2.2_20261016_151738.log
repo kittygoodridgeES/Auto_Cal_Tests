@@ -1,0 +1,16 @@
+2026-10-16 15:17:20,401 [INFO] MainThread: Showing page: instructions
+2026-10-16 15:17:25,756 [INFO] MainThread: Showing page: selection
+2026-10-16 15:17:38,930 [INFO] MainThread: Logging to C:\Users\KittyGoodridge\OneDrive - elasticStage\Desktop\Repos\Auto_Cal_Tests\logs\3.2.2_20261016_151738.log
+2026-10-16 15:17:38,931 [INFO] MainThread: Machine ID: 3.2.2
+2026-10-16 15:17:38,931 [INFO] MainThread: Selection: Factory ELSTREE, Station 3, Cluster 2, Cutter 2, Transport not operational
+2026-10-16 15:17:38,932 [INFO] MainThread: Showing page: confirm
+2026-10-16 15:17:38,939 [INFO] Thread-1 (_read): Looking up diamond ID for 3.2.2
+2026-10-16 15:17:39,998 [INFO] MainThread: Read diamond_id: D17012026_N_10.008
+2026-10-16 15:17:46,269 [INFO] MainThread: diamond_id D17012026_N_10.008 confirmed: Yes
+2026-10-16 15:17:49,294 [INFO] Thread-2 (_decide): Change in diamond length: 0.0
+2026-10-16 15:17:49,359 [INFO] MainThread: choose_after_diamond -> supply
+2026-10-16 15:17:49,360 [INFO] MainThread: Showing page: supply
+2026-10-16 15:17:52,545 [INFO] Thread-3 (_run): Preparing for supply to 3.2.2
+2026-10-16 15:17:55,563 [INFO] Thread-3 (_run): Preparation finished
+2026-10-16 15:18:59,769 [INFO] MainThread: Stop requested
+2026-10-16 15:18:59,799 [INFO] MainThread: Closing wizard

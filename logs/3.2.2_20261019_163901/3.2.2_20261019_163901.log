@@ -1,0 +1,310 @@
+2026-10-19 16:38:47,454 [INFO] MainThread: Showing page: instructions
+2026-10-19 16:38:51,305 [INFO] MainThread: Showing page: selection
+2026-10-19 16:39:01,060 [INFO] MainThread: Logging to C:\Users\KittyGoodridge\OneDrive - elasticStage\Desktop\Repos\Auto_Cal_Tests\logs\3.2.2_20261019_163901\3.2.2_20261019_163901.log
+2026-10-19 16:39:01,060 [INFO] MainThread: Machine ID: 3.2.2
+2026-10-19 16:39:01,061 [INFO] MainThread: Selection: Factory ELSTREE, Station 3, Cluster 2, Cutter 2, Transport operational
+2026-10-19 16:39:01,061 [INFO] MainThread: Showing page: check_state
+2026-10-19 16:39:01,072 [INFO] Thread-1 (_run_check): Creating API client for factory 1, slot 3.2.2
+2026-10-19 16:39:01,470 [INFO] Thread-1 (_run_check): PackML mode 6, state 2
+2026-10-19 16:39:01,470 [INFO] Thread-1 (_run_check): Cutter is not in IDLE, packml state: 2
+2026-10-19 16:39:15,151 [INFO] Thread-2 (_run_check): PackML mode 6, state 4
+2026-10-19 16:39:15,152 [INFO] Thread-2 (_run_check): Cutter is in IDLE
+2026-10-19 16:39:16,323 [INFO] MainThread: Showing page: confirm
+2026-10-19 16:39:16,335 [INFO] Thread-3 (_read): Looking up diamond ID for 3.2.2
+2026-10-19 16:39:16,947 [INFO] MainThread: Read diamond_id: D17012026_N_10.008
+2026-10-19 16:39:18,813 [INFO] MainThread: diamond_id D17012026_N_10.008 confirmed: Yes
+2026-10-19 16:39:20,710 [INFO] Thread-4 (_decide): Change in diamond length: 0.0
+2026-10-19 16:39:20,746 [INFO] MainThread: choose_after_diamond -> supply
+2026-10-19 16:39:20,747 [INFO] MainThread: Showing page: supply
+2026-10-19 16:39:20,751 [INFO] Thread-5 (_run): Preparing for supply to 3.2.2
+2026-10-19 16:39:20,752 [INFO] Thread-5 (_run): Connecting AMQP transport for factory 1, slot 3.2.2
+2026-10-19 16:39:20,881 [INFO] Thread-5 (_run): AMQP connected, listening on location.uk.factory.1.workstation.3.cluster.2.#
+2026-10-19 16:39:20,965 [INFO] Thread-5 (_run): supply command sent to cutter 2
+2026-10-19 16:39:21,079 [INFO] Thread-5 (_run): Transport event: cutter 2, command supply, result busy
+2026-10-19 16:41:13,308 [INFO] Thread-5 (_run): Transport event: cutter 2, command supply, result success
+2026-10-19 16:41:13,308 [INFO] Thread-5 (_run): supply succeeded on cutter 2
+2026-10-19 16:41:13,441 [INFO] Thread-5 (_run): Supply complete
+2026-10-19 16:41:15,007 [INFO] MainThread: Showing page: Calibration
+2026-10-19 16:41:15,015 [INFO] Thread-7 (_run): Connecting MQTT for factory 1, machine 3.2.2
+2026-10-19 16:41:15,024 [INFO] Thread-7 (_run): init camerasetup
+2026-10-19 16:41:15,032 [INFO] Thread-7 (_run): printing preamble
+2026-10-19 16:41:15,033 [INFO] Thread-7 (_run): ///////////////////////////////////////////////////
+2026-10-19 16:41:15,033 [INFO] Thread-7 (_run): /// VmbPy Asynchronous Grab with OpenCV Example ///
+2026-10-19 16:41:15,033 [INFO] Thread-7 (_run): ///////////////////////////////////////////////////
+
+2026-10-19 16:41:15,033 [INFO] Thread-7 (_run): parsing args
+2026-10-19 16:41:15,229 [INFO] Thread-7 (_run): Original Config Retrieved: 
+ mm/um:0.0157900734466008 
+ Default piezo pos: 2.0299999713897705 
+ Default GW: 50.0
+2026-10-19 16:41:15,229 [INFO] Thread-7 (_run): Change in diamond length from previous calibration: 0.0
+2026-10-19 16:41:15,229 [INFO] Thread-7 (_run): Drop in piezo pos decided: 2.6616029092538023
+2026-10-19 16:41:19,005 [INFO] camera: Camera opened: DEV_1AB22C06E926
+2026-10-19 16:41:19,005 [INFO] camera: 33 : line number
+2026-10-19 16:41:19,006 [INFO] camera: cutter number: 3.2.2, cutter_no: 3.2.2
+2026-10-19 16:41:19,009 [INFO] camera: Exposure time set to 2000 µs
+2026-10-19 16:41:19,013 [INFO] camera: Camera setup complete
+2026-10-19 16:41:19,035 [INFO] camera: Camera pixel format setup complete
+2026-10-19 16:41:19,083 [INFO] camera: Camera streaming started
+2026-10-19 16:41:19,148 [INFO] Thread-7 (_run): Camera running
+2026-10-19 16:41:19,314 [INFO] Thread-7 (_run): Drop in pitch set from 147.7 to 75.0
+2026-10-19 16:41:20,271 [INFO] Thread-7 (_run): Cutter already in setup mode
+2026-10-19 16:41:20,572 [INFO] Thread-7 (_run): Cutter resetting
+2026-10-19 16:41:26,479 [INFO] Thread-7 (_run): Cutter reset
+2026-10-19 16:41:26,479 [INFO] Thread-7 (_run): Moving piezo to starting position 
+ ===
+2026-10-19 16:41:31,515 [INFO] Thread-7 (_run): Piezo moved to starting pos
+2026-10-19 16:41:32,938 [INFO] Thread-7 (_run): starting cutter
+2026-10-19 16:41:33,110 [INFO] Thread-7 (_run): starting setup cut
+2026-10-19 16:41:33,110 [INFO] Thread-7 (_run): Setup cut has started
+2026-10-19 16:42:05,342 [INFO] Thread-7 (_run): Head has reached cutting position
+2026-10-19 16:42:07,496 [INFO] Thread-7 (_run): pos 2.03: waiting for groove (2 s) | waiting for 5 frames  (frames: 1123 received, 1 analysed)
+2026-10-19 16:42:09,098 [INFO] Thread-7 (_run): pos 2.03: waiting for groove (3 s) | waiting for 5 frames  (frames: 1160 received, 2 analysed)
+2026-10-19 16:42:10,684 [INFO] Thread-7 (_run): pos 2.03: waiting for groove (5 s) | waiting for 5 frames  (frames: 1197 received, 3 analysed)
+2026-10-19 16:42:10,718 [INFO] Thread-7 (_run): pos 2.03: waiting for groove (5 s) | waiting for 5 frames  (frames: 1197 received, 4 analysed)
+2026-10-19 16:42:10,740 [INFO] Thread-7 (_run): pos 2.03: waiting for groove (5 s) | waiting for 5 frames  (frames: 1198 received, 5 analysed)
+2026-10-19 16:42:10,778 [INFO] Thread-7 (_run): pos 2.03: waiting for groove (5 s) | waiting for 5 frames  (frames: 1199 received, 6 analysed)
+2026-10-19 16:42:10,816 [INFO] Thread-7 (_run): pos 2.03: waiting for groove (5 s) | waiting for 5 frames  (frames: 1200 received, 7 analysed)
+2026-10-19 16:42:10,860 [INFO] Thread-7 (_run): groove found at piezo 2.03, measuring for 9.0 s
+2026-10-19 16:42:10,861 [INFO] Thread-7 (_run): pos 2.03: 9.0 s left, 1 samples | groove 2  now 68.3 um  avg(5/5) 67.8 um  [12 ms]  (frames: 1201 received, 8 analysed)
+2026-10-19 16:42:10,904 [INFO] Thread-7 (_run): pos 2.03: 9.0 s left, 2 samples | groove 2  now 68.9 um  avg(5/5) 68.0 um  [12 ms]  (frames: 1202 received, 9 analysed)
+2026-10-19 16:42:10,950 [INFO] Thread-7 (_run): pos 2.03: 8.9 s left, 3 samples | groove 2  now 69.3 um  avg(5/5) 68.4 um  [14 ms]  (frames: 1203 received, 10 analysed)
+2026-10-19 16:42:10,990 [INFO] Thread-7 (_run): pos 2.03: 8.9 s left, 4 samples | groove 2  now 68.9 um  avg(5/5) 68.7 um  [12 ms]  (frames: 1204 received, 11 analysed)
+2026-10-19 16:42:11,034 [INFO] Thread-7 (_run): pos 2.03: 8.8 s left, 5 samples | groove 2  now 69.1 um  avg(5/5) 68.9 um  [15 ms]  (frames: 1205 received, 12 analysed)
+2026-10-19 16:42:11,079 [INFO] Thread-7 (_run): pos 2.03: 8.8 s left, 6 samples | groove 2  now 69.2 um  avg(5/5) 69.1 um  [15 ms]  (frames: 1206 received, 13 analysed)
+2026-10-19 16:42:11,118 [INFO] Thread-7 (_run): pos 2.03: 8.7 s left, 7 samples | groove 2  now 69.3 um  avg(5/5) 69.2 um  [12 ms]  (frames: 1207 received, 14 analysed)
+2026-10-19 16:42:11,163 [INFO] Thread-7 (_run): pos 2.03: 8.7 s left, 8 samples | groove 2  now 76.9 um  avg(5/5) 70.7 um  [14 ms]  (frames: 1208 received, 15 analysed)
+2026-10-19 16:42:11,211 [INFO] Thread-7 (_run): pos 2.03: 8.6 s left, 9 samples | groove 2  now 72.4 um  avg(5/5) 71.4 um  [17 ms]  (frames: 1209 received, 16 analysed)
+2026-10-19 16:42:11,251 [INFO] Thread-7 (_run): pos 2.03: 8.6 s left, 10 samples | groove 2  now 70.8 um  avg(5/5) 71.7 um  [13 ms]  (frames: 1210 received, 17 analysed)
+2026-10-19 16:42:11,293 [INFO] Thread-7 (_run): pos 2.03: 8.6 s left, 11 samples | groove 2  now 69.3 um  avg(5/5) 71.7 um  [15 ms]  (frames: 1211 received, 18 analysed)
+2026-10-19 16:42:11,335 [INFO] Thread-7 (_run): pos 2.03: 8.5 s left, 12 samples | groove 2  now 70.2 um  avg(5/5) 71.9 um  [13 ms]  (frames: 1212 received, 19 analysed)
+2026-10-19 16:42:11,381 [INFO] Thread-7 (_run): pos 2.03: 8.5 s left, 13 samples | groove 2  now 70.5 um  avg(5/5) 70.6 um  [14 ms]  (frames: 1213 received, 20 analysed)
+2026-10-19 16:42:11,423 [INFO] Thread-7 (_run): pos 2.03: 8.4 s left, 14 samples | groove 2  now 68.7 um  avg(5/5) 69.9 um  [17 ms]  (frames: 1214 received, 21 analysed)
+2026-10-19 16:42:11,464 [INFO] Thread-7 (_run): pos 2.03: 8.4 s left, 15 samples | groove 2  now 68.1 um  avg(5/5) 69.4 um  [14 ms]  (frames: 1215 received, 22 analysed)
+2026-10-19 16:42:11,505 [INFO] Thread-7 (_run): pos 2.03: 8.4 s left, 16 samples | groove 2  now 68.9 um  avg(5/5) 69.3 um  [12 ms]  (frames: 1216 received, 23 analysed)
+2026-10-19 16:42:11,549 [INFO] Thread-7 (_run): pos 2.03: 8.3 s left, 17 samples | groove 2  now 68.8 um  avg(5/5) 69.0 um  [12 ms]  (frames: 1217 received, 24 analysed)
+2026-10-19 16:42:11,592 [INFO] Thread-7 (_run): pos 2.03: 8.3 s left, 18 samples | groove 2  now 69.2 um  avg(5/5) 68.7 um  [12 ms]  (frames: 1218 received, 25 analysed)
+2026-10-19 16:42:11,648 [INFO] Thread-7 (_run): pos 2.03: 8.2 s left, 19 samples | groove 2  now 69.5 um  avg(5/5) 68.9 um  [23 ms]  (frames: 1219 received, 26 analysed)
+2026-10-19 16:42:11,688 [INFO] Thread-7 (_run): pos 2.03: 8.2 s left, 20 samples | groove 2  now 68.9 um  avg(5/5) 69.1 um  [17 ms]  (frames: 1220 received, 27 analysed)
+2026-10-19 16:42:11,727 [INFO] Thread-7 (_run): pos 2.03: 8.1 s left, 21 samples | groove 2  now 69.4 um  avg(5/5) 69.2 um  [17 ms]  (frames: 1221 received, 28 analysed)
+2026-10-19 16:42:11,767 [INFO] Thread-7 (_run): pos 2.03: 8.1 s left, 22 samples | groove 2  now 69.1 um  avg(5/5) 69.2 um  [15 ms]  (frames: 1222 received, 29 analysed)
+2026-10-19 16:42:11,810 [INFO] Thread-7 (_run): pos 2.03: 8.1 s left, 23 samples | groove 2  now 68.8 um  avg(5/5) 69.1 um  [15 ms]  (frames: 1223 received, 30 analysed)
+2026-10-19 16:42:11,852 [INFO] Thread-7 (_run): pos 2.03: 8.0 s left, 24 samples | groove 2  now 69.1 um  avg(5/5) 69.1 um  [13 ms]  (frames: 1224 received, 31 analysed)
+2026-10-19 16:42:11,896 [INFO] Thread-7 (_run): pos 2.03: 8.0 s left, 25 samples | groove 2  now 68.9 um  avg(5/5) 69.0 um  [14 ms]  (frames: 1225 received, 32 analysed)
+2026-10-19 16:42:11,937 [INFO] Thread-7 (_run): pos 2.03: 7.9 s left, 26 samples | groove 2  now 68.5 um  avg(5/5) 68.9 um  [13 ms]  (frames: 1226 received, 33 analysed)
+2026-10-19 16:42:11,989 [INFO] Thread-7 (_run): pos 2.03: 7.9 s left, 27 samples | groove 2  now 68.4 um  avg(5/5) 68.7 um  [14 ms]  (frames: 1227 received, 34 analysed)
+2026-10-19 16:42:12,024 [INFO] Thread-7 (_run): pos 2.03: 7.8 s left, 28 samples | groove 2  now 68.2 um  avg(5/5) 68.6 um  [13 ms]  (frames: 1228 received, 35 analysed)
+2026-10-19 16:42:12,068 [INFO] Thread-7 (_run): pos 2.03: 7.8 s left, 29 samples | groove 2  now 67.7 um  avg(5/5) 68.3 um  [12 ms]  (frames: 1229 received, 36 analysed)
+2026-10-19 16:42:12,111 [INFO] Thread-7 (_run): pos 2.03: 7.7 s left, 30 samples | groove 2  now 68.1 um  avg(5/5) 68.2 um  [13 ms]  (frames: 1230 received, 37 analysed)
+2026-10-19 16:42:12,155 [INFO] Thread-7 (_run): pos 2.03: 7.7 s left, 31 samples | groove 2  now 67.7 um  avg(5/5) 68.0 um  [14 ms]  (frames: 1231 received, 38 analysed)
+2026-10-19 16:42:12,199 [INFO] Thread-7 (_run): pos 2.03: 7.7 s left, 32 samples | groove 2  now 67.7 um  avg(5/5) 67.9 um  [13 ms]  (frames: 1232 received, 39 analysed)
+2026-10-19 16:42:12,240 [INFO] Thread-7 (_run): pos 2.03: 7.6 s left, 33 samples | groove 2  now 67.0 um  avg(5/5) 67.7 um  [14 ms]  (frames: 1233 received, 40 analysed)
+2026-10-19 16:42:12,283 [INFO] Thread-7 (_run): pos 2.03: 7.6 s left, 34 samples | groove 2  now 67.6 um  avg(5/5) 67.6 um  [13 ms]  (frames: 1234 received, 41 analysed)
+2026-10-19 16:42:12,327 [INFO] Thread-7 (_run): pos 2.03: 7.5 s left, 35 samples | groove 2  now 66.8 um  avg(5/5) 67.4 um  [15 ms]  (frames: 1235 received, 42 analysed)
+2026-10-19 16:42:12,369 [INFO] Thread-7 (_run): pos 2.03: 7.5 s left, 36 samples | groove 2  now 67.4 um  avg(5/5) 67.3 um  [13 ms]  (frames: 1236 received, 43 analysed)
+2026-10-19 16:42:12,412 [INFO] Thread-7 (_run): pos 2.03: 7.4 s left, 37 samples | groove 2  now 67.1 um  avg(5/5) 67.2 um  [12 ms]  (frames: 1237 received, 44 analysed)
+2026-10-19 16:42:12,458 [INFO] Thread-7 (_run): pos 2.03: 7.4 s left, 38 samples | groove 2  now 66.9 um  avg(5/5) 67.2 um  [15 ms]  (frames: 1238 received, 45 analysed)
+2026-10-19 16:42:12,501 [INFO] Thread-7 (_run): pos 2.03: 7.4 s left, 39 samples | groove 2  now 67.0 um  avg(5/5) 67.0 um  [15 ms]  (frames: 1239 received, 46 analysed)
+2026-10-19 16:42:12,543 [INFO] Thread-7 (_run): pos 2.03: 7.3 s left, 40 samples | groove 2  now 67.5 um  avg(5/5) 67.2 um  [14 ms]  (frames: 1240 received, 47 analysed)
+2026-10-19 16:42:12,587 [INFO] Thread-7 (_run): pos 2.03: 7.3 s left, 41 samples | groove 2  now 73.8 um  avg(5/5) 68.5 um  [14 ms]  (frames: 1241 received, 48 analysed)
+2026-10-19 16:42:12,627 [INFO] Thread-7 (_run): pos 2.03: 7.2 s left, 42 samples | groove 2  now 72.0 um  avg(5/5) 69.5 um  [13 ms]  (frames: 1242 received, 49 analysed)
+2026-10-19 16:42:12,670 [INFO] Thread-7 (_run): pos 2.03: 7.2 s left, 43 samples | groove 2  now 70.0 um  avg(5/5) 70.1 um  [12 ms]  (frames: 1243 received, 50 analysed)
+2026-10-19 16:42:12,714 [INFO] Thread-7 (_run): pos 2.03: 7.1 s left, 44 samples | groove 2  now 69.1 um  avg(5/5) 70.5 um  [13 ms]  (frames: 1244 received, 51 analysed)
+2026-10-19 16:42:12,758 [INFO] Thread-7 (_run): pos 2.03: 7.1 s left, 45 samples | groove 2  now 68.7 um  avg(5/5) 70.7 um  [14 ms]  (frames: 1245 received, 52 analysed)
+2026-10-19 16:42:12,802 [INFO] Thread-7 (_run): pos 2.03: 7.1 s left, 46 samples | groove 2  now 68.5 um  avg(5/5) 69.7 um  [15 ms]  (frames: 1246 received, 53 analysed)
+2026-10-19 16:42:12,843 [INFO] Thread-7 (_run): pos 2.03: 7.0 s left, 47 samples | groove 2  now 70.0 um  avg(5/5) 69.3 um  [13 ms]  (frames: 1247 received, 54 analysed)
+2026-10-19 16:42:12,888 [INFO] Thread-7 (_run): pos 2.03: 7.0 s left, 48 samples | groove 2  now 69.3 um  avg(5/5) 69.1 um  [15 ms]  (frames: 1248 received, 55 analysed)
+2026-10-19 16:42:12,931 [INFO] Thread-7 (_run): pos 2.03: 6.9 s left, 49 samples | groove 2  now 70.1 um  avg(5/5) 69.3 um  [13 ms]  (frames: 1249 received, 56 analysed)
+2026-10-19 16:42:12,970 [INFO] Thread-7 (_run): pos 2.03: 6.9 s left, 50 samples | groove 2  now 69.3 um  avg(5/5) 69.5 um  [13 ms]  (frames: 1250 received, 57 analysed)
+2026-10-19 16:42:13,018 [INFO] Thread-7 (_run): pos 2.03: 6.8 s left, 51 samples | groove 2  now 68.9 um  avg(5/5) 69.5 um  [15 ms]  (frames: 1251 received, 58 analysed)
+2026-10-19 16:42:13,060 [INFO] Thread-7 (_run): pos 2.03: 6.8 s left, 52 samples | groove 2  now 69.0 um  avg(5/5) 69.4 um  [13 ms]  (frames: 1252 received, 59 analysed)
+2026-10-19 16:42:13,105 [INFO] Thread-7 (_run): pos 2.03: 6.8 s left, 53 samples | groove 2  now 69.2 um  avg(5/5) 69.3 um  [15 ms]  (frames: 1253 received, 60 analysed)
+2026-10-19 16:42:13,146 [INFO] Thread-7 (_run): pos 2.03: 6.7 s left, 54 samples | groove 2  now 68.8 um  avg(5/5) 69.1 um  [14 ms]  (frames: 1254 received, 61 analysed)
+2026-10-19 16:42:13,186 [INFO] Thread-7 (_run): pos 2.03: 6.7 s left, 55 samples | groove 2  now 67.9 um  avg(5/5) 68.8 um  [13 ms]  (frames: 1255 received, 62 analysed)
+2026-10-19 16:42:13,232 [INFO] Thread-7 (_run): pos 2.03: 6.6 s left, 56 samples | groove 2  now 68.4 um  avg(5/5) 68.7 um  [15 ms]  (frames: 1256 received, 63 analysed)
+2026-10-19 16:42:13,275 [INFO] Thread-7 (_run): pos 2.03: 6.6 s left, 57 samples | groove 2  now 68.5 um  avg(5/5) 68.6 um  [14 ms]  (frames: 1257 received, 64 analysed)
+2026-10-19 16:42:13,319 [INFO] Thread-7 (_run): pos 2.03: 6.5 s left, 58 samples | groove 2  now 68.5 um  avg(5/5) 68.4 um  [14 ms]  (frames: 1258 received, 65 analysed)
+2026-10-19 16:42:13,365 [INFO] Thread-7 (_run): pos 2.03: 6.5 s left, 59 samples | groove 2  now 69.5 um  avg(5/5) 68.6 um  [16 ms]  (frames: 1259 received, 66 analysed)
+2026-10-19 16:42:13,408 [INFO] Thread-7 (_run): pos 2.03: 6.5 s left, 60 samples | groove 2  now 68.7 um  avg(5/5) 68.7 um  [15 ms]  (frames: 1260 received, 67 analysed)
+2026-10-19 16:42:13,448 [INFO] Thread-7 (_run): pos 2.03: 6.4 s left, 61 samples | groove 2  now 73.1 um  avg(5/5) 69.6 um  [13 ms]  (frames: 1261 received, 68 analysed)
+2026-10-19 16:42:13,493 [INFO] Thread-7 (_run): pos 2.03: 6.4 s left, 62 samples | groove 2  now 71.5 um  avg(5/5) 70.3 um  [16 ms]  (frames: 1262 received, 69 analysed)
+2026-10-19 16:42:13,536 [INFO] Thread-7 (_run): pos 2.03: 6.3 s left, 63 samples | groove 2  now 71.0 um  avg(5/5) 70.8 um  [18 ms]  (frames: 1263 received, 70 analysed)
+2026-10-19 16:42:13,580 [INFO] Thread-7 (_run): pos 2.03: 6.3 s left, 64 samples | groove 2  now 69.6 um  avg(5/5) 70.8 um  [15 ms]  (frames: 1264 received, 71 analysed)
+2026-10-19 16:42:13,622 [INFO] Thread-7 (_run): pos 2.03: 6.2 s left, 65 samples | groove 2  now 68.8 um  avg(5/5) 70.8 um  [15 ms]  (frames: 1265 received, 72 analysed)
+2026-10-19 16:42:13,662 [INFO] Thread-7 (_run): pos 2.03: 6.2 s left, 66 samples | groove 2  now 68.9 um  avg(5/5) 69.9 um  [13 ms]  (frames: 1266 received, 73 analysed)
+2026-10-19 16:42:13,705 [INFO] Thread-7 (_run): pos 2.03: 6.2 s left, 67 samples | groove 2  now 69.1 um  avg(5/5) 69.5 um  [13 ms]  (frames: 1267 received, 74 analysed)
+2026-10-19 16:42:13,750 [INFO] Thread-7 (_run): pos 2.03: 6.1 s left, 68 samples | groove 2  now 68.7 um  avg(5/5) 69.0 um  [14 ms]  (frames: 1268 received, 75 analysed)
+2026-10-19 16:42:13,793 [INFO] Thread-7 (_run): pos 2.03: 6.1 s left, 69 samples | groove 2  now 68.6 um  avg(5/5) 68.8 um  [15 ms]  (frames: 1269 received, 76 analysed)
+2026-10-19 16:42:13,838 [INFO] Thread-7 (_run): pos 2.03: 6.0 s left, 70 samples | groove 2  now 68.4 um  avg(5/5) 68.8 um  [14 ms]  (frames: 1270 received, 77 analysed)
+2026-10-19 16:42:13,881 [INFO] Thread-7 (_run): pos 2.03: 6.0 s left, 71 samples | groove 2  now 68.1 um  avg(5/5) 68.6 um  [13 ms]  (frames: 1271 received, 78 analysed)
+2026-10-19 16:42:13,925 [INFO] Thread-7 (_run): pos 2.03: 5.9 s left, 72 samples | groove 2  now 68.1 um  avg(5/5) 68.4 um  [15 ms]  (frames: 1272 received, 79 analysed)
+2026-10-19 16:42:13,970 [INFO] Thread-7 (_run): pos 2.03: 5.9 s left, 73 samples | groove 2  now 68.3 um  avg(5/5) 68.3 um  [16 ms]  (frames: 1273 received, 80 analysed)
+2026-10-19 16:42:14,016 [INFO] Thread-7 (_run): pos 2.03: 5.8 s left, 74 samples | groove 2  now 67.3 um  avg(5/5) 68.1 um  [18 ms]  (frames: 1274 received, 81 analysed)
+2026-10-19 16:42:14,057 [INFO] Thread-7 (_run): pos 2.03: 5.8 s left, 75 samples | groove 2  now 67.0 um  avg(5/5) 67.8 um  [19 ms]  (frames: 1275 received, 82 analysed)
+2026-10-19 16:42:14,100 [INFO] Thread-7 (_run): pos 2.03: 5.8 s left, 76 samples | groove 2  now 67.4 um  avg(5/5) 67.6 um  [19 ms]  (frames: 1276 received, 83 analysed)
+2026-10-19 16:42:14,160 [INFO] Thread-7 (_run): pos 2.03: 5.7 s left, 77 samples | groove 2  now 72.2 um  avg(5/5) 68.4 um  [33 ms]  (frames: 1277 received, 84 analysed)
+2026-10-19 16:42:14,215 [INFO] Thread-7 (_run): pos 2.03: 5.6 s left, 78 samples | groove 2  now 70.0 um  avg(5/5) 68.8 um  [38 ms]  (frames: 1279 received, 85 analysed)
+2026-10-19 16:42:14,259 [INFO] Thread-7 (_run): pos 2.03: 5.6 s left, 79 samples | groove 2  now 68.5 um  avg(5/5) 69.0 um  [35 ms]  (frames: 1280 received, 86 analysed)
+2026-10-19 16:42:14,301 [INFO] Thread-7 (_run): pos 2.03: 5.6 s left, 80 samples | groove 2  now 66.9 um  avg(5/5) 69.0 um  [33 ms]  (frames: 1281 received, 87 analysed)
+2026-10-19 16:42:14,342 [INFO] Thread-7 (_run): pos 2.03: 5.5 s left, 81 samples | groove 2  now 66.9 um  avg(5/5) 68.9 um  [33 ms]  (frames: 1282 received, 88 analysed)
+2026-10-19 16:42:14,377 [INFO] Thread-7 (_run): pos 2.03: 5.5 s left, 82 samples | groove 2  now 68.7 um  avg(5/5) 68.2 um  [26 ms]  (frames: 1282 received, 89 analysed)
+2026-10-19 16:42:14,419 [INFO] Thread-7 (_run): pos 2.03: 5.4 s left, 83 samples | groove 2  now 68.7 um  avg(5/5) 68.0 um  [26 ms]  (frames: 1283 received, 90 analysed)
+2026-10-19 16:42:14,443 [INFO] Thread-7 (_run): pos 2.03: 5.4 s left, 84 samples | groove 2  now 68.4 um  avg(5/5) 67.9 um  [14 ms]  (frames: 1284 received, 91 analysed)
+2026-10-19 16:42:14,485 [INFO] Thread-7 (_run): pos 2.03: 5.4 s left, 85 samples | groove 2  now 68.5 um  avg(5/5) 68.2 um  [16 ms]  (frames: 1285 received, 92 analysed)
+2026-10-19 16:42:14,525 [INFO] Thread-7 (_run): pos 2.03: 5.3 s left, 86 samples | groove 2  now 70.7 um  avg(5/5) 69.0 um  [14 ms]  (frames: 1286 received, 93 analysed)
+2026-10-19 16:42:14,567 [INFO] Thread-7 (_run): pos 2.03: 5.3 s left, 87 samples | groove 2  now 74.7 um  avg(5/5) 70.2 um  [14 ms]  (frames: 1287 received, 94 analysed)
+2026-10-19 16:42:14,616 [INFO] Thread-7 (_run): pos 2.03: 5.2 s left, 88 samples | groove 2  now 70.5 um  avg(5/5) 70.5 um  [16 ms]  (frames: 1288 received, 95 analysed)
+2026-10-19 16:42:14,656 [INFO] Thread-7 (_run): pos 2.03: 5.2 s left, 89 samples | groove 2  now 70.5 um  avg(5/5) 71.0 um  [14 ms]  (frames: 1289 received, 96 analysed)
+2026-10-19 16:42:14,695 [INFO] Thread-7 (_run): pos 2.03: 5.2 s left, 90 samples | groove 2  now 68.2 um  avg(5/5) 70.9 um  [14 ms]  (frames: 1290 received, 97 analysed)
+2026-10-19 16:42:14,740 [INFO] Thread-7 (_run): pos 2.03: 5.1 s left, 91 samples | groove 2  now 69.6 um  avg(5/5) 70.7 um  [15 ms]  (frames: 1291 received, 98 analysed)
+2026-10-19 16:42:14,786 [INFO] Thread-7 (_run): pos 2.03: 5.1 s left, 92 samples | groove 2  now 70.9 um  avg(5/5) 69.9 um  [15 ms]  (frames: 1292 received, 99 analysed)
+2026-10-19 16:42:14,829 [INFO] Thread-7 (_run): pos 2.03: 5.0 s left, 93 samples | groove 2  now 69.1 um  avg(5/5) 69.7 um  [16 ms]  (frames: 1293 received, 100 analysed)
+2026-10-19 16:42:14,872 [INFO] Thread-7 (_run): pos 2.03: 5.0 s left, 94 samples | groove 2  now 69.4 um  avg(5/5) 69.4 um  [15 ms]  (frames: 1294 received, 101 analysed)
+2026-10-19 16:42:14,913 [INFO] Thread-7 (_run): pos 2.03: 4.9 s left, 95 samples | groove 2  now 68.5 um  avg(5/5) 69.5 um  [14 ms]  (frames: 1295 received, 102 analysed)
+2026-10-19 16:42:14,956 [INFO] Thread-7 (_run): pos 2.03: 4.9 s left, 96 samples | groove 2  now 68.9 um  avg(5/5) 69.4 um  [15 ms]  (frames: 1296 received, 103 analysed)
+2026-10-19 16:42:15,002 [INFO] Thread-7 (_run): pos 2.03: 4.9 s left, 97 samples | groove 2  now 68.4 um  avg(5/5) 68.9 um  [17 ms]  (frames: 1297 received, 104 analysed)
+2026-10-19 16:42:15,046 [INFO] Thread-7 (_run): pos 2.03: 4.8 s left, 98 samples | groove 2  now 68.9 um  avg(5/5) 68.8 um  [17 ms]  (frames: 1298 received, 105 analysed)
+2026-10-19 16:42:15,088 [INFO] Thread-7 (_run): pos 2.03: 4.8 s left, 99 samples | groove 2  now 68.3 um  avg(5/5) 68.6 um  [15 ms]  (frames: 1299 received, 106 analysed)
+2026-10-19 16:42:15,132 [INFO] Thread-7 (_run): pos 2.03: 4.7 s left, 100 samples | groove 2  now 68.6 um  avg(5/5) 68.6 um  [16 ms]  (frames: 1300 received, 107 analysed)
+2026-10-19 16:42:15,176 [INFO] Thread-7 (_run): pos 2.03: 4.7 s left, 101 samples | groove 2  now 68.5 um  avg(5/5) 68.5 um  [15 ms]  (frames: 1301 received, 108 analysed)
+2026-10-19 16:42:15,222 [INFO] Thread-7 (_run): pos 2.03: 4.6 s left, 102 samples | groove 2  now 68.7 um  avg(5/5) 68.6 um  [16 ms]  (frames: 1302 received, 109 analysed)
+2026-10-19 16:42:15,259 [INFO] Thread-7 (_run): pos 2.03: 4.6 s left, 103 samples | groove 2  now 69.4 um  avg(5/5) 68.7 um  [14 ms]  (frames: 1303 received, 110 analysed)
+2026-10-19 16:42:15,300 [INFO] Thread-7 (_run): pos 2.03: 4.6 s left, 104 samples | groove 2  now 69.0 um  avg(5/5) 68.8 um  [14 ms]  (frames: 1304 received, 111 analysed)
+2026-10-19 16:42:15,345 [INFO] Thread-7 (_run): pos 2.03: 4.5 s left, 105 samples | groove 2  now 69.2 um  avg(5/5) 69.0 um  [16 ms]  (frames: 1305 received, 112 analysed)
+2026-10-19 16:42:15,390 [INFO] Thread-7 (_run): pos 2.03: 4.5 s left, 106 samples | groove 2  now 68.7 um  avg(5/5) 69.0 um  [18 ms]  (frames: 1306 received, 113 analysed)
+2026-10-19 16:42:15,432 [INFO] Thread-7 (_run): pos 2.03: 4.4 s left, 107 samples | groove 2  now 68.7 um  avg(5/5) 69.0 um  [15 ms]  (frames: 1307 received, 114 analysed)
+2026-10-19 16:42:15,475 [INFO] Thread-7 (_run): pos 2.03: 4.4 s left, 108 samples | groove 2  now 68.8 um  avg(5/5) 68.9 um  [15 ms]  (frames: 1308 received, 115 analysed)
+2026-10-19 16:42:15,514 [INFO] Thread-7 (_run): pos 2.03: 4.3 s left, 109 samples | groove 2  now 68.9 um  avg(5/5) 68.9 um  [13 ms]  (frames: 1309 received, 116 analysed)
+2026-10-19 16:42:15,562 [INFO] Thread-7 (_run): pos 2.03: 4.3 s left, 110 samples | groove 2  now 69.0 um  avg(5/5) 68.8 um  [16 ms]  (frames: 1310 received, 117 analysed)
+2026-10-19 16:42:15,606 [INFO] Thread-7 (_run): pos 2.03: 4.3 s left, 111 samples | groove 2  now 68.2 um  avg(5/5) 68.7 um  [18 ms]  (frames: 1311 received, 118 analysed)
+2026-10-19 16:42:15,649 [INFO] Thread-7 (_run): pos 2.03: 4.2 s left, 112 samples | groove 2  now 67.4 um  avg(5/5) 68.4 um  [15 ms]  (frames: 1312 received, 119 analysed)
+2026-10-19 16:42:15,694 [INFO] Thread-7 (_run): pos 2.03: 4.2 s left, 113 samples | groove 2  now 66.7 um  avg(5/5) 68.0 um  [17 ms]  (frames: 1313 received, 120 analysed)
+2026-10-19 16:42:15,732 [INFO] Thread-7 (_run): pos 2.03: 4.1 s left, 114 samples | groove 2  now 66.7 um  avg(5/5) 67.6 um  [14 ms]  (frames: 1314 received, 121 analysed)
+2026-10-19 16:42:15,775 [INFO] Thread-7 (_run): pos 2.03: 4.1 s left, 115 samples | groove 2  now 66.9 um  avg(5/5) 67.2 um  [15 ms]  (frames: 1315 received, 122 analysed)
+2026-10-19 16:42:15,820 [INFO] Thread-7 (_run): pos 2.03: 4.0 s left, 116 samples | groove 2  now 66.5 um  avg(5/5) 66.9 um  [16 ms]  (frames: 1316 received, 123 analysed)
+2026-10-19 16:42:15,862 [INFO] Thread-7 (_run): pos 2.03: 4.0 s left, 117 samples | groove 2  now 66.8 um  avg(5/5) 66.7 um  [16 ms]  (frames: 1317 received, 124 analysed)
+2026-10-19 16:42:15,905 [INFO] Thread-7 (_run): pos 2.03: 4.0 s left, 118 samples | groove 2  now 66.7 um  avg(5/5) 66.7 um  [15 ms]  (frames: 1318 received, 125 analysed)
+2026-10-19 16:42:15,950 [INFO] Thread-7 (_run): pos 2.03: 3.9 s left, 119 samples | groove 2  now 65.4 um  avg(5/5) 66.5 um  [17 ms]  (frames: 1319 received, 126 analysed)
+2026-10-19 16:42:15,990 [INFO] Thread-7 (_run): pos 2.03: 3.9 s left, 120 samples | groove 2  now 66.2 um  avg(5/5) 66.3 um  [14 ms]  (frames: 1320 received, 127 analysed)
+2026-10-19 16:42:16,034 [INFO] Thread-7 (_run): pos 2.03: 3.8 s left, 121 samples | groove 2  now 66.1 um  avg(5/5) 66.2 um  [16 ms]  (frames: 1321 received, 128 analysed)
+2026-10-19 16:42:16,081 [INFO] Thread-7 (_run): pos 2.03: 3.8 s left, 122 samples | groove 2  now 66.3 um  avg(5/5) 66.1 um  [19 ms]  (frames: 1322 received, 129 analysed)
+2026-10-19 16:42:16,123 [INFO] Thread-7 (_run): pos 2.03: 3.7 s left, 123 samples | groove 2  now 66.1 um  avg(5/5) 66.0 um  [18 ms]  (frames: 1323 received, 130 analysed)
+2026-10-19 16:42:16,167 [INFO] Thread-7 (_run): pos 2.03: 3.7 s left, 124 samples | groove 2  now 72.5 um  avg(5/5) 67.4 um  [16 ms]  (frames: 1324 received, 131 analysed)
+2026-10-19 16:42:16,209 [INFO] Thread-7 (_run): pos 2.03: 3.7 s left, 125 samples | groove 2  now 70.3 um  avg(5/5) 68.3 um  [16 ms]  (frames: 1325 received, 132 analysed)
+2026-10-19 16:42:16,253 [INFO] Thread-7 (_run): pos 2.03: 3.6 s left, 126 samples | groove 2  now 69.3 um  avg(5/5) 68.9 um  [15 ms]  (frames: 1326 received, 133 analysed)
+2026-10-19 16:42:16,297 [INFO] Thread-7 (_run): pos 2.03: 3.6 s left, 127 samples | groove 2  now 68.0 um  avg(5/5) 69.2 um  [16 ms]  (frames: 1327 received, 134 analysed)
+2026-10-19 16:42:16,341 [INFO] Thread-7 (_run): pos 2.03: 3.5 s left, 128 samples | groove 2  now 67.5 um  avg(5/5) 69.5 um  [20 ms]  (frames: 1328 received, 135 analysed)
+2026-10-19 16:42:16,383 [INFO] Thread-7 (_run): pos 2.03: 3.5 s left, 129 samples | groove 2  now 70.2 um  avg(5/5) 69.1 um  [19 ms]  (frames: 1329 received, 136 analysed)
+2026-10-19 16:42:16,423 [INFO] Thread-7 (_run): pos 2.03: 3.4 s left, 130 samples | groove 2  now 69.1 um  avg(5/5) 68.8 um  [17 ms]  (frames: 1330 received, 137 analysed)
+2026-10-19 16:42:16,483 [INFO] Thread-7 (_run): pos 2.03: 3.4 s left, 131 samples | groove 2  now 69.4 um  avg(5/5) 68.8 um  [29 ms]  (frames: 1331 received, 138 analysed)
+2026-10-19 16:42:16,515 [INFO] Thread-7 (_run): pos 2.03: 3.3 s left, 132 samples | groove 2  now 68.4 um  avg(5/5) 68.9 um  [19 ms]  (frames: 1332 received, 139 analysed)
+2026-10-19 16:42:16,555 [INFO] Thread-7 (_run): pos 2.03: 3.3 s left, 133 samples | groove 2  now 68.8 um  avg(5/5) 69.2 um  [16 ms]  (frames: 1333 received, 140 analysed)
+2026-10-19 16:42:16,594 [INFO] Thread-7 (_run): pos 2.03: 3.3 s left, 134 samples | groove 2  now 70.2 um  avg(5/5) 69.2 um  [17 ms]  (frames: 1334 received, 141 analysed)
+2026-10-19 16:42:16,637 [INFO] Thread-7 (_run): pos 2.03: 3.2 s left, 135 samples | groove 2  now 68.4 um  avg(5/5) 69.0 um  [15 ms]  (frames: 1335 received, 142 analysed)
+2026-10-19 16:42:16,683 [INFO] Thread-7 (_run): pos 2.03: 3.2 s left, 136 samples | groove 2  now 68.9 um  avg(5/5) 68.9 um  [16 ms]  (frames: 1336 received, 143 analysed)
+2026-10-19 16:42:16,725 [INFO] Thread-7 (_run): pos 2.03: 3.1 s left, 137 samples | groove 2  now 67.8 um  avg(5/5) 68.8 um  [15 ms]  (frames: 1337 received, 144 analysed)
+2026-10-19 16:42:16,771 [INFO] Thread-7 (_run): pos 2.03: 3.1 s left, 138 samples | groove 2  now 67.6 um  avg(5/5) 68.6 um  [17 ms]  (frames: 1338 received, 145 analysed)
+2026-10-19 16:42:16,814 [INFO] Thread-7 (_run): pos 2.03: 3.0 s left, 139 samples | groove 2  now 66.7 um  avg(5/5) 67.9 um  [18 ms]  (frames: 1339 received, 146 analysed)
+2026-10-19 16:42:16,852 [INFO] Thread-7 (_run): pos 2.03: 3.0 s left, 140 samples | groove 2  now 67.7 um  avg(5/5) 67.7 um  [14 ms]  (frames: 1340 received, 147 analysed)
+2026-10-19 16:42:16,898 [INFO] Thread-7 (_run): pos 2.03: 3.0 s left, 141 samples | groove 2  now 67.0 um  avg(5/5) 67.4 um  [16 ms]  (frames: 1341 received, 148 analysed)
+2026-10-19 16:42:16,945 [INFO] Thread-7 (_run): pos 2.03: 2.9 s left, 142 samples | groove 2  now 67.7 um  avg(5/5) 67.3 um  [18 ms]  (frames: 1342 received, 149 analysed)
+2026-10-19 16:42:16,988 [INFO] Thread-7 (_run): pos 2.03: 2.9 s left, 143 samples | groove 2  now 67.8 um  avg(5/5) 67.4 um  [19 ms]  (frames: 1343 received, 150 analysed)
+2026-10-19 16:42:17,031 [INFO] Thread-7 (_run): pos 2.03: 2.8 s left, 144 samples | groove 2  now 67.7 um  avg(5/5) 67.6 um  [21 ms]  (frames: 1344 received, 151 analysed)
+2026-10-19 16:42:17,072 [INFO] Thread-7 (_run): pos 2.03: 2.8 s left, 145 samples | groove 2  now 67.9 um  avg(5/5) 67.6 um  [17 ms]  (frames: 1345 received, 152 analysed)
+2026-10-19 16:42:17,112 [INFO] Thread-7 (_run): pos 2.03: 2.7 s left, 146 samples | groove 2  now 68.0 um  avg(5/5) 67.8 um  [15 ms]  (frames: 1346 received, 153 analysed)
+2026-10-19 16:42:17,159 [INFO] Thread-7 (_run): pos 2.03: 2.7 s left, 147 samples | groove 2  now 68.2 um  avg(5/5) 67.9 um  [19 ms]  (frames: 1347 received, 154 analysed)
+2026-10-19 16:42:17,202 [INFO] Thread-7 (_run): pos 2.03: 2.7 s left, 148 samples | groove 2  now 67.7 um  avg(5/5) 67.9 um  [18 ms]  (frames: 1348 received, 155 analysed)
+2026-10-19 16:42:17,242 [INFO] Thread-7 (_run): pos 2.03: 2.6 s left, 149 samples | groove 2  now 68.3 um  avg(5/5) 68.0 um  [16 ms]  (frames: 1349 received, 156 analysed)
+2026-10-19 16:42:17,289 [INFO] Thread-7 (_run): pos 2.03: 2.6 s left, 150 samples | groove 2  now 68.0 um  avg(5/5) 68.0 um  [19 ms]  (frames: 1350 received, 157 analysed)
+2026-10-19 16:42:17,334 [INFO] Thread-7 (_run): pos 2.03: 2.5 s left, 151 samples | groove 2  now 68.1 um  avg(5/5) 68.1 um  [22 ms]  (frames: 1351 received, 158 analysed)
+2026-10-19 16:42:17,372 [INFO] Thread-7 (_run): pos 2.03: 2.5 s left, 152 samples | groove 2  now 67.1 um  avg(5/5) 67.8 um  [15 ms]  (frames: 1352 received, 159 analysed)
+2026-10-19 16:42:17,419 [INFO] Thread-7 (_run): pos 2.03: 2.4 s left, 153 samples | groove 2  now 67.0 um  avg(5/5) 67.7 um  [19 ms]  (frames: 1353 received, 160 analysed)
+2026-10-19 16:42:17,461 [INFO] Thread-7 (_run): pos 2.03: 2.4 s left, 154 samples | groove 2  now 66.9 um  avg(5/5) 67.4 um  [18 ms]  (frames: 1354 received, 161 analysed)
+2026-10-19 16:42:17,501 [INFO] Thread-7 (_run): pos 2.03: 2.4 s left, 155 samples | groove 2  now 67.1 um  avg(5/5) 67.2 um  [15 ms]  (frames: 1355 received, 162 analysed)
+2026-10-19 16:42:17,549 [INFO] Thread-7 (_run): pos 2.03: 2.3 s left, 156 samples | groove 2  now 67.0 um  avg(5/5) 67.0 um  [18 ms]  (frames: 1356 received, 163 analysed)
+2026-10-19 16:42:17,588 [INFO] Thread-7 (_run): pos 2.03: 2.3 s left, 157 samples | groove 2  now 73.9 um  avg(5/5) 68.4 um  [18 ms]  (frames: 1357 received, 164 analysed)
+2026-10-19 16:42:17,634 [INFO] Thread-7 (_run): pos 2.03: 2.2 s left, 158 samples | groove 2  now 68.0 um  avg(5/5) 68.6 um  [17 ms]  (frames: 1358 received, 165 analysed)
+2026-10-19 16:42:17,674 [INFO] Thread-7 (_run): pos 2.03: 2.2 s left, 159 samples | groove 2  now 67.7 um  avg(5/5) 68.8 um  [18 ms]  (frames: 1359 received, 166 analysed)
+2026-10-19 16:42:17,718 [INFO] Thread-7 (_run): pos 2.03: 2.1 s left, 160 samples | groove 2  now 65.6 um  avg(5/5) 68.4 um  [15 ms]  (frames: 1360 received, 167 analysed)
+2026-10-19 16:42:17,763 [INFO] Thread-7 (_run): pos 2.03: 2.1 s left, 161 samples | groove 2  now 66.5 um  avg(5/5) 68.3 um  [17 ms]  (frames: 1361 received, 168 analysed)
+2026-10-19 16:42:17,804 [INFO] Thread-7 (_run): pos 2.03: 2.1 s left, 162 samples | groove 2  now 66.3 um  avg(5/5) 66.8 um  [18 ms]  (frames: 1362 received, 169 analysed)
+2026-10-19 16:42:17,847 [INFO] Thread-7 (_run): pos 2.03: 2.0 s left, 163 samples | groove 2  now 66.0 um  avg(5/5) 66.4 um  [15 ms]  (frames: 1363 received, 170 analysed)
+2026-10-19 16:42:17,891 [INFO] Thread-7 (_run): pos 2.03: 2.0 s left, 164 samples | groove 2  now 66.1 um  avg(5/5) 66.1 um  [16 ms]  (frames: 1364 received, 171 analysed)
+2026-10-19 16:42:17,931 [INFO] Thread-7 (_run): pos 2.03: 1.9 s left, 165 samples | groove 2  now 66.4 um  avg(5/5) 66.3 um  [16 ms]  (frames: 1365 received, 172 analysed)
+2026-10-19 16:42:17,980 [INFO] Thread-7 (_run): pos 2.03: 1.9 s left, 166 samples | groove 2  now 67.1 um  avg(5/5) 66.4 um  [18 ms]  (frames: 1366 received, 173 analysed)
+2026-10-19 16:42:18,021 [INFO] Thread-7 (_run): pos 2.03: 1.8 s left, 167 samples | groove 2  now 67.3 um  avg(5/5) 66.6 um  [17 ms]  (frames: 1367 received, 174 analysed)
+2026-10-19 16:42:18,062 [INFO] Thread-7 (_run): pos 2.03: 1.8 s left, 168 samples | groove 2  now 67.4 um  avg(5/5) 66.9 um  [18 ms]  (frames: 1368 received, 175 analysed)
+2026-10-19 16:42:18,110 [INFO] Thread-7 (_run): pos 2.03: 1.8 s left, 169 samples | groove 2  now 67.8 um  avg(5/5) 67.2 um  [19 ms]  (frames: 1369 received, 176 analysed)
+2026-10-19 16:42:18,149 [INFO] Thread-7 (_run): pos 2.03: 1.7 s left, 170 samples | groove 2  now 67.4 um  avg(5/5) 67.4 um  [16 ms]  (frames: 1370 received, 177 analysed)
+2026-10-19 16:42:18,197 [INFO] Thread-7 (_run): pos 2.03: 1.7 s left, 171 samples | groove 2  now 67.4 um  avg(5/5) 67.5 um  [19 ms]  (frames: 1371 received, 178 analysed)
+2026-10-19 16:42:18,238 [INFO] Thread-7 (_run): pos 2.03: 1.6 s left, 172 samples | groove 2  now 68.1 um  avg(5/5) 67.6 um  [20 ms]  (frames: 1372 received, 179 analysed)
+2026-10-19 16:42:18,278 [INFO] Thread-7 (_run): pos 2.03: 1.6 s left, 173 samples | groove 2  now 68.5 um  avg(5/5) 67.8 um  [16 ms]  (frames: 1373 received, 180 analysed)
+2026-10-19 16:42:18,324 [INFO] Thread-7 (_run): pos 2.03: 1.5 s left, 174 samples | groove 2  now 68.6 um  avg(5/5) 68.0 um  [18 ms]  (frames: 1374 received, 181 analysed)
+2026-10-19 16:42:18,363 [INFO] Thread-7 (_run): pos 2.03: 1.5 s left, 175 samples | groove 2  now 68.4 um  avg(5/5) 68.2 um  [16 ms]  (frames: 1375 received, 182 analysed)
+2026-10-19 16:42:18,411 [INFO] Thread-7 (_run): pos 2.03: 1.4 s left, 176 samples | groove 2  now 67.9 um  avg(5/5) 68.3 um  [20 ms]  (frames: 1376 received, 183 analysed)
+2026-10-19 16:42:18,454 [INFO] Thread-7 (_run): pos 2.03: 1.4 s left, 177 samples | groove 2  now 74.7 um  avg(5/5) 69.6 um  [20 ms]  (frames: 1377 received, 184 analysed)
+2026-10-19 16:42:18,496 [INFO] Thread-7 (_run): pos 2.03: 1.4 s left, 178 samples | groove 2  now 71.3 um  avg(5/5) 70.2 um  [18 ms]  (frames: 1378 received, 185 analysed)
+2026-10-19 16:42:18,538 [INFO] Thread-7 (_run): pos 2.03: 1.3 s left, 179 samples | groove 2  now 69.9 um  avg(5/5) 70.5 um  [18 ms]  (frames: 1379 received, 186 analysed)
+2026-10-19 16:42:18,579 [INFO] Thread-7 (_run): pos 2.03: 1.3 s left, 180 samples | groove 2  now 67.4 um  avg(5/5) 70.3 um  [16 ms]  (frames: 1380 received, 187 analysed)
+2026-10-19 16:42:18,625 [INFO] Thread-7 (_run): pos 2.03: 1.2 s left, 181 samples | groove 2  now 67.4 um  avg(5/5) 70.2 um  [18 ms]  (frames: 1381 received, 188 analysed)
+2026-10-19 16:42:18,664 [INFO] Thread-7 (_run): pos 2.03: 1.2 s left, 182 samples | groove 2  now 70.1 um  avg(5/5) 69.2 um  [16 ms]  (frames: 1382 received, 189 analysed)
+2026-10-19 16:42:18,710 [INFO] Thread-7 (_run): pos 2.03: 1.2 s left, 183 samples | groove 2  now 67.9 um  avg(5/5) 68.6 um  [18 ms]  (frames: 1383 received, 190 analysed)
+2026-10-19 16:42:18,769 [INFO] Thread-7 (_run): pos 2.03: 1.1 s left, 184 samples | groove 2  now 68.3 um  avg(5/5) 68.2 um  [33 ms]  (frames: 1384 received, 191 analysed)
+2026-10-19 16:42:18,816 [INFO] Thread-7 (_run): pos 2.03: 1.0 s left, 185 samples | groove 2  now 67.4 um  avg(5/5) 68.2 um  [31 ms]  (frames: 1385 received, 192 analysed)
+2026-10-19 16:42:18,861 [INFO] Thread-7 (_run): pos 2.03: 1.0 s left, 186 samples | groove 2  now 68.2 um  avg(5/5) 68.4 um  [33 ms]  (frames: 1386 received, 193 analysed)
+2026-10-19 16:42:18,912 [INFO] Thread-7 (_run): pos 2.03: 0.9 s left, 187 samples | groove 2  now 67.6 um  avg(5/5) 67.9 um  [35 ms]  (frames: 1388 received, 194 analysed)
+2026-10-19 16:42:18,954 [INFO] Thread-7 (_run): pos 2.03: 0.9 s left, 188 samples | groove 2  now 68.9 um  avg(5/5) 68.1 um  [33 ms]  (frames: 1389 received, 195 analysed)
+2026-10-19 16:42:18,998 [INFO] Thread-7 (_run): pos 2.03: 0.9 s left, 189 samples | groove 2  now 68.4 um  avg(5/5) 68.1 um  [32 ms]  (frames: 1390 received, 196 analysed)
+2026-10-19 16:42:19,043 [INFO] Thread-7 (_run): pos 2.03: 0.8 s left, 190 samples | groove 2  now 67.9 um  avg(5/5) 68.2 um  [37 ms]  (frames: 1391 received, 197 analysed)
+2026-10-19 16:42:19,083 [INFO] Thread-7 (_run): pos 2.03: 0.8 s left, 191 samples | groove 2  now 68.4 um  avg(5/5) 68.2 um  [31 ms]  (frames: 1392 received, 198 analysed)
+2026-10-19 16:42:19,121 [INFO] Thread-7 (_run): pos 2.03: 0.7 s left, 192 samples | groove 2  now 67.6 um  avg(5/5) 68.2 um  [30 ms]  (frames: 1392 received, 199 analysed)
+2026-10-19 16:42:19,168 [INFO] Thread-7 (_run): pos 2.03: 0.7 s left, 193 samples | groove 2  now 67.1 um  avg(5/5) 67.9 um  [31 ms]  (frames: 1394 received, 200 analysed)
+2026-10-19 16:42:19,201 [INFO] Thread-7 (_run): pos 2.03: 0.7 s left, 194 samples | groove 2  now 67.9 um  avg(5/5) 67.8 um  [26 ms]  (frames: 1394 received, 201 analysed)
+2026-10-19 16:42:19,244 [INFO] Thread-7 (_run): pos 2.03: 0.6 s left, 195 samples | groove 2  now 73.6 um  avg(5/5) 68.9 um  [28 ms]  (frames: 1395 received, 202 analysed)
+2026-10-19 16:42:19,287 [INFO] Thread-7 (_run): pos 2.03: 0.6 s left, 196 samples | groove 2  now 68.2 um  avg(5/5) 68.9 um  [29 ms]  (frames: 1396 received, 203 analysed)
+2026-10-19 16:42:19,335 [INFO] Thread-7 (_run): pos 2.03: 0.5 s left, 197 samples | groove 2  now 68.2 um  avg(5/5) 69.0 um  [31 ms]  (frames: 1397 received, 204 analysed)
+2026-10-19 16:42:19,381 [INFO] Thread-7 (_run): pos 2.03: 0.5 s left, 198 samples | groove 2  now 66.0 um  avg(5/5) 68.8 um  [32 ms]  (frames: 1399 received, 205 analysed)
+2026-10-19 16:42:19,416 [INFO] Thread-7 (_run): pos 2.03: 0.4 s left, 199 samples | groove 2  now 67.0 um  avg(5/5) 68.6 um  [27 ms]  (frames: 1399 received, 206 analysed)
+2026-10-19 16:42:19,445 [INFO] Thread-7 (_run): pos 2.03: 0.4 s left, 200 samples | groove 2  now 65.9 um  avg(5/5) 67.1 um  [19 ms]  (frames: 1400 received, 207 analysed)
+2026-10-19 16:42:19,485 [INFO] Thread-7 (_run): pos 2.03: 0.4 s left, 201 samples | groove 2  now 67.0 um  avg(5/5) 66.8 um  [18 ms]  (frames: 1401 received, 208 analysed)
+2026-10-19 16:42:19,528 [INFO] Thread-7 (_run): pos 2.03: 0.3 s left, 202 samples | groove 2  now 65.4 um  avg(5/5) 66.3 um  [18 ms]  (frames: 1402 received, 209 analysed)
+2026-10-19 16:42:19,569 [INFO] Thread-7 (_run): pos 2.03: 0.3 s left, 203 samples | groove 2  now 66.3 um  avg(5/5) 66.3 um  [17 ms]  (frames: 1403 received, 210 analysed)
+2026-10-19 16:42:19,615 [INFO] Thread-7 (_run): pos 2.03: 0.2 s left, 204 samples | groove 2  now 65.6 um  avg(5/5) 66.1 um  [17 ms]  (frames: 1404 received, 211 analysed)
+2026-10-19 16:42:19,654 [INFO] Thread-7 (_run): pos 2.03: 0.2 s left, 205 samples | groove 2  now 65.7 um  avg(5/5) 66.0 um  [16 ms]  (frames: 1405 received, 212 analysed)
+2026-10-19 16:42:19,705 [INFO] Thread-7 (_run): pos 2.03: 0.2 s left, 206 samples | groove 2  now 66.0 um  avg(5/5) 65.8 um  [23 ms]  (frames: 1406 received, 213 analysed)
+2026-10-19 16:42:19,759 [INFO] Thread-7 (_run): pos 2.03: 0.1 s left, 207 samples | groove 2  now 66.9 um  avg(5/5) 66.1 um  [31 ms]  (frames: 1407 received, 214 analysed)
+2026-10-19 16:42:19,791 [INFO] Thread-7 (_run): pos 2.03: 0.1 s left, 208 samples | groove 2  now 66.9 um  avg(5/5) 66.2 um  [20 ms]  (frames: 1408 received, 215 analysed)
+2026-10-19 16:42:19,833 [INFO] Thread-7 (_run): pos 2.03: 0.0 s left, 209 samples | groove 2  now 67.2 um  avg(5/5) 66.5 um  [19 ms]  (frames: 1409 received, 216 analysed)
+2026-10-19 16:42:19,874 [INFO] Thread-7 (_run): piezo 2.03: 210 samples, mean 68.48 um, sd 1.22 um
+2026-10-19 16:42:20,072 [INFO] Thread-7 (_run): moving piezo to 2.2299999713897707
+2026-10-19 16:42:23,821 [INFO] camera: Camera streaming stopped
+2026-10-19 16:42:24,456 [ERROR] camera: Camera/vision stream failed
+Traceback (most recent call last):
+  File "c:\Users\KittyGoodridge\OneDrive - elasticStage\Desktop\Repos\Auto_Cal_Tests\camera\camera_grab.py", line 308, in run
+    img = handler.get_image(
+        timeout=self.FRAME_TIMEOUT_SECONDS
+    )
+  File "c:\Users\KittyGoodridge\OneDrive - elasticStage\Desktop\Repos\Auto_Cal_Tests\camera\camera_grab.py", line 207, in get_image
+    return self.display_queue.get(timeout=timeout)
+           ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.13_3.13.3824.0_x64__qbz5n2kfra8p0\Lib\queue.py", line 209, in get
+    raise Empty
+_queue.Empty
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "c:\Users\KittyGoodridge\OneDrive - elasticStage\Desktop\Repos\Auto_Cal_Tests\camera\camera_grab.py", line 312, in run
+    raise RuntimeError(
+    ...<2 lines>...
+    ) from exc
+RuntimeError: No complete camera frame received for 2.0 seconds
+2026-10-19 16:42:29,010 [INFO] Thread-7 (_run): saved 210 samples to C:\Users\KittyGoodridge\OneDrive - elasticStage\Desktop\Repos\Auto_Cal_Tests\logs\3.2.2_20261019_163901\groove_piezo_20261019_164229.csv
+2026-10-19 16:43:06,732 [INFO] MainThread: Stop requested
+2026-10-19 16:43:06,759 [ERROR] MainThread: Error closing MQTT client
+Traceback (most recent call last):
+  File "c:\Users\KittyGoodridge\OneDrive - elasticStage\Desktop\Repos\Auto_Cal_Tests\gui.py", line 339, in _close_mqtt
+    self._mqtt.disconnect()   # or whatever your MQTTClient's shutdown method is
+    ^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'MQTTClient' object has no attribute 'disconnect'
+2026-10-19 16:43:06,762 [INFO] MainThread: Closing wizard

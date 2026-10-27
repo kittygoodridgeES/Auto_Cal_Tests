@@ -1,0 +1,25 @@
+2026-10-16 12:22:17,789 [INFO] MainThread: Showing page: selection
+2026-10-16 12:22:24,699 [INFO] MainThread: Logging to C:\Users\KittyGoodridge\OneDrive - elasticStage\Desktop\Repos\Auto_Cal_Tests\logs\3.2.2_20261016_122224.log
+2026-10-16 12:22:24,700 [INFO] MainThread: Machine ID: 3.2.2
+2026-10-16 12:22:24,700 [INFO] MainThread: Selection: Factory ELSTREE, Station 3, Cluster 2, Cutter 2, Transport not operational
+2026-10-16 12:22:24,700 [INFO] MainThread: Showing page: confirm
+2026-10-16 12:22:24,703 [INFO] Thread-1 (_read): Looking up diamond ID for 3.2.2
+2026-10-16 12:22:25,447 [INFO] MainThread: Read diamond_id: D17012026_N_10.008
+2026-10-16 12:22:26,993 [INFO] MainThread: diamond_id D17012026_N_10.008 confirmed: Yes
+2026-10-16 12:22:33,003 [ERROR] Thread-2 (_decide): choose_after_diamond failed
+Traceback (most recent call last):
+  File "c:\Users\KittyGoodridge\OneDrive - elasticStage\Desktop\Repos\Auto_Cal_Tests\gui.py", line 937, in _decide
+    target = self.decide_next(self.app.make_context())
+  File "c:\Users\KittyGoodridge\OneDrive - elasticStage\Desktop\Repos\Auto_Cal_Tests\gui.py", line 1316, in choose_after_diamond
+    change_in_diamond_length = airtable.diamond_length_change(ctx.selection.machine_id)
+  File "c:\Users\KittyGoodridge\OneDrive - elasticStage\Desktop\Repos\Auto_Cal_Tests\airtable_retrieval.py", line 43, in diamond_length_change
+    diamond_new_record = self.find_by_field("Length Update Events", "Diamond Records 2", diamond_id_new, view=os.environ["DIAMOND_LENGTH_VIEW_ID"], newest_by="Date")
+  File "c:\Users\KittyGoodridge\OneDrive - elasticStage\Desktop\Repos\Auto_Cal_Tests\airtable_retrieval.py", line 127, in find_by_field
+    base_id = self._base_for(table)
+  File "c:\Users\KittyGoodridge\OneDrive - elasticStage\Desktop\Repos\Auto_Cal_Tests\airtable_retrieval.py", line 95, in _base_for
+    raise KeyError(
+    ...<2 lines>...
+    ) from None
+KeyError: "No base ID configured for table 'Length Update Events'. Known tables: Jobs, Location Update Events"
+2026-10-16 12:23:35,939 [INFO] MainThread: Stop requested
+2026-10-16 12:23:35,974 [INFO] MainThread: Closing wizard

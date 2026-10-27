@@ -1,0 +1,67 @@
+2026-10-19 16:05:54,893 [INFO] MainThread: Showing page: instructions
+2026-10-19 16:05:57,461 [INFO] MainThread: Showing page: selection
+2026-10-19 16:06:07,783 [INFO] MainThread: Logging to C:\Users\KittyGoodridge\OneDrive - elasticStage\Desktop\Repos\Auto_Cal_Tests\logs\3.2.2_20261019_160607\3.2.2_20261019_160607.log
+2026-10-19 16:06:07,785 [INFO] MainThread: Machine ID: 3.2.2
+2026-10-19 16:06:07,786 [INFO] MainThread: Selection: Factory ELSTREE, Station 3, Cluster 2, Cutter 2, Transport operational
+2026-10-19 16:06:07,786 [INFO] MainThread: Showing page: check_state
+2026-10-19 16:06:07,795 [INFO] Thread-1 (_run_check): Creating API client for factory 1, slot 3.2.2
+2026-10-19 16:06:08,230 [INFO] Thread-1 (_run_check): PackML mode 1, state 4
+2026-10-19 16:06:08,230 [INFO] Thread-1 (_run_check): Cutter is in production, not continuing with calibration
+2026-10-19 16:06:25,535 [INFO] Thread-2 (_run_check): PackML mode 3, state 4
+2026-10-19 16:06:25,535 [INFO] Thread-2 (_run_check): Cutter is in IDLE
+2026-10-19 16:06:27,871 [INFO] MainThread: Showing page: confirm
+2026-10-19 16:06:27,883 [INFO] Thread-3 (_read): Looking up diamond ID for 3.2.2
+2026-10-19 16:06:28,949 [INFO] MainThread: Read diamond_id: D17012026_N_10.008
+2026-10-19 16:06:32,919 [INFO] MainThread: diamond_id D17012026_N_10.008 confirmed: Yes
+2026-10-19 16:06:35,066 [INFO] Thread-4 (_decide): Change in diamond length: 0.0
+2026-10-19 16:06:35,120 [INFO] MainThread: choose_after_diamond -> supply
+2026-10-19 16:06:35,120 [INFO] MainThread: Showing page: supply
+2026-10-19 16:06:35,125 [INFO] Thread-5 (_run): Preparing for supply to 3.2.2
+2026-10-19 16:06:35,125 [INFO] Thread-5 (_run): Connecting AMQP transport for factory 1, slot 3.2.2
+2026-10-19 16:06:35,458 [INFO] Thread-5 (_run): AMQP connected, listening on location.uk.factory.1.workstation.3.cluster.2.#
+2026-10-19 16:06:35,610 [INFO] Thread-5 (_run): supply command sent to cutter 2
+2026-10-19 16:06:35,679 [INFO] Thread-5 (_run): Transport event: cutter 2, command supply, result busy
+2026-10-19 16:08:26,169 [INFO] Thread-5 (_run): Transport event: cutter 2, command supply, result success
+2026-10-19 16:08:26,170 [INFO] Thread-5 (_run): supply succeeded on cutter 2
+2026-10-19 16:08:26,282 [INFO] Thread-5 (_run): Supply complete
+2026-10-19 16:08:27,814 [INFO] MainThread: Showing page: Calibration
+2026-10-19 16:08:27,825 [INFO] Thread-7 (_run): Connecting MQTT for factory 1, machine 3.2.2
+2026-10-19 16:08:27,829 [INFO] Thread-7 (_run): init camerasetup
+2026-10-19 16:08:27,831 [INFO] Thread-7 (_run): printing preamble
+2026-10-19 16:08:27,832 [INFO] Thread-7 (_run): ///////////////////////////////////////////////////
+2026-10-19 16:08:27,832 [INFO] Thread-7 (_run): /// VmbPy Asynchronous Grab with OpenCV Example ///
+2026-10-19 16:08:27,832 [INFO] Thread-7 (_run): ///////////////////////////////////////////////////
+
+2026-10-19 16:08:27,833 [INFO] Thread-7 (_run): parsing args
+2026-10-19 16:08:28,146 [INFO] Thread-7 (_run): Original Config Retrieved: 
+ mm/um:0.0157900734466008 
+ Default piezo pos: 2.0299999713897705 
+ Default GW: 50.0
+2026-10-19 16:08:28,146 [INFO] Thread-7 (_run): Change in diamond length from previous calibration: 0.0
+2026-10-19 16:08:28,147 [INFO] Thread-7 (_run): Drop in piezo pos decided: 2.6616029092538023
+2026-10-19 16:08:32,144 [INFO] camera: Camera opened: DEV_1AB22C06E926
+2026-10-19 16:08:32,144 [INFO] camera: 33 : line number
+2026-10-19 16:08:32,160 [INFO] camera: cutter number: 3.2.2, cutter_no: 3.2.2
+2026-10-19 16:08:32,170 [INFO] camera: Exposure time set to 2000 µs
+2026-10-19 16:08:32,175 [INFO] camera: Camera setup complete
+2026-10-19 16:08:32,197 [INFO] camera: Camera pixel format setup complete
+2026-10-19 16:08:32,237 [INFO] camera: Camera streaming started
+2026-10-19 16:08:32,310 [INFO] Thread-7 (_run): Camera running
+2026-10-19 16:08:32,508 [INFO] Thread-7 (_run): Drop in pitch set from 147.7 to 75.0
+2026-10-19 16:08:35,248 [INFO] Thread-7 (_run): Cutter resetting
+2026-10-19 16:08:41,016 [INFO] Thread-7 (_run): Cutter reset
+2026-10-19 16:08:43,068 [INFO] Thread-7 (_run): starting cutter
+2026-10-19 16:08:43,516 [INFO] Thread-7 (_run): starting setup cut
+2026-10-19 16:08:43,516 [INFO] Thread-7 (_run): Setup cut has started
+2026-10-19 16:08:43,516 [INFO] Thread-7 (_run): Moving piezo to starting position 
+ ===
+2026-10-19 16:10:19,949 [INFO] MainThread: Stop requested
+2026-10-19 16:10:19,977 [ERROR] MainThread: Error closing MQTT client
+Traceback (most recent call last):
+  File "c:\Users\KittyGoodridge\OneDrive - elasticStage\Desktop\Repos\Auto_Cal_Tests\gui.py", line 339, in _close_mqtt
+    self._mqtt.disconnect()   # or whatever your MQTTClient's shutdown method is
+    ^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'MQTTClient' object has no attribute 'disconnect'
+2026-10-19 16:10:20,066 [INFO] camera: Camera streaming stopped
+2026-10-19 16:10:32,371 [WARNING] MainThread: 1 thread(s) did not stop in time; closing anyway.
+2026-10-19 16:10:32,371 [INFO] MainThread: Closing wizard

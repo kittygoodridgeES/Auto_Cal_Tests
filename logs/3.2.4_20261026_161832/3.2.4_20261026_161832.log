@@ -1,0 +1,33 @@
+2026-10-26 16:18:24,320 [INFO] MainThread: Showing page: instructions
+2026-10-26 16:18:26,107 [INFO] MainThread: Showing page: selection
+2026-10-26 16:18:32,500 [INFO] MainThread: Logging to C:\Users\KittyGoodridge\OneDrive - elasticStage\Desktop\Repos\Auto_Cal_Tests\logs\3.2.4_20261026_161832\3.2.4_20261026_161832.log
+2026-10-26 16:18:32,500 [INFO] MainThread: Machine ID: 3.2.4
+2026-10-26 16:18:32,501 [INFO] MainThread: Selection: Factory ELSTREE, Station 3, Cluster 2, Cutter 4, Transport operational
+2026-10-26 16:18:32,501 [INFO] MainThread: Showing page: check_state
+2026-10-26 16:18:32,511 [INFO] Thread-1 (_run_check): Creating API client for factory 1, slot 3.2.4
+2026-10-26 16:18:32,698 [INFO] Thread-1 (_run_check): PackML mode 6, state 4
+2026-10-26 16:18:32,698 [INFO] Thread-1 (_run_check): Cutter is in IDLE
+2026-10-26 16:18:34,068 [INFO] MainThread: Showing page: confirm
+2026-10-26 16:18:34,073 [INFO] Thread-2 (_read): Looking up diamond ID for 3.2.4
+2026-10-26 16:18:34,766 [INFO] MainThread: Read diamond_id: D24082026_N_10.049
+2026-10-26 16:18:35,610 [INFO] MainThread: diamond_id D24082026_N_10.049 confirmed: Yes
+2026-10-26 16:18:37,230 [INFO] Thread-3 (_decide): Change in diamond length: -0.006
+2026-10-26 16:18:37,263 [INFO] MainThread: choose_after_diamond -> supply
+2026-10-26 16:18:37,263 [INFO] MainThread: Showing page: supply
+2026-10-26 16:18:37,267 [INFO] Thread-4 (_run): Preparing for supply to 3.2.4
+2026-10-26 16:18:37,268 [INFO] Thread-4 (_run): Connecting AMQP transport for factory 1, slot 3.2.4
+2026-10-26 16:18:37,444 [INFO] Thread-4 (_run): AMQP connected, listening on location.uk.factory.1.workstation.3.cluster.2.#
+2026-10-26 16:18:37,557 [INFO] Thread-4 (_run): supply command sent to cutter 4
+2026-10-26 16:20:10,761 [INFO] MainThread: Stop requested
+2026-10-26 16:20:11,548 [ERROR] Thread-4 (_run): supply_task failed
+Traceback (most recent call last):
+  File "c:\Users\KittyGoodridge\OneDrive - elasticStage\Desktop\Repos\Auto_Cal_Tests\gui.py", line 1502, in _run
+    self.task(ctx)
+    ~~~~~~~~~^^^^^
+  File "c:\Users\KittyGoodridge\OneDrive - elasticStage\Desktop\Repos\Auto_Cal_Tests\gui.py", line 1844, in supply_task
+    ctx.get_transport().run_command("supply", ctx.stop_event, timeout=300)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\KittyGoodridge\OneDrive - elasticStage\Desktop\Repos\Auto_Cal_Tests\transport_commands.py", line 74, in run_command
+    raise RuntimeError(f"{command} cancelled: program stopped")
+RuntimeError: supply cancelled: program stopped
+2026-10-26 16:20:11,566 [INFO] MainThread: Closing wizard

@@ -1,0 +1,9 @@
+THREAD_SHUTDOWN_TIMEOUT_MS = 10000
+AUTO_ADVANCE_DELAY_MS = 1500        # pause on "complete" before moving on automatically
+FRAME_WAIT_S = 5                    # max wait for a fresh camera frame (s)
+STATE_TIMEOUT = 120                 # if cutter state does not change on request this will timeout program after this many s
+TIMEOUT = 10.0                      # seconds; stops a request hanging forever if a cutter is unreachable
+GROOVE_TIMEOUT_S = 500              # stop (don't move) if a position gets no groove within this long
+NO_GROOVE_S = 10.0                  # no groove seen this long after the head reaches cutting position...
+PIEZO_MOVE_TIMEOUT = 30             # timeout for piezo to reach required position on an individual move
+PIEZO_CMD_TIMEOUT = 10              # timeout for response when sending command to piezo

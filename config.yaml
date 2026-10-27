@@ -1,0 +1,26 @@
+FACTORIES:
+  "1":
+    name: ELSTREE
+    stations:
+      "1":
+        cutters: 12
+      "2":
+        clusters: 4
+        cutters: 4      # per cluster
+      "3":
+        clusters: 3
+        cutters: 4      # per cluster
+  "2":
+    name: DC8
+    stations:
+      "1":
+        clusters: 4
+        cutters: 4
+      "2":
+        clusters: 4
+        cutters: 4
+      "3":
+        clusters: 3
+        cutters: 4
+
+DIAMOND_FORM_URL:

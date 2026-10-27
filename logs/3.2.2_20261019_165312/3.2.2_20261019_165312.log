@@ -1,0 +1,227 @@
+2026-10-19 16:52:37,031 [INFO] MainThread: Showing page: instructions
+2026-10-19 16:52:39,513 [INFO] MainThread: Showing page: selection
+2026-10-19 16:53:12,377 [INFO] MainThread: Logging to C:\Users\KittyGoodridge\OneDrive - elasticStage\Desktop\Repos\Auto_Cal_Tests\logs\3.2.2_20261019_165312\3.2.2_20261019_165312.log
+2026-10-19 16:53:12,377 [INFO] MainThread: Machine ID: 3.2.2
+2026-10-19 16:53:12,378 [INFO] MainThread: Selection: Factory ELSTREE, Station 3, Cluster 2, Cutter 2, Transport not operational
+2026-10-19 16:53:12,378 [INFO] MainThread: Showing page: check_state
+2026-10-19 16:53:12,391 [INFO] Thread-1 (_run_check): Creating API client for factory 1, slot 3.2.2
+2026-10-19 16:53:12,802 [INFO] Thread-1 (_run_check): PackML mode 6, state 4
+2026-10-19 16:53:12,803 [INFO] Thread-1 (_run_check): Cutter is in IDLE
+2026-10-19 16:53:13,803 [INFO] MainThread: Showing page: confirm
+2026-10-19 16:53:13,810 [INFO] Thread-2 (_read): Looking up diamond ID for 3.2.2
+2026-10-19 16:53:14,680 [INFO] MainThread: Read diamond_id: D17012026_N_10.008
+2026-10-19 16:53:15,873 [INFO] MainThread: diamond_id D17012026_N_10.008 confirmed: Yes
+2026-10-19 16:53:17,670 [INFO] Thread-3 (_decide): Change in diamond length: 0.0
+2026-10-19 16:53:17,730 [INFO] MainThread: choose_after_diamond -> supply
+2026-10-19 16:53:17,730 [INFO] MainThread: Showing page: supply
+2026-10-19 16:53:17,732 [INFO] MainThread: Transport not operational: showing manual instruction (No Disk)
+2026-10-19 16:53:19,689 [INFO] MainThread: Showing page: Calibration
+2026-10-19 16:53:19,694 [INFO] Thread-4 (_run): Connecting MQTT for factory 1, machine 3.2.2
+2026-10-19 16:53:19,699 [INFO] Thread-4 (_run): init camerasetup
+2026-10-19 16:53:19,699 [INFO] Thread-4 (_run): printing preamble
+2026-10-19 16:53:19,700 [INFO] Thread-4 (_run): ///////////////////////////////////////////////////
+2026-10-19 16:53:19,700 [INFO] Thread-4 (_run): /// VmbPy Asynchronous Grab with OpenCV Example ///
+2026-10-19 16:53:19,700 [INFO] Thread-4 (_run): ///////////////////////////////////////////////////
+
+2026-10-19 16:53:19,700 [INFO] Thread-4 (_run): parsing args
+2026-10-19 16:53:20,114 [INFO] Thread-4 (_run): Original Config Retrieved: 
+ mm/um:0.0157900734466008 
+ Default piezo pos: 2.0299999713897705 
+ Default GW: 50.0
+2026-10-19 16:53:20,115 [INFO] Thread-4 (_run): Change in diamond length from previous calibration: 0.0
+2026-10-19 16:53:20,115 [INFO] Thread-4 (_run): Drop in piezo pos decided: 2.6616029092538023
+2026-10-19 16:53:23,971 [INFO] camera: Camera opened: DEV_1AB22C06E926
+2026-10-19 16:53:23,972 [INFO] camera: 33 : line number
+2026-10-19 16:53:23,973 [INFO] camera: cutter number: 3.2.2, cutter_no: 3.2.2
+2026-10-19 16:53:23,978 [INFO] camera: Exposure time set to 2000 µs
+2026-10-19 16:53:23,983 [INFO] camera: Camera setup complete
+2026-10-19 16:53:24,005 [INFO] camera: Camera pixel format setup complete
+2026-10-19 16:53:24,051 [INFO] camera: Camera streaming started
+2026-10-19 16:53:24,122 [INFO] Thread-4 (_run): Camera running
+2026-10-19 16:53:24,321 [INFO] Thread-4 (_run): Drop in pitch set from 147.7 to 75.0
+2026-10-19 16:53:25,316 [INFO] Thread-4 (_run): Cutter already in setup mode
+2026-10-19 16:53:25,557 [INFO] Thread-4 (_run): Cutter resetting
+2026-10-19 16:53:31,491 [INFO] Thread-4 (_run): Cutter reset
+2026-10-19 16:53:31,492 [INFO] Thread-4 (_run): Moving piezo to starting position 
+ ===
+2026-10-19 16:53:36,146 [INFO] Thread-4 (_run): Piezo moved to starting pos
+2026-10-19 16:53:38,282 [INFO] Thread-4 (_run): starting cutter
+2026-10-19 16:53:38,442 [INFO] Thread-4 (_run): starting setup cut
+2026-10-19 16:53:38,452 [INFO] Thread-4 (_run): Setup cut has started
+2026-10-19 16:54:09,789 [INFO] Thread-4 (_run): Head has reached cutting position
+2026-10-19 16:54:11,786 [INFO] Thread-4 (_run): pos 2.01: waiting for groove (2 s) | waiting for 5 frames  (frames: 1107 received, 1 analysed)
+2026-10-19 16:54:13,309 [INFO] Thread-4 (_run): pos 2.01: waiting for groove (3 s) | waiting for 5 frames  (frames: 1142 received, 2 analysed)
+2026-10-19 16:54:14,798 [INFO] Thread-4 (_run): pos 2.01: waiting for groove (5 s) | waiting for 5 frames  (frames: 1177 received, 3 analysed)
+2026-10-19 16:54:14,832 [INFO] Thread-4 (_run): pos 2.01: waiting for groove (5 s) | waiting for 5 frames  (frames: 1178 received, 4 analysed)
+2026-10-19 16:54:14,862 [INFO] Thread-4 (_run): pos 2.01: waiting for groove (5 s) | waiting for 5 frames  (frames: 1178 received, 5 analysed)
+2026-10-19 16:54:14,886 [INFO] Thread-4 (_run): pos 2.01: waiting for groove (5 s) | waiting for 5 frames  (frames: 1179 received, 6 analysed)
+2026-10-19 16:54:14,924 [INFO] Thread-4 (_run): pos 2.01: waiting for groove (5 s) | waiting for 5 frames  (frames: 1180 received, 7 analysed)
+2026-10-19 16:54:14,964 [INFO] Thread-4 (_run): groove found at piezo 2.01, measuring for 9.0 s
+2026-10-19 16:54:14,965 [INFO] Thread-4 (_run): pos 2.01: 9.0 s left, 1 samples | groove 2  now 106.0 um  avg(5/5) 105.3 um  [11 ms]  (frames: 1181 received, 8 analysed)
+2026-10-19 16:54:15,008 [INFO] Thread-4 (_run): pos 2.01: 9.0 s left, 2 samples | groove 2  now 105.6 um  avg(5/5) 105.5 um  [11 ms]  (frames: 1182 received, 9 analysed)
+2026-10-19 16:54:15,055 [INFO] Thread-4 (_run): pos 2.01: 8.9 s left, 3 samples | groove 2  now 106.0 um  avg(5/5) 105.8 um  [14 ms]  (frames: 1183 received, 10 analysed)
+2026-10-19 16:54:15,100 [INFO] Thread-4 (_run): pos 2.01: 8.9 s left, 4 samples | groove 2  now 105.7 um  avg(5/5) 105.8 um  [12 ms]  (frames: 1184 received, 11 analysed)
+2026-10-19 16:54:15,145 [INFO] Thread-4 (_run): pos 2.01: 8.8 s left, 5 samples | groove 2  now 106.4 um  avg(5/5) 105.9 um  [16 ms]  (frames: 1185 received, 12 analysed)
+2026-10-19 16:54:15,189 [INFO] Thread-4 (_run): pos 2.01: 8.8 s left, 6 samples | groove 2  now 107.3 um  avg(5/5) 106.2 um  [16 ms]  (frames: 1186 received, 13 analysed)
+2026-10-19 16:54:15,228 [INFO] Thread-4 (_run): pos 2.01: 8.7 s left, 7 samples | groove 2  now 108.0 um  avg(5/5) 106.7 um  [12 ms]  (frames: 1187 received, 14 analysed)
+2026-10-19 16:54:15,270 [INFO] Thread-4 (_run): pos 2.01: 8.7 s left, 8 samples | groove 2  now 109.0 um  avg(5/5) 107.3 um  [13 ms]  (frames: 1188 received, 15 analysed)
+2026-10-19 16:54:15,313 [INFO] Thread-4 (_run): pos 2.01: 8.7 s left, 9 samples | groove 2  now 108.8 um  avg(5/5) 107.9 um  [15 ms]  (frames: 1189 received, 16 analysed)
+2026-10-19 16:54:15,353 [INFO] Thread-4 (_run): pos 2.01: 8.6 s left, 10 samples | groove 2  now 109.5 um  avg(5/5) 108.5 um  [12 ms]  (frames: 1190 received, 17 analysed)
+2026-10-19 16:54:15,399 [INFO] Thread-4 (_run): pos 2.01: 8.6 s left, 11 samples | groove 2  now 109.7 um  avg(5/5) 109.0 um  [14 ms]  (frames: 1191 received, 18 analysed)
+2026-10-19 16:54:15,440 [INFO] Thread-4 (_run): pos 2.01: 8.5 s left, 12 samples | groove 2  now 109.6 um  avg(5/5) 109.3 um  [13 ms]  (frames: 1192 received, 19 analysed)
+2026-10-19 16:54:15,486 [INFO] Thread-4 (_run): pos 2.01: 8.5 s left, 13 samples | groove 2  now 110.5 um  avg(5/5) 109.6 um  [14 ms]  (frames: 1193 received, 20 analysed)
+2026-10-19 16:54:15,529 [INFO] Thread-4 (_run): pos 2.01: 8.4 s left, 14 samples | groove 2  now 110.5 um  avg(5/5) 110.0 um  [14 ms]  (frames: 1194 received, 21 analysed)
+2026-10-19 16:54:15,573 [INFO] Thread-4 (_run): pos 2.01: 8.4 s left, 15 samples | groove 2  now 112.1 um  avg(5/5) 110.5 um  [15 ms]  (frames: 1195 received, 22 analysed)
+2026-10-19 16:54:15,615 [INFO] Thread-4 (_run): pos 2.01: 8.3 s left, 16 samples | groove 2  now 112.1 um  avg(5/5) 111.0 um  [14 ms]  (frames: 1196 received, 23 analysed)
+2026-10-19 16:54:15,660 [INFO] Thread-4 (_run): pos 2.01: 8.3 s left, 17 samples | groove 2  now 112.0 um  avg(5/5) 111.4 um  [15 ms]  (frames: 1197 received, 24 analysed)
+2026-10-19 16:54:15,704 [INFO] Thread-4 (_run): pos 2.01: 8.3 s left, 18 samples | groove 2  now 112.5 um  avg(5/5) 111.8 um  [16 ms]  (frames: 1198 received, 25 analysed)
+2026-10-19 16:54:15,748 [INFO] Thread-4 (_run): pos 2.01: 8.2 s left, 19 samples | groove 2  now 113.0 um  avg(5/5) 112.3 um  [16 ms]  (frames: 1199 received, 26 analysed)
+2026-10-19 16:54:15,790 [INFO] Thread-4 (_run): pos 2.01: 8.2 s left, 20 samples | groove 2  now 113.1 um  avg(5/5) 112.5 um  [15 ms]  (frames: 1200 received, 27 analysed)
+2026-10-19 16:54:15,828 [INFO] Thread-4 (_run): pos 2.01: 8.1 s left, 21 samples | groove 2  now 113.9 um  avg(5/5) 112.9 um  [13 ms]  (frames: 1201 received, 28 analysed)
+2026-10-19 16:54:15,872 [INFO] Thread-4 (_run): pos 2.01: 8.1 s left, 22 samples | groove 2  now 114.8 um  avg(5/5) 113.4 um  [13 ms]  (frames: 1202 received, 29 analysed)
+2026-10-19 16:54:15,918 [INFO] Thread-4 (_run): pos 2.01: 8.0 s left, 23 samples | groove 2  now 114.3 um  avg(5/5) 113.8 um  [15 ms]  (frames: 1203 received, 30 analysed)
+2026-10-19 16:54:15,956 [INFO] Thread-4 (_run): pos 2.01: 8.0 s left, 24 samples | groove 2  now 114.9 um  avg(5/5) 114.2 um  [12 ms]  (frames: 1204 received, 31 analysed)
+2026-10-19 16:54:16,005 [INFO] Thread-4 (_run): pos 2.01: 8.0 s left, 25 samples | groove 2  now 114.3 um  avg(5/5) 114.4 um  [16 ms]  (frames: 1205 received, 32 analysed)
+2026-10-19 16:54:16,045 [INFO] Thread-4 (_run): pos 2.01: 7.9 s left, 26 samples | groove 2  now 116.4 um  avg(5/5) 114.9 um  [13 ms]  (frames: 1206 received, 33 analysed)
+2026-10-19 16:54:16,088 [INFO] Thread-4 (_run): pos 2.01: 7.9 s left, 27 samples | groove 2  now 114.5 um  avg(5/5) 114.9 um  [13 ms]  (frames: 1207 received, 34 analysed)
+2026-10-19 16:54:16,131 [INFO] Thread-4 (_run): pos 2.01: 7.8 s left, 28 samples | groove 2  now 115.3 um  avg(5/5) 115.1 um  [13 ms]  (frames: 1208 received, 35 analysed)
+2026-10-19 16:54:16,178 [INFO] Thread-4 (_run): pos 2.01: 7.8 s left, 29 samples | groove 2  now 115.8 um  avg(5/5) 115.3 um  [14 ms]  (frames: 1209 received, 36 analysed)
+2026-10-19 16:54:16,219 [INFO] Thread-4 (_run): pos 2.01: 7.7 s left, 30 samples | groove 2  now 115.9 um  avg(5/5) 115.6 um  [14 ms]  (frames: 1210 received, 37 analysed)
+2026-10-19 16:54:16,259 [INFO] Thread-4 (_run): pos 2.01: 7.7 s left, 31 samples | groove 2  now 116.3 um  avg(5/5) 115.5 um  [12 ms]  (frames: 1211 received, 38 analysed)
+2026-10-19 16:54:16,302 [INFO] Thread-4 (_run): pos 2.01: 7.7 s left, 32 samples | groove 2  now 116.8 um  avg(5/5) 116.0 um  [12 ms]  (frames: 1212 received, 39 analysed)
+2026-10-19 16:54:16,344 [INFO] Thread-4 (_run): pos 2.01: 7.6 s left, 33 samples | groove 2  now 117.5 um  avg(5/5) 116.4 um  [12 ms]  (frames: 1213 received, 40 analysed)
+2026-10-19 16:54:16,389 [INFO] Thread-4 (_run): pos 2.01: 7.6 s left, 34 samples | groove 2  now 117.5 um  avg(5/5) 116.8 um  [12 ms]  (frames: 1214 received, 41 analysed)
+2026-10-19 16:54:16,431 [INFO] Thread-4 (_run): pos 2.01: 7.5 s left, 35 samples | groove 2  now 117.2 um  avg(5/5) 117.0 um  [12 ms]  (frames: 1215 received, 42 analysed)
+2026-10-19 16:54:16,476 [INFO] Thread-4 (_run): pos 2.01: 7.5 s left, 36 samples | groove 2  now 117.3 um  avg(5/5) 117.2 um  [13 ms]  (frames: 1216 received, 43 analysed)
+2026-10-19 16:54:16,519 [INFO] Thread-4 (_run): pos 2.01: 7.4 s left, 37 samples | groove 2  now 116.9 um  avg(5/5) 117.3 um  [14 ms]  (frames: 1217 received, 44 analysed)
+2026-10-19 16:54:16,561 [INFO] Thread-4 (_run): pos 2.01: 7.4 s left, 38 samples | groove 2  now 117.5 um  avg(5/5) 117.3 um  [13 ms]  (frames: 1218 received, 45 analysed)
+2026-10-19 16:54:16,606 [INFO] Thread-4 (_run): pos 2.01: 7.4 s left, 39 samples | groove 2  now 117.7 um  avg(5/5) 117.3 um  [13 ms]  (frames: 1219 received, 46 analysed)
+2026-10-19 16:54:16,644 [INFO] Thread-4 (_run): pos 2.01: 7.3 s left, 40 samples | groove 2  now 117.4 um  avg(5/5) 117.4 um  [12 ms]  (frames: 1220 received, 47 analysed)
+2026-10-19 16:54:16,693 [INFO] Thread-4 (_run): pos 2.01: 7.3 s left, 41 samples | groove 2  now 118.2 um  avg(5/5) 117.5 um  [14 ms]  (frames: 1221 received, 48 analysed)
+2026-10-19 16:54:16,735 [INFO] Thread-4 (_run): pos 2.01: 7.2 s left, 42 samples | groove 2  now 118.2 um  avg(5/5) 117.8 um  [15 ms]  (frames: 1222 received, 49 analysed)
+2026-10-19 16:54:16,778 [INFO] Thread-4 (_run): pos 2.01: 7.2 s left, 43 samples | groove 2  now 118.3 um  avg(5/5) 117.9 um  [12 ms]  (frames: 1223 received, 50 analysed)
+2026-10-19 16:54:16,821 [INFO] Thread-4 (_run): pos 2.01: 7.1 s left, 44 samples | groove 2  now 118.5 um  avg(5/5) 118.1 um  [14 ms]  (frames: 1224 received, 51 analysed)
+2026-10-19 16:54:16,862 [INFO] Thread-4 (_run): pos 2.01: 7.1 s left, 45 samples | groove 2  now 118.3 um  avg(5/5) 118.3 um  [12 ms]  (frames: 1225 received, 52 analysed)
+2026-10-19 16:54:16,907 [INFO] Thread-4 (_run): pos 2.01: 7.1 s left, 46 samples | groove 2  now 118.7 um  avg(5/5) 118.4 um  [14 ms]  (frames: 1226 received, 53 analysed)
+2026-10-19 16:54:16,954 [INFO] Thread-4 (_run): pos 2.01: 7.0 s left, 47 samples | groove 2  now 118.3 um  avg(5/5) 118.4 um  [17 ms]  (frames: 1227 received, 54 analysed)
+2026-10-19 16:54:16,995 [INFO] Thread-4 (_run): pos 2.01: 7.0 s left, 48 samples | groove 2  now 119.2 um  avg(5/5) 118.6 um  [12 ms]  (frames: 1228 received, 55 analysed)
+2026-10-19 16:54:17,037 [INFO] Thread-4 (_run): pos 2.01: 6.9 s left, 49 samples | groove 2  now 119.5 um  avg(5/5) 118.8 um  [14 ms]  (frames: 1229 received, 56 analysed)
+2026-10-19 16:54:17,079 [INFO] Thread-4 (_run): pos 2.01: 6.9 s left, 50 samples | groove 2  now 119.9 um  avg(5/5) 119.1 um  [13 ms]  (frames: 1230 received, 57 analysed)
+2026-10-19 16:54:17,123 [INFO] Thread-4 (_run): pos 2.01: 6.8 s left, 51 samples | groove 2  now 119.9 um  avg(5/5) 119.4 um  [14 ms]  (frames: 1231 received, 58 analysed)
+2026-10-19 16:54:17,164 [WARNING] Thread-4 (_run): Cutting is at an unsafe heavy groove width: 241.7
+2026-10-19 16:54:17,940 [INFO] camera: Camera streaming stopped
+2026-10-19 16:54:22,878 [ERROR] Thread-4 (_run): run1_worker failed
+Traceback (most recent call last):
+  File "c:\Users\KittyGoodridge\OneDrive - elasticStage\Desktop\Repos\Auto_Cal_Tests\sideA.py", line 292, in run_calibration
+    move_piezo(api, mqtt, (float(mqtt.monitor("piezo_actual")) - 2))
+    ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\KittyGoodridge\OneDrive - elasticStage\Desktop\Repos\Auto_Cal_Tests\cutter_functions.py", line 28, in move_piezo
+    print(f"set piezo_target_pos {targ} ->", api.set("piezo_target_pos", targ))
+                                             ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\KittyGoodridge\OneDrive - elasticStage\Desktop\Repos\Auto_Cal_Tests\api_requests.py", line 162, in set
+    value = self._validate(name, s, value)
+  File "c:\Users\KittyGoodridge\OneDrive - elasticStage\Desktop\Repos\Auto_Cal_Tests\api_requests.py", line 189, in _validate
+    raise ValueError(f"{name} must be between {lo} and {hi}. {value} is out of bounds.")
+ValueError: piezo_target_pos must be between 0.5 and 3.2. -1.06 is out of bounds.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\KittyGoodridge\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\urllib3\connectionpool.py", line 534, in _make_request
+    response = conn.getresponse()
+  File "C:\Users\KittyGoodridge\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\urllib3\connection.py", line 516, in getresponse
+    httplib_response = super().getresponse()
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.13_3.13.3824.0_x64__qbz5n2kfra8p0\Lib\http\client.py", line 1459, in getresponse
+    response.begin()
+    ~~~~~~~~~~~~~~^^
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.13_3.13.3824.0_x64__qbz5n2kfra8p0\Lib\http\client.py", line 336, in begin
+    version, status, reason = self._read_status()
+                              ~~~~~~~~~~~~~~~~~^^
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.13_3.13.3824.0_x64__qbz5n2kfra8p0\Lib\http\client.py", line 297, in _read_status
+    line = str(self.fp.readline(_MAXLINE + 1), "iso-8859-1")
+               ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.13_3.13.3824.0_x64__qbz5n2kfra8p0\Lib\socket.py", line 723, in readinto
+    return self._sock.recv_into(b)
+           ~~~~~~~~~~~~~~~~~~~~^^^
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.13_3.13.3824.0_x64__qbz5n2kfra8p0\Lib\ssl.py", line 1304, in recv_into
+    return self.read(nbytes, buffer)
+           ~~~~~~~~~^^^^^^^^^^^^^^^^
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.13_3.13.3824.0_x64__qbz5n2kfra8p0\Lib\ssl.py", line 1138, in read
+    return self._sslobj.read(len, buffer)
+           ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+TimeoutError: The read operation timed out
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\KittyGoodridge\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\requests\adapters.py", line 667, in send
+    resp = conn.urlopen(
+        method=request.method,
+    ...<9 lines>...
+        chunked=chunked,
+    )
+  File "C:\Users\KittyGoodridge\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\urllib3\connectionpool.py", line 841, in urlopen
+    retries = retries.increment(
+        method, url, error=new_e, _pool=self, _stacktrace=sys.exc_info()[2]
+    )
+  File "C:\Users\KittyGoodridge\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\urllib3\util\retry.py", line 474, in increment
+    raise reraise(type(error), error, _stacktrace)
+          ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\KittyGoodridge\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\urllib3\util\util.py", line 39, in reraise
+    raise value
+  File "C:\Users\KittyGoodridge\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\urllib3\connectionpool.py", line 787, in urlopen
+    response = self._make_request(
+        conn,
+    ...<10 lines>...
+        **response_kw,
+    )
+  File "C:\Users\KittyGoodridge\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\urllib3\connectionpool.py", line 536, in _make_request
+    self._raise_timeout(err=e, url=url, timeout_value=read_timeout)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\KittyGoodridge\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\urllib3\connectionpool.py", line 367, in _raise_timeout
+    raise ReadTimeoutError(
+        self, url, f"Read timed out. (read timeout={timeout_value})"
+    ) from err
+urllib3.exceptions.ReadTimeoutError: HTTPSConnectionPool(host='cluster2.station3.factory1.elasticstage.com', port=443): Read timed out. (read timeout=5.0)
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "c:\Users\KittyGoodridge\OneDrive - elasticStage\Desktop\Repos\Auto_Cal_Tests\api_requests.py", line 129, in _request
+    resp = requests.request(method, url, json=data, timeout=TIMEOUT)
+  File "C:\Users\KittyGoodridge\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\requests\api.py", line 59, in request
+    return session.request(method=method, url=url, **kwargs)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\KittyGoodridge\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\requests\sessions.py", line 589, in request
+    resp = self.send(prep, **send_kwargs)
+  File "C:\Users\KittyGoodridge\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\requests\sessions.py", line 703, in send
+    r = adapter.send(request, **kwargs)
+  File "C:\Users\KittyGoodridge\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\requests\adapters.py", line 713, in send
+    raise ReadTimeout(e, request=request)
+requests.exceptions.ReadTimeout: HTTPSConnectionPool(host='cluster2.station3.factory1.elasticstage.com', port=443): Read timed out. (read timeout=5.0)
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "c:\Users\KittyGoodridge\OneDrive - elasticStage\Desktop\Repos\Auto_Cal_Tests\gui.py", line 1515, in _run
+    self.worker(self.app.make_context(self.frames))
+    ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\KittyGoodridge\OneDrive - elasticStage\Desktop\Repos\Auto_Cal_Tests\gui.py", line 1685, in run1_worker
+    csv_path = cal.run_calibration(ctx.selection.machine_id, api, mqtt)
+  File "c:\Users\KittyGoodridge\OneDrive - elasticStage\Desktop\Repos\Auto_Cal_Tests\sideA.py", line 371, in run_calibration
+    api.command("stop")
+    ~~~~~~~~~~~^^^^^^^^
+  File "c:\Users\KittyGoodridge\OneDrive - elasticStage\Desktop\Repos\Auto_Cal_Tests\api_requests.py", line 154, in command
+    return self._request("POST", COMMANDS[name])
+           ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\KittyGoodridge\OneDrive - elasticStage\Desktop\Repos\Auto_Cal_Tests\api_requests.py", line 131, in _request
+    raise ConnectionError(f"{method} {endpoint} failed: {e}") from e
+ConnectionError: POST /state/command/stop failed: HTTPSConnectionPool(host='cluster2.station3.factory1.elasticstage.com', port=443): Read timed out. (read timeout=5.0)
+2026-10-19 17:00:06,886 [INFO] MainThread: Stop requested
+2026-10-19 17:00:06,912 [ERROR] MainThread: Error closing MQTT client
+Traceback (most recent call last):
+  File "c:\Users\KittyGoodridge\OneDrive - elasticStage\Desktop\Repos\Auto_Cal_Tests\gui.py", line 339, in _close_mqtt
+    self._mqtt.disconnect()   # or whatever your MQTTClient's shutdown method is
+    ^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'MQTTClient' object has no attribute 'disconnect'
+2026-10-19 17:00:06,914 [INFO] MainThread: Closing wizard

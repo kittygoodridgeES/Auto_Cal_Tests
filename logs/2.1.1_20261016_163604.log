@@ -1,0 +1,11 @@
+2026-10-16 16:35:45,064 [INFO] MainThread: Showing page: instructions
+2026-10-16 16:35:59,349 [INFO] MainThread: Showing page: selection
+2026-10-16 16:36:04,541 [INFO] MainThread: Logging to C:\Users\KittyGoodridge\OneDrive - elasticStage\Desktop\Repos\Auto_Cal_Tests\logs\2.1.1_20261016_163604.log
+2026-10-16 16:36:04,541 [INFO] MainThread: Machine ID: 2.1.1
+2026-10-16 16:36:04,542 [INFO] MainThread: Selection: Factory ELSTREE, Station 2, Cluster 1, Cutter 1, Transport not operational
+2026-10-16 16:36:04,542 [INFO] MainThread: Showing page: check_state
+2026-10-16 16:36:04,546 [INFO] Thread-1 (_run_check): Creating API client for factory 1, slot 2.1.1
+2026-10-16 16:36:04,819 [INFO] Thread-1 (_run_check): PackML mode 1, state 6
+2026-10-16 16:36:04,820 [INFO] Thread-1 (_run_check): Cutter is in production, not continuing with calibration
+2026-10-16 16:36:11,327 [INFO] MainThread: Stop requested
+2026-10-16 16:36:11,352 [INFO] MainThread: Closing wizard

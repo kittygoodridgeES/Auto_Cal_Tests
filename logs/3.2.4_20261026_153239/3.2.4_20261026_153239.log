@@ -1,0 +1,39 @@
+2026-10-26 15:31:21,112 [INFO] MainThread: Showing page: instructions
+2026-10-26 15:32:04,646 [INFO] MainThread: Showing page: selection
+2026-10-26 15:32:39,670 [INFO] MainThread: Logging to C:\Users\KittyGoodridge\OneDrive - elasticStage\Desktop\Repos\Auto_Cal_Tests\logs\3.2.4_20261026_153239\3.2.4_20261026_153239.log
+2026-10-26 15:32:39,671 [INFO] MainThread: Machine ID: 3.2.4
+2026-10-26 15:32:39,672 [INFO] MainThread: Selection: Factory ELSTREE, Station 3, Cluster 2, Cutter 4, Transport operational
+2026-10-26 15:32:39,672 [INFO] MainThread: Showing page: check_state
+2026-10-26 15:32:39,681 [INFO] Thread-1 (_run_check): Creating API client for factory 1, slot 3.2.4
+2026-10-26 15:32:39,913 [INFO] Thread-1 (_run_check): PackML mode 3, state 4
+2026-10-26 15:32:39,913 [INFO] Thread-1 (_run_check): Cutter is in IDLE
+2026-10-26 15:32:46,049 [INFO] MainThread: Showing page: confirm
+2026-10-26 15:32:46,059 [INFO] Thread-2 (_read): Looking up diamond ID for 3.2.4
+2026-10-26 15:32:46,892 [INFO] MainThread: Read diamond_id: D24082026_N_10.049
+2026-10-26 15:32:50,266 [INFO] MainThread: diamond_id D24082026_N_10.049 confirmed: Yes
+2026-10-26 15:32:51,919 [INFO] Thread-3 (_decide): Change in diamond length: -0.006
+2026-10-26 15:32:51,980 [INFO] MainThread: choose_after_diamond -> supply
+2026-10-26 15:32:51,980 [INFO] MainThread: Showing page: supply
+2026-10-26 15:32:51,984 [INFO] Thread-4 (_run): Preparing for supply to 3.2.4
+2026-10-26 15:32:51,984 [INFO] Thread-4 (_run): Connecting AMQP transport for factory 1, slot 3.2.4
+2026-10-26 15:32:52,104 [INFO] Thread-4 (_run): AMQP connected, listening on location.uk.factory.1.workstation.3.cluster.2.#
+2026-10-26 15:32:52,156 [INFO] Thread-4 (_run): supply command sent to cutter 4
+2026-10-26 15:34:40,921 [INFO] Thread-4 (_run): Transport event: cutter -2, command autofeed, result success
+2026-10-26 15:34:40,922 [INFO] Thread-4 (_run): Transport event: cutter -2, command eject, result success
+2026-10-26 15:34:41,074 [INFO] Thread-4 (_run): Transport event: cutter 2, command supply, result busy
+2026-10-26 15:36:20,351 [INFO] Thread-4 (_run): Transport event: cutter 2, command supply, result success
+2026-10-26 15:36:26,599 [INFO] Thread-4 (_run): Transport event: cutter 1, command supply, result busy
+2026-10-26 15:37:52,431 [ERROR] Thread-4 (_run): supply_task failed
+Traceback (most recent call last):
+  File "c:\Users\KittyGoodridge\OneDrive - elasticStage\Desktop\Repos\Auto_Cal_Tests\gui.py", line 1502, in _run
+    self.task(ctx)
+    ~~~~~~~~~^^^^^
+  File "c:\Users\KittyGoodridge\OneDrive - elasticStage\Desktop\Repos\Auto_Cal_Tests\gui.py", line 1844, in supply_task
+    ctx.get_transport().run_command("supply", ctx.stop_event, timeout=300)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\KittyGoodridge\OneDrive - elasticStage\Desktop\Repos\Auto_Cal_Tests\transport_commands.py", line 76, in run_command
+    raise TimeoutError(f"No {command} result for cutter {self.cutter} "
+                       f"after {timeout} s")
+TimeoutError: No supply result for cutter 4 after 300 s
+2026-10-26 15:47:39,652 [INFO] MainThread: Stop requested
+2026-10-26 15:47:39,681 [INFO] MainThread: Closing wizard

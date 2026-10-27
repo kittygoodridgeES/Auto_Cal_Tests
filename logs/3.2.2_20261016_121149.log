@@ -1,0 +1,13 @@
+2026-10-16 12:11:37,268 [INFO] MainThread: Showing page: selection
+2026-10-16 12:11:49,202 [INFO] MainThread: Logging to C:\Users\KittyGoodridge\OneDrive - elasticStage\Desktop\Repos\Auto_Cal_Tests\logs\3.2.2_20261016_121149.log
+2026-10-16 12:11:49,202 [INFO] MainThread: Machine ID: 3.2.2
+2026-10-16 12:11:49,203 [INFO] MainThread: Selection: Factory ELSTREE, Station 3, Cluster 2, Cutter 2, Transport not operational
+2026-10-16 12:11:49,203 [INFO] MainThread: Showing page: confirm
+2026-10-16 12:11:49,210 [INFO] Thread-1 (_read): Looking up diamond ID for 3.2.2
+2026-10-16 12:11:49,851 [INFO] MainThread: Read diamond_id: D17012026_N_10.008
+2026-10-16 12:11:54,571 [INFO] MainThread: diamond_id D17012026_N_10.008 confirmed: Yes
+2026-10-16 12:11:56,213 [INFO] MainThread: Showing page: live_value
+2026-10-16 12:11:56,219 [INFO] Thread-2 (_read): Connecting MQTT for factory 1, machine 3.2.2
+2026-10-16 12:11:56,372 [INFO] MainThread: Read value: 0.04 g (out of range)
+2026-10-16 12:12:35,791 [INFO] MainThread: Stop requested
+2026-10-16 12:12:35,820 [INFO] MainThread: Closing wizard
