@@ -30,12 +30,14 @@ from collections import deque
 import cv2
 import numpy as np
 
-from camera.gw_analysis_stationary import UM_PER_PX, SECTION_PX, CENTRE, _grooves_in_section, _track, _robust_mean
+from camera.gw_analysis_stationary import _grooves_in_section, _track, _robust_mean
 from constants import camera_constants as cam_const
+from constants import cutter_positioning as cutter
+
 
 
 class GrooveMonitor:
-    def __init__(self, centre=CENTRE, um_per_px=UM_PER_PX, n_avg=cam_const.N_AVG, crop=cam_const.CROP,
+    def __init__(self, centre=cam_const.CENTRE, um_per_px=cam_const.UM_PER_PX, n_avg=cam_const.N_AVG, crop=cam_const.CROP,
                  band_um=cam_const.BAND_UM, min_coverage=cam_const.MIN_COVERAGE, new_groove_px=None):
         """
         centre        : disc centre (x, y) in FULL-frame pixels (the crop does not change it)
@@ -98,7 +100,7 @@ class GrooveMonitor:
 
     def _grooves(self, ratio, r0):
         """Complete grooves in a strip -> list of (radius px, width µm), inner -> outer."""
-        nsec = ratio.shape[1] // SECTION_PX
+        nsec = ratio.shape[1] // cam_const.SECTION_PX
         try:
             E = _track([_grooves_in_section(ratio, j) for j in range(nsec)])
         except RuntimeError:
@@ -110,7 +112,7 @@ class GrooveMonitor:
                 continue
             row = int(round(np.nanmedian(e.mean(1))))
             # sections where this groove's radius is inside the (cropped) frame
-            vis = ~np.isnan(ratio[row, :nsec * SECTION_PX]).reshape(nsec, SECTION_PX)
+            vis = ~np.isnan(ratio[row, :nsec * cam_const.SECTION_PX]).reshape(nsec, cam_const.SECTION_PX)
             valid = vis.mean(1) > 0.5
             if found.sum() < self.min_coverage * max(valid.sum(), 1):
                 continue                                      # newly cut, not far enough in yet

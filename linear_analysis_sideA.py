@@ -20,7 +20,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 from constants import general as gen
-from constants import cutter_positions as cutter
+from constants import cutter_positioning as cutter
 
 
 class LinearAnalysis:

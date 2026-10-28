@@ -1,3 +1,5 @@
+
+
 # ------- API endpoints ------------------------
 GET_ENDPOINTS = {
     "healthcheck":       "/healthcheck",
@@ -26,15 +28,17 @@ COMMANDS = {
     "supply":           "/supply",
 }
 
-SETTINGS = {
-    "piezo_target_pos":  Setting("/config/piezo_par_position", "piezoParPosition", float, limits=(0.5, 3.2)),
-    "default_piezo_pos": Setting("/config/default_piezo_position", None, float, limits=(0.5, 3.2)),
-    "head_drop_pos":     Setting("/config/head_drop_position", "headDropPosition", float),
-    "piezo_cmd_id":      Setting("/config/piezo_cmd_id", "piezoCmdId", int, allowed=frozenset(PIEZO_CMD_IDS)),
-    "head_ctrl":         Setting("/state/head", "headLiftCmdId", int),
-    "packml_mode":       Setting("/state/mode", None, int),
-    "setup_cut":         Setting("/state/command/start/setup_mode", "setupMode", bool),
+PIEZO_CMD_IDS = {
+  0: "None",
+  1: "Home",
+  6: "Stop",
+  7: "Jog Positive",
+  8: "Jog Negative",
+  14: "Move Position",
+  15: "Move Relative",
 }
+
+
 
 #----------- MQTT topics ----------------------
 MQTT_HOST = "mqtt.factory1.elasticstage.com"

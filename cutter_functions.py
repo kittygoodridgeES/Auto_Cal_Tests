@@ -2,7 +2,7 @@ import time
 from api_requests import APIRequests
 from mqtt_retrieval import MQTTClient
 
-from constants import cutter_positions as cutter
+from constants import cutter_positioning as cutter
 from constants import timeouts
 
 

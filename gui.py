@@ -1126,7 +1126,7 @@ class ReloadConfirmPage(BasePage):
         card.pack(anchor="w", fill="x")
         tk.Label(card, text=value_label, font=gui.FONT_BODY_BOLD, bg=gui.COLOR_CARD_BG,
                  fg=gui.COLOR_TEXT).pack()
-        self.value_display = tk.Label(card, text="--", font=FONT_LIVE_VALUE, bg=gui.COLOR_CARD_BG,
+        self.value_display = tk.Label(card, text="--", font=gui.FONT_LIVE_VALUE, bg=gui.COLOR_CARD_BG,
                                       fg=gui.COLOR_TEXT)
         self.value_display.pack(pady=(8, 8))
         self.updated_label = tk.Label(card, text="", font=gui.FONT_BODY,
@@ -1296,7 +1296,7 @@ class ReloadValuePage(BasePage):
         card.pack()
         tk.Label(card, text=value_label, font=gui.FONT_BODY_BOLD, bg=gui.COLOR_CARD_BG,
                  fg=gui.COLOR_TEXT).pack()
-        self.value_display = tk.Label(card, text="--", font=FONT_LIVE_VALUE, bg=gui.COLOR_CARD_BG,
+        self.value_display = tk.Label(card, text="--", font=gui.FONT_LIVE_VALUE, bg=gui.COLOR_CARD_BG,
                                       fg=gui.COLOR_TEXT, width=10)
         self.value_display.pack(pady=(8, 8))
         self.updated_label = tk.Label(card, text="", font=gui.FONT_BODY,

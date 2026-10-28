@@ -9,10 +9,10 @@ ABS_ERROR_MARGIN = 5                        # max allowed |measured - target| (u
 
 PIEZO_GROOVES = 3                            # grooves at the start of each band affected by the piezo move
 NUMBER_OF_VAL_SAMPLES = 4                    # stationary photos taken after the cut
+REV_S = 1.8                                  # one platter revolution = one groove (s)
 VALIDATION_S = 10 * REV_S                    # cutting time at each target width (s)
 VALIDATION_WIDTHS = [65, 45, 55, 65, 75, 95, 105]   # 77 first for a safe drop-in without lead-in, disk will most likely swarf consistently cutting at 125 so set max at 110
 DROPIN_PITCH = 75.0                          # pitch where cutter can drop within the camera view
-REV_S = 1.8                                  # one platter revolution = one groove (s)
 
 DROP_IN_AIM = 90.0                    # um width that the cutter will aim to drop in at
 DELAY_CUT_TO_FRAME = 0.368            # time delay from the cuttin head to being visible in the camera frame
@@ -46,10 +46,7 @@ PIEZO_CMD_IDS = {
     15: "Move Relative",
 }
 
-LEGENDS = {
-    "piezo_cmd_id": ("Piezo Cmd ID", PIEZO_CMD_IDS),
-    "packml_state": ("PackML State", PACKML_STATES),
-}
+
 
 PACKML_MODES = {
     0: "ModeNone",
@@ -78,23 +75,28 @@ PACKML_COMMANDS = {
   10: "CmdComplete" ,
 }
 
-PACKML_STATES =  {
-  "PML_StateNone" = 0,
-  "PML_StateClearing" = 1,
-  "PML_StateStopped" = 2,
-  "PML_StateStarting" = 3,
-  "PML_StateIdle" = 4,
-  "PML_StateSuspended" = 5,
-  "PML_StateExecute" = 6,
-  "PML_StateStopping" = 7,
-  "PML_StateAborting" = 8,
-  "PML_StateAborted" = 9,
-  "PML_StateHolding" = 10,
-  "PML_StateHeld" = 11,
-  "PML_StateUnholding" = 12,
-  "PML_StateSuspending" = 13,
-  "PML_StateUnsuspending" = 14,
-  "PML_StateResetting" = 15,
-  "PML_StateCompleting" = 16,
-  "PML_StateCompleted" = 17,
+PACKML_STATES = {
+  0: "PML_StateNone",
+  1: "PML_StateClearing",
+  2: "PML_StateStopped",
+  3: "PML_StateStarting",
+  4: "PML_StateIdle",
+  5: "PML_StateSuspended",
+  6: "PML_StateExecute",
+  7: "PML_StateStopping",
+  8: "PML_StateAborting",
+  9: "PML_StateAborted",
+  10: "PML_StateHolding",
+  11: "PML_StateHeld",
+  12: "PML_StateUnholding",
+  13: "PML_StateSuspending",
+  14: "PML_StateUnsuspending",
+  15: "PML_StateResetting",
+  16: "PML_StateCompleting",
+  17: "PML_StateCompleted",
+}
+
+LEGENDS = {
+    "piezo_cmd_id": ("Piezo Cmd ID", PIEZO_CMD_IDS),
+    "packml_state": ("PackML State", PACKML_STATES),
 }

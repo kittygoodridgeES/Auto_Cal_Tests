@@ -15,7 +15,15 @@ class Setting:
     limits: tuple[float, float] | None = None
     allowed: frozenset | None = None
 
-
+SETTINGS = {
+    "piezo_target_pos":  Setting("/config/piezo_par_position", "piezoParPosition", float, limits=(0.5, 3.2)),
+    "default_piezo_pos": Setting("/config/default_piezo_position", None, float, limits=(0.5, 3.2)),
+    "head_drop_pos":     Setting("/config/head_drop_position", "headDropPosition", float),
+    "piezo_cmd_id":      Setting("/config/piezo_cmd_id", "piezoCmdId", int, allowed=frozenset(endpoint.PIEZO_CMD_IDS)),
+    "head_ctrl":         Setting("/state/head", "headLiftCmdId", int),
+    "packml_mode":       Setting("/state/mode", None, int),
+    "setup_cut":         Setting("/state/command/start/setup_mode", "setupMode", bool),
+}
 class APIRequests():
     def __init__(self, factory_id, slot_id):
 

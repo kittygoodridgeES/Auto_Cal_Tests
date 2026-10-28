@@ -28,13 +28,14 @@ from pathlib import Path
 
 
 from camera.camera_grab import Stream
-from camera.gw_analysis_live import GrooveMonitor, N_AVG
+from camera.gw_analysis_live import GrooveMonitor
 from api_requests import APIRequests
 from mqtt_retrieval import MQTTClient
 from cutter_functions import move_piezo
 from airtable_retrieval import AirtableReader
 from constants import cutter_positioning as cutter
 from constants import timeouts as timeouts
+from constants import camera_constants as cam_const
 
 class LatestFrame:
     """Holds only the newest camera frame; written by the camera thread."""
@@ -362,7 +363,7 @@ class CalibrationSide:
                     continue                  # don't record the too-light frame
 
                 # ---- record; the measuring clock only starts once a groove is being measured
-                if res["n"] == N_AVG and res["width"] is not None:
+                if res["n"] == cam_const.N_AVG and res["width"] is not None:
                     if window_end is None:
                         window_end = now_t + cutter.MEASURE_S
                         self.logger.info("groove found at piezo %s, measuring for %.1f s", pos, cutter.MEASURE_S)
