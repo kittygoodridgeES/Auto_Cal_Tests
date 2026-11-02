@@ -1,0 +1,76 @@
+2026-10-28 14:51:38,628 [INFO] MainThread: Showing page: instructions
+2026-10-28 14:51:43,595 [INFO] MainThread: Showing page: selection
+2026-10-28 14:51:53,559 [INFO] MainThread: Logging to C:\Users\KittyGoodridge\OneDrive - elasticStage\Desktop\Repos\Auto_Cal_Tests\constants\logs\3.1.1_20261028_145153\3.1.1_20261028_145153.log
+2026-10-28 14:51:53,560 [INFO] MainThread: Machine ID: 3.1.1
+2026-10-28 14:51:53,560 [INFO] MainThread: Selection: Factory ELSTREE, Station 3, Cluster 1, Cutter 1, Transport operational
+2026-10-28 14:51:53,561 [INFO] MainThread: Showing page: check_state
+2026-10-28 14:51:53,572 [INFO] Thread-1 (_run_check): Creating API client for factory 1, slot 3.1.1
+2026-10-28 14:51:53,573 [ERROR] Thread-1 (_run_check): read_cutter_state failed
+Traceback (most recent call last):
+  File "c:\Users\KittyGoodridge\OneDrive - elasticStage\Desktop\Repos\Auto_Cal_Tests\gui.py", line 954, in _run_check
+    ok = bool(self.check(self.app.make_context()))
+              ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\KittyGoodridge\OneDrive - elasticStage\Desktop\Repos\Auto_Cal_Tests\gui.py", line 1786, in read_cutter_state
+    api = ctx.get_api()
+  File "c:\Users\KittyGoodridge\OneDrive - elasticStage\Desktop\Repos\Auto_Cal_Tests\gui.py", line 281, in get_api
+    self._api = APIRequests(str(sel.factory), sel.machine_id)
+                ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\KittyGoodridge\OneDrive - elasticStage\Desktop\Repos\Auto_Cal_Tests\api_requests.py", line 36, in __init__
+    health = self.get("healthcheck")
+  File "c:\Users\KittyGoodridge\OneDrive - elasticStage\Desktop\Repos\Auto_Cal_Tests\api_requests.py", line 72, in get
+    if name not in endpoints.GET_ENDPOINTS:
+                   ^^^^^^^^^
+NameError: name 'endpoints' is not defined. Did you mean: 'endpoint'?
+2026-10-28 14:53:46,962 [INFO] Thread-2 (_run_check): Creating API client for factory 1, slot 3.1.1
+2026-10-28 14:53:46,963 [ERROR] Thread-2 (_run_check): read_cutter_state failed
+Traceback (most recent call last):
+  File "c:\Users\KittyGoodridge\OneDrive - elasticStage\Desktop\Repos\Auto_Cal_Tests\gui.py", line 954, in _run_check
+    ok = bool(self.check(self.app.make_context()))
+              ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\KittyGoodridge\OneDrive - elasticStage\Desktop\Repos\Auto_Cal_Tests\gui.py", line 1786, in read_cutter_state
+    api = ctx.get_api()
+  File "c:\Users\KittyGoodridge\OneDrive - elasticStage\Desktop\Repos\Auto_Cal_Tests\gui.py", line 281, in get_api
+    self._api = APIRequests(str(sel.factory), sel.machine_id)
+                ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\KittyGoodridge\OneDrive - elasticStage\Desktop\Repos\Auto_Cal_Tests\api_requests.py", line 36, in __init__
+    health = self.get("healthcheck")
+  File "c:\Users\KittyGoodridge\OneDrive - elasticStage\Desktop\Repos\Auto_Cal_Tests\api_requests.py", line 72, in get
+    if name not in endpoints.GET_ENDPOINTS:
+                   ^^^^^^^^^
+NameError: name 'endpoints' is not defined. Did you mean: 'endpoint'?
+2026-10-28 14:53:47,811 [INFO] Thread-3 (_run_check): Creating API client for factory 1, slot 3.1.1
+2026-10-28 14:53:47,812 [ERROR] Thread-3 (_run_check): read_cutter_state failed
+Traceback (most recent call last):
+  File "c:\Users\KittyGoodridge\OneDrive - elasticStage\Desktop\Repos\Auto_Cal_Tests\gui.py", line 954, in _run_check
+    ok = bool(self.check(self.app.make_context()))
+              ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\KittyGoodridge\OneDrive - elasticStage\Desktop\Repos\Auto_Cal_Tests\gui.py", line 1786, in read_cutter_state
+    api = ctx.get_api()
+  File "c:\Users\KittyGoodridge\OneDrive - elasticStage\Desktop\Repos\Auto_Cal_Tests\gui.py", line 281, in get_api
+    self._api = APIRequests(str(sel.factory), sel.machine_id)
+                ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\KittyGoodridge\OneDrive - elasticStage\Desktop\Repos\Auto_Cal_Tests\api_requests.py", line 36, in __init__
+    health = self.get("healthcheck")
+  File "c:\Users\KittyGoodridge\OneDrive - elasticStage\Desktop\Repos\Auto_Cal_Tests\api_requests.py", line 72, in get
+    if name not in endpoints.GET_ENDPOINTS:
+                   ^^^^^^^^^
+NameError: name 'endpoints' is not defined. Did you mean: 'endpoint'?
+2026-10-28 14:53:48,569 [INFO] Thread-4 (_run_check): Creating API client for factory 1, slot 3.1.1
+2026-10-28 14:53:48,572 [ERROR] Thread-4 (_run_check): read_cutter_state failed
+Traceback (most recent call last):
+  File "c:\Users\KittyGoodridge\OneDrive - elasticStage\Desktop\Repos\Auto_Cal_Tests\gui.py", line 954, in _run_check
+    ok = bool(self.check(self.app.make_context()))
+              ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\KittyGoodridge\OneDrive - elasticStage\Desktop\Repos\Auto_Cal_Tests\gui.py", line 1786, in read_cutter_state
+    api = ctx.get_api()
+  File "c:\Users\KittyGoodridge\OneDrive - elasticStage\Desktop\Repos\Auto_Cal_Tests\gui.py", line 281, in get_api
+    self._api = APIRequests(str(sel.factory), sel.machine_id)
+                ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\KittyGoodridge\OneDrive - elasticStage\Desktop\Repos\Auto_Cal_Tests\api_requests.py", line 36, in __init__
+    health = self.get("healthcheck")
+  File "c:\Users\KittyGoodridge\OneDrive - elasticStage\Desktop\Repos\Auto_Cal_Tests\api_requests.py", line 72, in get
+    if name not in endpoints.GET_ENDPOINTS:
+                   ^^^^^^^^^
+NameError: name 'endpoints' is not defined. Did you mean: 'endpoint'?
+2026-10-28 14:53:50,965 [INFO] MainThread: Stop requested
+2026-10-28 14:53:50,998 [INFO] MainThread: Closing wizard

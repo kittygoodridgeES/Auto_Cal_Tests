@@ -1,0 +1,74 @@
+2026-10-28 16:07:03,167 [INFO] MainThread: Showing page: instructions
+2026-10-28 16:07:05,312 [INFO] MainThread: Showing page: selection
+2026-10-28 16:07:12,814 [INFO] MainThread: Logging to C:\Users\KittyGoodridge\OneDrive - elasticStage\Desktop\Repos\Auto_Cal_Tests\constants\logs\3.1.1_20261028_160712\3.1.1_20261028_160712.log
+2026-10-28 16:07:12,815 [INFO] MainThread: Machine ID: 3.1.1
+2026-10-28 16:07:12,815 [INFO] MainThread: Selection: Factory ELSTREE, Station 3, Cluster 1, Cutter 1, Transport not operational
+2026-10-28 16:07:12,816 [INFO] MainThread: Showing page: check_state
+2026-10-28 16:07:12,825 [INFO] Thread-1 (_run_check): Creating API client for factory 1, slot 3.1.1
+2026-10-28 16:07:13,191 [INFO] Thread-1 (_run_check): PackML mode 6, state 4
+2026-10-28 16:07:13,191 [INFO] Thread-1 (_run_check): Cutter is in IDLE
+2026-10-28 16:07:14,676 [INFO] MainThread: Showing page: confirm
+2026-10-28 16:07:14,683 [INFO] Thread-2 (_read): Looking up diamond ID for 3.1.1
+2026-10-28 16:07:15,366 [INFO] MainThread: Read diamond_id: D17102025_N_01.008
+2026-10-28 16:07:15,975 [INFO] MainThread: diamond_id D17102025_N_01.008 confirmed: Yes
+2026-10-28 16:07:18,068 [INFO] Thread-3 (_decide): Change in diamond length: -0.12
+2026-10-28 16:07:18,087 [INFO] MainThread: choose_after_diamond -> supply
+2026-10-28 16:07:18,088 [INFO] MainThread: Showing page: supply
+2026-10-28 16:07:18,090 [INFO] MainThread: Transport not operational: showing manual instruction (No Disk)
+2026-10-28 16:07:20,380 [INFO] MainThread: Disk position No Disk -> A_side (manual)
+2026-10-28 16:07:20,381 [INFO] MainThread: Showing page: Calibration
+2026-10-28 16:07:20,386 [INFO] Thread-4 (_run): Connecting MQTT for factory 1, machine 3.1.1
+2026-10-28 16:07:20,390 [INFO] Thread-4 (_run): init camerasetup
+2026-10-28 16:07:20,390 [INFO] Thread-4 (_run): printing preamble
+2026-10-28 16:07:20,390 [INFO] Thread-4 (_run): ///////////////////////////////////////////////////
+2026-10-28 16:07:20,391 [INFO] Thread-4 (_run): /// VmbPy Asynchronous Grab with OpenCV Example ///
+2026-10-28 16:07:20,391 [INFO] Thread-4 (_run): ///////////////////////////////////////////////////
+
+2026-10-28 16:07:20,392 [INFO] Thread-4 (_run): parsing args
+2026-10-28 16:07:20,567 [INFO] Thread-4 (_run): Original Config Retrieved: 
+ mm/um:0.0277790829780498 
+ Default piezo pos: 1.7604999542236328 
+ Default GW: 50.0
+2026-10-28 16:07:20,568 [INFO] Thread-4 (_run): Change in diamond length from previous calibration: -0.12
+2026-10-28 16:07:20,568 [INFO] Thread-4 (_run): Drop in piezo pos decided: 2.751663273345625Drop in position estimated from change in diamond length
+2026-10-28 16:07:24,421 [INFO] camera: Camera opened: DEV_1AB22C06E926
+2026-10-28 16:07:24,422 [INFO] camera: 28 : line number
+2026-10-28 16:07:24,423 [INFO] camera: cutter number: 3.1.1, cutter_no: 3.1.1
+2026-10-28 16:07:24,427 [INFO] camera: Exposure time set to 2000 µs
+2026-10-28 16:07:24,430 [INFO] camera: Camera setup complete
+2026-10-28 16:07:24,452 [INFO] camera: Camera pixel format setup complete
+2026-10-28 16:07:24,494 [INFO] camera: Camera streaming started
+2026-10-28 16:07:24,560 [INFO] Thread-4 (_run): Camera running
+2026-10-28 16:07:24,637 [INFO] Thread-4 (_run): Drop in pitch set from 147.2 to 75.0
+2026-10-28 16:07:25,732 [INFO] Thread-4 (_run): Cutter already in setup mode
+2026-10-28 16:07:25,929 [INFO] Thread-4 (_run): Cutter resetting
+2026-10-28 16:07:31,890 [INFO] Thread-4 (_run): Cutter reset
+2026-10-28 16:07:31,891 [INFO] Thread-4 (_run): Moving piezo to starting position 
+ ===
+2026-10-28 16:07:35,220 [INFO] Thread-4 (_run): Piezo moved to starting pos
+2026-10-28 16:07:36,486 [INFO] Thread-4 (_run): starting cutter
+2026-10-28 16:07:36,555 [INFO] Thread-4 (_run): starting setup cut
+2026-10-28 16:07:36,555 [INFO] Thread-4 (_run): Setup cut has started
+2026-10-28 16:08:08,896 [INFO] Thread-4 (_run): Head has reached cutting position
+2026-10-28 16:08:11,100 [INFO] camera: Camera streaming stopped
+2026-10-28 16:08:14,216 [INFO] Thread-4 (_run): Cutter resetting
+2026-10-28 16:08:51,319 [INFO] Thread-4 (_run): Cutter reset
+2026-10-28 16:08:51,387 [ERROR] Thread-4 (_run): run1_worker failed
+Traceback (most recent call last):
+  File "c:\Users\KittyGoodridge\OneDrive - elasticStage\Desktop\Repos\Auto_Cal_Tests\gui.py", line 1589, in _run
+    self.worker(self.app.make_context(self.frames))
+    ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\KittyGoodridge\OneDrive - elasticStage\Desktop\Repos\Auto_Cal_Tests\gui.py", line 1911, in run1_worker
+    csv_path = cal.run_calibration(ctx.selection.machine_id)
+  File "c:\Users\KittyGoodridge\OneDrive - elasticStage\Desktop\Repos\Auto_Cal_Tests\sideA.py", line 442, in run_calibration
+    if res["n"] < N_AVG:
+                  ^^^^^
+NameError: name 'N_AVG' is not defined
+2026-10-28 16:09:23,010 [INFO] MainThread: Stop requested
+2026-10-28 16:09:23,037 [ERROR] MainThread: Error closing MQTT client
+Traceback (most recent call last):
+  File "c:\Users\KittyGoodridge\OneDrive - elasticStage\Desktop\Repos\Auto_Cal_Tests\gui.py", line 320, in _close_mqtt
+    self._mqtt.disconnect()   # or whatever your MQTTClient's shutdown method is
+    ^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'MQTTClient' object has no attribute 'disconnect'
+2026-10-28 16:09:23,038 [INFO] MainThread: Closing wizard

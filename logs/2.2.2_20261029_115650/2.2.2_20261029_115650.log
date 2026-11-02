@@ -1,0 +1,51 @@
+2026-10-29 11:56:50,369 [INFO] MainThread: Showing page: instructions
+2026-10-29 11:56:50,375 [INFO] MainThread: Logging to C:\Users\KittyGoodridge\OneDrive - elasticStage\Desktop\Repos\Auto_Cal_Tests\logs\2.2.2_20261029_115650\2.2.2_20261029_115650.log
+2026-10-29 11:56:50,375 [WARNING] MainThread: DEBUG: starting at 'validation' with {'selection': {'factory': '1', 'station': '2', 'cluster': '2', 'cutter': '2', 'transport_ok': False}, 'values': {'mmum': 0.019564673317317063, 'y_int': 0.49023917566731634}}
+2026-10-29 11:56:50,376 [INFO] MainThread: Showing page: validation
+2026-10-29 11:56:50,379 [INFO] Thread-1 (_run): Creating API client for factory 1, slot 2.2.2
+2026-10-29 11:56:50,464 [INFO] Thread-1 (_run): Connecting MQTT for factory 1, machine 2.2.2
+2026-10-29 11:56:50,466 [INFO] Thread-1 (_run): init camerasetup
+2026-10-29 11:56:50,466 [INFO] Thread-1 (_run): printing preamble
+2026-10-29 11:56:50,466 [INFO] Thread-1 (_run): ///////////////////////////////////////////////////
+2026-10-29 11:56:50,467 [INFO] Thread-1 (_run): /// VmbPy Asynchronous Grab with OpenCV Example ///
+2026-10-29 11:56:50,467 [INFO] Thread-1 (_run): ///////////////////////////////////////////////////
+
+2026-10-29 11:56:50,467 [INFO] Thread-1 (_run): parsing args
+2026-10-29 11:56:50,467 [INFO] Thread-1 (_run): Starting validation
+2026-10-29 11:56:50,533 [INFO] Thread-1 (_run): Target 65 um -> piezo 1.762
+2026-10-29 11:56:50,533 [INFO] Thread-1 (_run): Target 45 um -> piezo 1.371
+2026-10-29 11:56:50,533 [INFO] Thread-1 (_run): Target 55 um -> piezo 1.566
+2026-10-29 11:56:50,534 [INFO] Thread-1 (_run): Target 75 um -> piezo 1.958
+2026-10-29 11:56:50,534 [INFO] Thread-1 (_run): Target 95 um -> piezo 2.349
+2026-10-29 11:56:50,534 [INFO] Thread-1 (_run): Target 105 um -> piezo 2.545
+2026-10-29 11:56:55,700 [INFO] camera: Camera opened: DEV_1AB22C06E926
+2026-10-29 11:56:55,700 [INFO] camera: 17 : line number
+2026-10-29 11:56:55,702 [INFO] camera: cutter number: 2.2.2, cutter_no: 2.2.2
+2026-10-29 11:56:55,706 [INFO] camera: Exposure time set to 2000 µs
+2026-10-29 11:56:55,711 [INFO] camera: Camera setup complete
+2026-10-29 11:56:55,737 [INFO] camera: Camera pixel format setup complete
+2026-10-29 11:56:55,789 [INFO] camera: Camera streaming started
+2026-10-29 11:56:55,858 [INFO] Thread-1 (_run): Camera running
+2026-10-29 11:56:55,948 [INFO] camera: Camera streaming stopped
+2026-10-29 11:56:56,715 [INFO] Thread-1 (_run): Head drop position restored to 147.425
+2026-10-29 11:56:56,716 [ERROR] Thread-1 (_run): validation_worker failed
+Traceback (most recent call last):
+  File "c:\Users\KittyGoodridge\OneDrive - elasticStage\Desktop\Repos\Auto_Cal_Tests\gui.py", line 1589, in _run
+    self.worker(self.app.make_context(self.frames))
+    ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\KittyGoodridge\OneDrive - elasticStage\Desktop\Repos\Auto_Cal_Tests\gui.py", line 2068, in validation_worker
+    pass_fail = val.run_validation(ctx.selection.machine_id)
+  File "c:\Users\KittyGoodridge\OneDrive - elasticStage\Desktop\Repos\Auto_Cal_Tests\validation.py", line 170, in run_validation
+    photo_list = self._cut_and_sample(piezo_positions, latest, saved_samples)
+  File "c:\Users\KittyGoodridge\OneDrive - elasticStage\Desktop\Repos\Auto_Cal_Tests\validation.py", line 267, in _cut_and_sample
+    api.command("reset")
+    ^^^
+NameError: name 'api' is not defined. Did you mean: 'self.api'?
+2026-10-29 11:57:19,050 [INFO] MainThread: Stop requested
+2026-10-29 11:57:19,080 [ERROR] MainThread: Error closing MQTT client
+Traceback (most recent call last):
+  File "c:\Users\KittyGoodridge\OneDrive - elasticStage\Desktop\Repos\Auto_Cal_Tests\gui.py", line 320, in _close_mqtt
+    self._mqtt.disconnect()   # or whatever your MQTTClient's shutdown method is
+    ^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'MQTTClient' object has no attribute 'disconnect'
+2026-10-29 11:57:19,082 [INFO] MainThread: Closing wizard

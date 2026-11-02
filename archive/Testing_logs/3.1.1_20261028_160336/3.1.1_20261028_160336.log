@@ -1,0 +1,76 @@
+2026-10-28 16:03:25,338 [INFO] MainThread: Showing page: instructions
+2026-10-28 16:03:29,532 [INFO] MainThread: Showing page: selection
+2026-10-28 16:03:36,868 [INFO] MainThread: Logging to C:\Users\KittyGoodridge\OneDrive - elasticStage\Desktop\Repos\Auto_Cal_Tests\constants\logs\3.1.1_20261028_160336\3.1.1_20261028_160336.log
+2026-10-28 16:03:36,869 [INFO] MainThread: Machine ID: 3.1.1
+2026-10-28 16:03:36,869 [INFO] MainThread: Selection: Factory ELSTREE, Station 3, Cluster 1, Cutter 1, Transport not operational
+2026-10-28 16:03:36,870 [INFO] MainThread: Showing page: check_state
+2026-10-28 16:03:36,884 [INFO] Thread-1 (_run_check): Creating API client for factory 1, slot 3.1.1
+2026-10-28 16:03:37,117 [INFO] Thread-1 (_run_check): PackML mode 3, state 2
+2026-10-28 16:03:37,117 [INFO] Thread-1 (_run_check): Cutter is not in IDLE, packml state: 2
+2026-10-28 16:03:46,552 [INFO] Thread-2 (_run_check): PackML mode 3, state 4
+2026-10-28 16:03:46,552 [INFO] Thread-2 (_run_check): Cutter is in IDLE
+2026-10-28 16:03:47,795 [INFO] MainThread: Showing page: confirm
+2026-10-28 16:03:47,807 [INFO] Thread-3 (_read): Looking up diamond ID for 3.1.1
+2026-10-28 16:03:48,486 [INFO] MainThread: Read diamond_id: D17102025_N_01.008
+2026-10-28 16:03:50,626 [INFO] MainThread: diamond_id D17102025_N_01.008 confirmed: Yes
+2026-10-28 16:03:52,929 [INFO] Thread-4 (_decide): Change in diamond length: -0.12
+2026-10-28 16:03:52,946 [INFO] MainThread: choose_after_diamond -> supply
+2026-10-28 16:03:52,947 [INFO] MainThread: Showing page: supply
+2026-10-28 16:03:52,951 [INFO] MainThread: Transport not operational: showing manual instruction (No Disk)
+2026-10-28 16:03:55,307 [INFO] MainThread: Disk position No Disk -> A_side (manual)
+2026-10-28 16:03:55,308 [INFO] MainThread: Showing page: Calibration
+2026-10-28 16:03:55,313 [INFO] Thread-5 (_run): Connecting MQTT for factory 1, machine 3.1.1
+2026-10-28 16:03:55,317 [INFO] Thread-5 (_run): init camerasetup
+2026-10-28 16:03:55,318 [INFO] Thread-5 (_run): printing preamble
+2026-10-28 16:03:55,318 [INFO] Thread-5 (_run): ///////////////////////////////////////////////////
+2026-10-28 16:03:55,319 [INFO] Thread-5 (_run): /// VmbPy Asynchronous Grab with OpenCV Example ///
+2026-10-28 16:03:55,319 [INFO] Thread-5 (_run): ///////////////////////////////////////////////////
+
+2026-10-28 16:03:55,319 [INFO] Thread-5 (_run): parsing args
+2026-10-28 16:03:55,473 [INFO] Thread-5 (_run): Original Config Retrieved: 
+ mm/um:0.0277790829780498 
+ Default piezo pos: 1.7604999542236328 
+ Default GW: 50.0
+2026-10-28 16:03:55,474 [INFO] Thread-5 (_run): Change in diamond length from previous calibration: -0.12
+2026-10-28 16:03:55,474 [INFO] Thread-5 (_run): Drop in piezo pos decided: 2.751663273345625Drop in position estimated from change in diamond length
+2026-10-28 16:03:59,318 [INFO] camera: Camera opened: DEV_1AB22C06E926
+2026-10-28 16:03:59,318 [INFO] camera: 28 : line number
+2026-10-28 16:03:59,319 [INFO] camera: cutter number: 3.1.1, cutter_no: 3.1.1
+2026-10-28 16:03:59,324 [INFO] camera: Exposure time set to 2000 µs
+2026-10-28 16:03:59,329 [INFO] camera: Camera setup complete
+2026-10-28 16:03:59,351 [INFO] camera: Camera pixel format setup complete
+2026-10-28 16:03:59,399 [INFO] camera: Camera streaming started
+2026-10-28 16:03:59,470 [INFO] Thread-5 (_run): Camera running
+2026-10-28 16:03:59,585 [INFO] Thread-5 (_run): Drop in pitch set from 147.2 to 75.0
+2026-10-28 16:04:01,331 [INFO] Thread-5 (_run): Cutter resetting
+2026-10-28 16:04:07,179 [INFO] Thread-5 (_run): Cutter reset
+2026-10-28 16:04:07,179 [INFO] Thread-5 (_run): Moving piezo to starting position 
+ ===
+2026-10-28 16:04:10,619 [INFO] Thread-5 (_run): Piezo moved to starting pos
+2026-10-28 16:04:12,263 [INFO] Thread-5 (_run): starting cutter
+2026-10-28 16:04:12,317 [INFO] Thread-5 (_run): starting setup cut
+2026-10-28 16:04:12,318 [INFO] Thread-5 (_run): Setup cut has started
+2026-10-28 16:04:44,264 [INFO] Thread-5 (_run): Head has reached cutting position
+2026-10-28 16:04:44,887 [INFO] camera: Camera streaming stopped
+2026-10-28 16:04:47,058 [INFO] Thread-5 (_run): Cutter resetting
+2026-10-28 16:05:24,188 [INFO] Thread-5 (_run): Cutter reset
+2026-10-28 16:05:24,290 [ERROR] Thread-5 (_run): run1_worker failed
+Traceback (most recent call last):
+  File "c:\Users\KittyGoodridge\OneDrive - elasticStage\Desktop\Repos\Auto_Cal_Tests\gui.py", line 1589, in _run
+    self.worker(self.app.make_context(self.frames))
+    ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\KittyGoodridge\OneDrive - elasticStage\Desktop\Repos\Auto_Cal_Tests\gui.py", line 1911, in run1_worker
+    csv_path = cal.run_calibration(ctx.selection.machine_id)
+  File "c:\Users\KittyGoodridge\OneDrive - elasticStage\Desktop\Repos\Auto_Cal_Tests\sideA.py", line 276, in run_calibration
+    res = mon.update(frame)
+  File "c:\Users\KittyGoodridge\OneDrive - elasticStage\Desktop\Repos\Auto_Cal_Tests\camera\gw_analysis_live.py", line 157, in update
+    m = self.measure(frame)
+  File "c:\Users\KittyGoodridge\OneDrive - elasticStage\Desktop\Repos\Auto_Cal_Tests\camera\gw_analysis_live.py", line 139, in measure
+    found = self._grooves(ratio, r0)
+  File "c:\Users\KittyGoodridge\OneDrive - elasticStage\Desktop\Repos\Auto_Cal_Tests\camera\gw_analysis_live.py", line 105, in _grooves
+    E = _track([_grooves_in_section(ratio, j) for j in range(nsec)])
+                ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "c:\Users\KittyGoodridge\OneDrive - elasticStage\Desktop\Repos\Auto_Cal_Tests\camera\gw_analysis_stationary.py", line 94, in _grooves_in_section
+    blk = P[:, j * SECTION_PX:(j + 1) * SECTION_PX]
+                   ^^^^^^^^^^
+NameError: name 'SECTION_PX' is not defined

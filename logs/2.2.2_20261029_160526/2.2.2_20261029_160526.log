@@ -1,0 +1,174 @@
+2026-10-29 16:05:26,165 [INFO] MainThread: Showing page: instructions
+2026-10-29 16:05:26,219 [INFO] MainThread: Logging to C:\Users\KittyGoodridge\OneDrive - elasticStage\Desktop\Repos\Auto_Cal_Tests\logs\2.2.2_20261029_160526\2.2.2_20261029_160526.log
+2026-10-29 16:05:26,220 [WARNING] MainThread: DEBUG: starting at 'validation' with {'selection': {'factory': '1', 'station': '2', 'cluster': '2', 'cutter': '2', 'transport_ok': False}, 'values': {'mmum': 0.01843, 'y_int': 0.53}}
+2026-10-29 16:05:26,220 [INFO] MainThread: Showing page: validation
+2026-10-29 16:05:26,224 [INFO] Thread-1 (_run): Creating API client for factory 1, slot 2.2.2
+2026-10-29 16:05:26,303 [INFO] Thread-1 (_run): Connecting MQTT for factory 1, machine 2.2.2
+2026-10-29 16:05:26,304 [INFO] Thread-1 (_run): init camerasetup
+2026-10-29 16:05:26,305 [INFO] Thread-1 (_run): printing preamble
+2026-10-29 16:05:26,305 [INFO] Thread-1 (_run): ///////////////////////////////////////////////////
+2026-10-29 16:05:26,305 [INFO] Thread-1 (_run): /// VmbPy Asynchronous Grab with OpenCV Example ///
+2026-10-29 16:05:26,305 [INFO] Thread-1 (_run): ///////////////////////////////////////////////////
+
+2026-10-29 16:05:26,305 [INFO] Thread-1 (_run): parsing args
+2026-10-29 16:05:26,306 [INFO] Thread-1 (_run): Starting validation
+2026-10-29 16:05:26,358 [INFO] Thread-1 (_run): Target 70 um -> piezo 1.820
+2026-10-29 16:05:26,359 [INFO] Thread-1 (_run): Target 45 um -> piezo 1.359
+2026-10-29 16:05:26,359 [INFO] Thread-1 (_run): Target 55 um -> piezo 1.544
+2026-10-29 16:05:26,359 [INFO] Thread-1 (_run): Target 75 um -> piezo 1.912
+2026-10-29 16:05:26,359 [INFO] Thread-1 (_run): Target 95 um -> piezo 2.281
+2026-10-29 16:05:26,360 [INFO] Thread-1 (_run): Target 105 um -> piezo 2.465
+2026-10-29 16:05:30,238 [INFO] camera: Camera opened: DEV_1AB22C06E926
+2026-10-29 16:05:30,238 [INFO] camera: 17 : line number
+2026-10-29 16:05:30,239 [INFO] camera: cutter number: 2.2.2, cutter_no: 2.2.2
+2026-10-29 16:05:30,244 [INFO] camera: Exposure time set to 2000 µs
+2026-10-29 16:05:30,249 [INFO] camera: Camera setup complete
+2026-10-29 16:05:30,271 [INFO] camera: Camera pixel format setup complete
+2026-10-29 16:05:30,318 [INFO] camera: Camera streaming started
+2026-10-29 16:05:30,387 [INFO] Thread-1 (_run): Camera running
+2026-10-29 16:05:30,484 [INFO] Thread-1 (_run): Drop in pitch set to 75.0
+2026-10-29 16:05:37,782 [INFO] Thread-1 (_run): Cutter reset
+2026-10-29 16:05:39,511 [INFO] Thread-1 (_run): Piezo moved to starting position
+2026-10-29 16:05:42,144 [INFO] Thread-1 (_run): Setup cut started
+2026-10-29 16:06:13,243 [INFO] Thread-1 (_run): Head has reached cutting position
+2026-10-29 16:06:13,244 [INFO] Thread-1 (_run): Cutting at 70 um
+2026-10-29 16:06:32,390 [INFO] Thread-1 (_run): Cutting at 45 um
+2026-10-29 16:06:51,041 [INFO] Thread-1 (_run): Cutting at 55 um
+2026-10-29 16:07:10,158 [INFO] Thread-1 (_run): Cutting at 75 um
+2026-10-29 16:07:28,577 [INFO] Thread-1 (_run): Cutting at 95 um
+2026-10-29 16:07:45,062 [INFO] Thread-1 (_run): Cutting at 105 um
+2026-10-29 16:08:06,776 [INFO] Thread-1 (_run): Validation cut complete
+2026-10-29 16:10:12,592 [INFO] Thread-1 (_run): [[53.88638026356698, 55.24456070542336, 56.09559343010188, 54.731984809786084, 54.56273215293885, 55.25336086392403, 55.434186205267906, 54.88480580329895, 55.35152842521668, 59.33267626404763, 61.56142645940185, 61.952419727593664, 62.78707663305104, 61.987587024569514, 61.454522657692436, 62.14573730316013, 61.355332856178286, 61.65736182808877, 64.3959728193283, 73.86438372045755, 82.10410343945027, 82.27249453932048, 82.36677673444153, 82.0298950135708, 82.14508907854558, 81.89733998246491, 81.94335074454547, 81.45937417998911, 81.34396802783013, 94.26984772324563, 104.91725060760976, 105.8790733575821, 106.08831687092781, 106.10623042941094, 105.0666373974085, 104.54804040193558, 104.41352256150917, 104.52670083619654, 105.38413966968656, 112.86651664204896, 121.31431019999087, 122.74428919672967, 122.9282892110944, 122.14019834458828, 122.26267148710788, 122.61129711985589, 122.35983839660884, 122.02552546411754, 121.91133224487305, 121.26818084955217, 120.2536864724569, 119.4941393506527, 119.70801844086499, 119.3097287784517, 120.21913937840611, 119.18621921777726, 120.1945734345913], [60.02485111489892, 60.67557382263244, 61.09186045244337, 61.315951334387066, 60.78673766970635, 61.31842915534973, 61.226988610029224, 61.13528659462929, 60.846758689880375, 64.75438732493669, 68.49955106783659, 69.21288502454757, 68.53825543254615, 68.8785391020775, 69.08915774226189, 69.26304061204195, 68.62894306734205, 69.05321675270797, 75.30577513694763, 84.62805312991144, 90.45209975972773, 91.68822752818465, 91.16580830376596, 90.17784861790017, 89.197623744905, 89.10675105694682, 90.29124278709293, 90.05845936216414, 97.10652338624001, 110.42851424694062, 117.13239387333394, 117.86339937865735, 117.81141827762127, 117.3434329622239, 116.17704898945988, 116.6345284664631, 117.2914256590605, 117.43541632130743, 117.0921427512169, 125.55073224909604, 132.6261020949483, 133.06869262138383, 133.46989037543537, 133.2959043711424, 133.2572848647833, 133.40608595997097, 132.95523980617523, 132.6415321367979, 132.238980576396, 131.39489301800728, 129.91479602724314, 130.4686725999415, 130.27766752287746, 130.125061699152, 129.6286127382517, 129.82894951617345, 130.31056822866202], [58.31222321748734, 58.49837325572968, 59.270251384973534, 59.18391367077828, 58.751818083897234, 59.404195445254445, 59.735661185383805, 59.292058883756404, 58.96092950463296, 62.79664767712355, 64.9645681282878, 65.50386792778968, 66.11912180483341, 65.67068796157838, 65.15261922586011, 65.55923389047385, 64.51529643449933, 65.27504208564758, 69.67037792414428, 79.27483263850213, 86.9818064582348, 87.59082188129426, 87.64578416585923, 86.74335011452438, 86.26507593721152, 86.0199535150826, 85.85809267535807, 85.45031071305276, 88.74333491533994, 102.52947366893292, 112.4006497079134, 112.78782018065453, 112.59371543377638, 112.30476576868446, 112.32479298755527, 112.0862227100134, 112.13927949666977, 111.8321047821641, 111.83157059866936, 121.09675388056786, 129.23756700456144, 129.62706908896567, 129.66863889157773, 129.135321996212, 129.09613586246968, 129.52069863885643, 129.23349984645844, 128.75846464812756, 128.75869280159475, 127.02793774783612, 125.87008960545064, 126.31660602867603, 126.49647041440011, 125.81204020094127, 126.07928796172143, 125.8490570241213, 126.58216351747514], [51.90876978285611, 54.31867686271668, 54.84382637023926, 54.83801095219097, 54.27908642310649, 54.72953751374037, 54.64887935817242, 53.98473890542984, 54.43968639135361, 57.921894525885584, 60.519486035257586, 61.28026767075062, 61.76829163208605, 61.464091670513156, 61.378137179017074, 61.26134767293931, 60.924402523934845, 61.07654409945012, 62.7289234764874, 71.42532447218896, 80.44949107363821, 81.42232608675957, 82.13984262854095, 81.65475071504713, 81.32750537514687, 81.1110116198659, 80.87835359666497, 81.3241592603922, 80.71630481511355, 91.62656699180604, 102.62507225811483, 104.86828947782517, 104.91314229369165, 104.57856642127038, 104.34285749360919, 103.88675350070001, 104.21323065996171, 104.4487056976557, 104.73257186934353, 110.17113433286548, 118.49957233190537, 121.37924879908563, 122.03830797851087, 120.94294489741327, 120.73947887659074, 121.2199986588955, 121.39351459681988, 120.86596025049687, 121.09860386610032, 120.72678051114083, 119.4502248710394, 118.49450242951514, 119.61743306275457, 118.3247013142705, 118.79258932352067, 118.43097334563733, 119.50428323835135]]
+2026-10-29 16:10:12,593 [WARNING] Thread-1 (_run): Sample 0: expected 60 values, got 57
+2026-10-29 16:10:12,594 [WARNING] Thread-1 (_run): Sample 0, groove 12 (band 1): 62.78707663305104 outside 45 +/- 5
+2026-10-29 16:10:12,594 [WARNING] Thread-1 (_run): Sample 0, groove 13 (band 1): 61.987587024569514 outside 45 +/- 5
+2026-10-29 16:10:12,594 [WARNING] Thread-1 (_run): Sample 0, groove 14 (band 1): 61.454522657692436 outside 45 +/- 5
+2026-10-29 16:10:12,594 [WARNING] Thread-1 (_run): Sample 0, groove 15 (band 1): 62.14573730316013 outside 45 +/- 5
+2026-10-29 16:10:12,595 [WARNING] Thread-1 (_run): Sample 0, groove 16 (band 1): 61.355332856178286 outside 45 +/- 5
+2026-10-29 16:10:12,595 [WARNING] Thread-1 (_run): Sample 0, groove 17 (band 1): 61.65736182808877 outside 45 +/- 5
+2026-10-29 16:10:12,595 [WARNING] Thread-1 (_run): Sample 0, groove 22 (band 2): 82.36677673444153 outside 55 +/- 5
+2026-10-29 16:10:12,596 [WARNING] Thread-1 (_run): Sample 0, groove 23 (band 2): 82.0298950135708 outside 55 +/- 5
+2026-10-29 16:10:12,596 [WARNING] Thread-1 (_run): Sample 0, groove 24 (band 2): 82.14508907854558 outside 55 +/- 5
+2026-10-29 16:10:12,596 [WARNING] Thread-1 (_run): Sample 0, groove 25 (band 2): 81.89733998246491 outside 55 +/- 5
+2026-10-29 16:10:12,596 [WARNING] Thread-1 (_run): Sample 0, groove 26 (band 2): 81.94335074454547 outside 55 +/- 5
+2026-10-29 16:10:12,596 [WARNING] Thread-1 (_run): Sample 0, groove 27 (band 2): 81.45937417998911 outside 55 +/- 5
+2026-10-29 16:10:12,596 [WARNING] Thread-1 (_run): Sample 0, groove 32 (band 3): 106.08831687092781 outside 75 +/- 5
+2026-10-29 16:10:12,597 [WARNING] Thread-1 (_run): Sample 0, groove 33 (band 3): 106.10623042941094 outside 75 +/- 5
+2026-10-29 16:10:12,597 [WARNING] Thread-1 (_run): Sample 0, groove 34 (band 3): 105.0666373974085 outside 75 +/- 5
+2026-10-29 16:10:12,597 [WARNING] Thread-1 (_run): Sample 0, groove 35 (band 3): 104.54804040193558 outside 75 +/- 5
+2026-10-29 16:10:12,597 [WARNING] Thread-1 (_run): Sample 0, groove 36 (band 3): 104.41352256150917 outside 75 +/- 5
+2026-10-29 16:10:12,598 [WARNING] Thread-1 (_run): Sample 0, groove 37 (band 3): 104.52670083619654 outside 75 +/- 5
+2026-10-29 16:10:12,598 [WARNING] Thread-1 (_run): Sample 0, groove 42 (band 4): 122.9282892110944 outside 95 +/- 5
+2026-10-29 16:10:12,598 [WARNING] Thread-1 (_run): Sample 0, groove 43 (band 4): 122.14019834458828 outside 95 +/- 5
+2026-10-29 16:10:12,604 [WARNING] Thread-1 (_run): Sample 0, groove 44 (band 4): 122.26267148710788 outside 95 +/- 5
+2026-10-29 16:10:12,604 [WARNING] Thread-1 (_run): Sample 0, groove 45 (band 4): 122.61129711985589 outside 95 +/- 5
+2026-10-29 16:10:12,605 [WARNING] Thread-1 (_run): Sample 0, groove 46 (band 4): 122.35983839660884 outside 95 +/- 5
+2026-10-29 16:10:12,605 [WARNING] Thread-1 (_run): Sample 0, groove 47 (band 4): 122.02552546411754 outside 95 +/- 5
+2026-10-29 16:10:12,606 [WARNING] Thread-1 (_run): Sample 0, groove 52 (band 5): 119.70801844086499 outside 105 +/- 5
+2026-10-29 16:10:12,606 [WARNING] Thread-1 (_run): Sample 0, groove 53 (band 5): 119.3097287784517 outside 105 +/- 5
+2026-10-29 16:10:12,606 [WARNING] Thread-1 (_run): Sample 0, groove 54 (band 5): 120.21913937840611 outside 105 +/- 5
+2026-10-29 16:10:12,607 [WARNING] Thread-1 (_run): Sample 1: expected 60 values, got 57
+2026-10-29 16:10:12,607 [WARNING] Thread-1 (_run): Sample 1, groove 12 (band 1): 68.53825543254615 outside 45 +/- 5
+2026-10-29 16:10:12,607 [WARNING] Thread-1 (_run): Sample 1, groove 13 (band 1): 68.8785391020775 outside 45 +/- 5
+2026-10-29 16:10:12,607 [WARNING] Thread-1 (_run): Sample 1, groove 14 (band 1): 69.08915774226189 outside 45 +/- 5
+2026-10-29 16:10:12,607 [WARNING] Thread-1 (_run): Sample 1, groove 15 (band 1): 69.26304061204195 outside 45 +/- 5
+2026-10-29 16:10:12,608 [WARNING] Thread-1 (_run): Sample 1, groove 16 (band 1): 68.62894306734205 outside 45 +/- 5
+2026-10-29 16:10:12,608 [WARNING] Thread-1 (_run): Sample 1, groove 17 (band 1): 69.05321675270797 outside 45 +/- 5
+2026-10-29 16:10:12,608 [WARNING] Thread-1 (_run): Sample 1, groove 22 (band 2): 91.16580830376596 outside 55 +/- 5
+2026-10-29 16:10:12,609 [WARNING] Thread-1 (_run): Sample 1, groove 23 (band 2): 90.17784861790017 outside 55 +/- 5
+2026-10-29 16:10:12,609 [WARNING] Thread-1 (_run): Sample 1, groove 24 (band 2): 89.197623744905 outside 55 +/- 5
+2026-10-29 16:10:12,609 [WARNING] Thread-1 (_run): Sample 1, groove 25 (band 2): 89.10675105694682 outside 55 +/- 5
+2026-10-29 16:10:12,609 [WARNING] Thread-1 (_run): Sample 1, groove 26 (band 2): 90.29124278709293 outside 55 +/- 5
+2026-10-29 16:10:12,610 [WARNING] Thread-1 (_run): Sample 1, groove 27 (band 2): 90.05845936216414 outside 55 +/- 5
+2026-10-29 16:10:12,610 [WARNING] Thread-1 (_run): Sample 1, groove 32 (band 3): 117.81141827762127 outside 75 +/- 5
+2026-10-29 16:10:12,610 [WARNING] Thread-1 (_run): Sample 1, groove 33 (band 3): 117.3434329622239 outside 75 +/- 5
+2026-10-29 16:10:12,610 [WARNING] Thread-1 (_run): Sample 1, groove 34 (band 3): 116.17704898945988 outside 75 +/- 5
+2026-10-29 16:10:12,611 [WARNING] Thread-1 (_run): Sample 1, groove 35 (band 3): 116.6345284664631 outside 75 +/- 5
+2026-10-29 16:10:12,611 [WARNING] Thread-1 (_run): Sample 1, groove 36 (band 3): 117.2914256590605 outside 75 +/- 5
+2026-10-29 16:10:12,612 [WARNING] Thread-1 (_run): Sample 1, groove 37 (band 3): 117.43541632130743 outside 75 +/- 5
+2026-10-29 16:10:12,612 [WARNING] Thread-1 (_run): Sample 1, groove 42 (band 4): 133.46989037543537 outside 95 +/- 5
+2026-10-29 16:10:12,612 [WARNING] Thread-1 (_run): Sample 1, groove 43 (band 4): 133.2959043711424 outside 95 +/- 5
+2026-10-29 16:10:12,613 [WARNING] Thread-1 (_run): Sample 1, groove 44 (band 4): 133.2572848647833 outside 95 +/- 5
+2026-10-29 16:10:12,613 [WARNING] Thread-1 (_run): Sample 1, groove 45 (band 4): 133.40608595997097 outside 95 +/- 5
+2026-10-29 16:10:12,614 [WARNING] Thread-1 (_run): Sample 1, groove 46 (band 4): 132.95523980617523 outside 95 +/- 5
+2026-10-29 16:10:12,614 [WARNING] Thread-1 (_run): Sample 1, groove 47 (band 4): 132.6415321367979 outside 95 +/- 5
+2026-10-29 16:10:12,614 [WARNING] Thread-1 (_run): Sample 1, groove 52 (band 5): 130.27766752287746 outside 105 +/- 5
+2026-10-29 16:10:12,614 [WARNING] Thread-1 (_run): Sample 1, groove 53 (band 5): 130.125061699152 outside 105 +/- 5
+2026-10-29 16:10:12,615 [WARNING] Thread-1 (_run): Sample 1, groove 54 (band 5): 129.6286127382517 outside 105 +/- 5
+2026-10-29 16:10:12,615 [WARNING] Thread-1 (_run): Sample 2: expected 60 values, got 57
+2026-10-29 16:10:12,615 [WARNING] Thread-1 (_run): Sample 2, groove 12 (band 1): 66.11912180483341 outside 45 +/- 5
+2026-10-29 16:10:12,615 [WARNING] Thread-1 (_run): Sample 2, groove 13 (band 1): 65.67068796157838 outside 45 +/- 5
+2026-10-29 16:10:12,616 [WARNING] Thread-1 (_run): Sample 2, groove 14 (band 1): 65.15261922586011 outside 45 +/- 5
+2026-10-29 16:10:12,616 [WARNING] Thread-1 (_run): Sample 2, groove 15 (band 1): 65.55923389047385 outside 45 +/- 5
+2026-10-29 16:10:12,616 [WARNING] Thread-1 (_run): Sample 2, groove 16 (band 1): 64.51529643449933 outside 45 +/- 5
+2026-10-29 16:10:12,617 [WARNING] Thread-1 (_run): Sample 2, groove 17 (band 1): 65.27504208564758 outside 45 +/- 5
+2026-10-29 16:10:12,629 [WARNING] Thread-1 (_run): Sample 2, groove 22 (band 2): 87.64578416585923 outside 55 +/- 5
+2026-10-29 16:10:12,630 [WARNING] Thread-1 (_run): Sample 2, groove 23 (band 2): 86.74335011452438 outside 55 +/- 5
+2026-10-29 16:10:12,630 [WARNING] Thread-1 (_run): Sample 2, groove 24 (band 2): 86.26507593721152 outside 55 +/- 5
+2026-10-29 16:10:12,631 [WARNING] Thread-1 (_run): Sample 2, groove 25 (band 2): 86.0199535150826 outside 55 +/- 5
+2026-10-29 16:10:12,631 [WARNING] Thread-1 (_run): Sample 2, groove 26 (band 2): 85.85809267535807 outside 55 +/- 5
+2026-10-29 16:10:12,631 [WARNING] Thread-1 (_run): Sample 2, groove 27 (band 2): 85.45031071305276 outside 55 +/- 5
+2026-10-29 16:10:12,632 [WARNING] Thread-1 (_run): Sample 2, groove 32 (band 3): 112.59371543377638 outside 75 +/- 5
+2026-10-29 16:10:12,632 [WARNING] Thread-1 (_run): Sample 2, groove 33 (band 3): 112.30476576868446 outside 75 +/- 5
+2026-10-29 16:10:12,632 [WARNING] Thread-1 (_run): Sample 2, groove 34 (band 3): 112.32479298755527 outside 75 +/- 5
+2026-10-29 16:10:12,632 [WARNING] Thread-1 (_run): Sample 2, groove 35 (band 3): 112.0862227100134 outside 75 +/- 5
+2026-10-29 16:10:12,633 [WARNING] Thread-1 (_run): Sample 2, groove 36 (band 3): 112.13927949666977 outside 75 +/- 5
+2026-10-29 16:10:12,633 [WARNING] Thread-1 (_run): Sample 2, groove 37 (band 3): 111.8321047821641 outside 75 +/- 5
+2026-10-29 16:10:12,634 [WARNING] Thread-1 (_run): Sample 2, groove 42 (band 4): 129.66863889157773 outside 95 +/- 5
+2026-10-29 16:10:12,634 [WARNING] Thread-1 (_run): Sample 2, groove 43 (band 4): 129.135321996212 outside 95 +/- 5
+2026-10-29 16:10:12,634 [WARNING] Thread-1 (_run): Sample 2, groove 44 (band 4): 129.09613586246968 outside 95 +/- 5
+2026-10-29 16:10:12,635 [WARNING] Thread-1 (_run): Sample 2, groove 45 (band 4): 129.52069863885643 outside 95 +/- 5
+2026-10-29 16:10:12,635 [WARNING] Thread-1 (_run): Sample 2, groove 46 (band 4): 129.23349984645844 outside 95 +/- 5
+2026-10-29 16:10:12,635 [WARNING] Thread-1 (_run): Sample 2, groove 47 (band 4): 128.75846464812756 outside 95 +/- 5
+2026-10-29 16:10:12,636 [WARNING] Thread-1 (_run): Sample 2, groove 52 (band 5): 126.49647041440011 outside 105 +/- 5
+2026-10-29 16:10:12,636 [WARNING] Thread-1 (_run): Sample 2, groove 53 (band 5): 125.81204020094127 outside 105 +/- 5
+2026-10-29 16:10:12,636 [WARNING] Thread-1 (_run): Sample 2, groove 54 (band 5): 126.07928796172143 outside 105 +/- 5
+2026-10-29 16:10:12,636 [WARNING] Thread-1 (_run): Sample 3: expected 60 values, got 57
+2026-10-29 16:10:12,637 [WARNING] Thread-1 (_run): Sample 3, groove 12 (band 1): 61.76829163208605 outside 45 +/- 5
+2026-10-29 16:10:12,637 [WARNING] Thread-1 (_run): Sample 3, groove 13 (band 1): 61.464091670513156 outside 45 +/- 5
+2026-10-29 16:10:12,637 [WARNING] Thread-1 (_run): Sample 3, groove 14 (band 1): 61.378137179017074 outside 45 +/- 5
+2026-10-29 16:10:12,639 [WARNING] Thread-1 (_run): Sample 3, groove 15 (band 1): 61.26134767293931 outside 45 +/- 5
+2026-10-29 16:10:12,640 [WARNING] Thread-1 (_run): Sample 3, groove 16 (band 1): 60.924402523934845 outside 45 +/- 5
+2026-10-29 16:10:12,641 [WARNING] Thread-1 (_run): Sample 3, groove 17 (band 1): 61.07654409945012 outside 45 +/- 5
+2026-10-29 16:10:12,645 [WARNING] Thread-1 (_run): Sample 3, groove 22 (band 2): 82.13984262854095 outside 55 +/- 5
+2026-10-29 16:10:12,647 [WARNING] Thread-1 (_run): Sample 3, groove 23 (band 2): 81.65475071504713 outside 55 +/- 5
+2026-10-29 16:10:12,647 [WARNING] Thread-1 (_run): Sample 3, groove 24 (band 2): 81.32750537514687 outside 55 +/- 5
+2026-10-29 16:10:12,647 [WARNING] Thread-1 (_run): Sample 3, groove 25 (band 2): 81.1110116198659 outside 55 +/- 5
+2026-10-29 16:10:12,647 [WARNING] Thread-1 (_run): Sample 3, groove 26 (band 2): 80.87835359666497 outside 55 +/- 5
+2026-10-29 16:10:12,648 [WARNING] Thread-1 (_run): Sample 3, groove 27 (band 2): 81.3241592603922 outside 55 +/- 5
+2026-10-29 16:10:12,648 [WARNING] Thread-1 (_run): Sample 3, groove 32 (band 3): 104.91314229369165 outside 75 +/- 5
+2026-10-29 16:10:12,648 [WARNING] Thread-1 (_run): Sample 3, groove 33 (band 3): 104.57856642127038 outside 75 +/- 5
+2026-10-29 16:10:12,648 [WARNING] Thread-1 (_run): Sample 3, groove 34 (band 3): 104.34285749360919 outside 75 +/- 5
+2026-10-29 16:10:12,648 [WARNING] Thread-1 (_run): Sample 3, groove 35 (band 3): 103.88675350070001 outside 75 +/- 5
+2026-10-29 16:10:12,649 [WARNING] Thread-1 (_run): Sample 3, groove 36 (band 3): 104.21323065996171 outside 75 +/- 5
+2026-10-29 16:10:12,649 [WARNING] Thread-1 (_run): Sample 3, groove 37 (band 3): 104.4487056976557 outside 75 +/- 5
+2026-10-29 16:10:12,649 [WARNING] Thread-1 (_run): Sample 3, groove 42 (band 4): 122.03830797851087 outside 95 +/- 5
+2026-10-29 16:10:12,649 [WARNING] Thread-1 (_run): Sample 3, groove 43 (band 4): 120.94294489741327 outside 95 +/- 5
+2026-10-29 16:10:12,650 [WARNING] Thread-1 (_run): Sample 3, groove 44 (band 4): 120.73947887659074 outside 95 +/- 5
+2026-10-29 16:10:12,650 [WARNING] Thread-1 (_run): Sample 3, groove 45 (band 4): 121.2199986588955 outside 95 +/- 5
+2026-10-29 16:10:12,650 [WARNING] Thread-1 (_run): Sample 3, groove 46 (band 4): 121.39351459681988 outside 95 +/- 5
+2026-10-29 16:10:12,650 [WARNING] Thread-1 (_run): Sample 3, groove 47 (band 4): 120.86596025049687 outside 95 +/- 5
+2026-10-29 16:10:12,650 [WARNING] Thread-1 (_run): Sample 3, groove 52 (band 5): 119.61743306275457 outside 105 +/- 5
+2026-10-29 16:10:12,651 [WARNING] Thread-1 (_run): Sample 3, groove 53 (band 5): 118.3247013142705 outside 105 +/- 5
+2026-10-29 16:10:12,651 [WARNING] Thread-1 (_run): Sample 3, groove 54 (band 5): 118.79258932352067 outside 105 +/- 5
+2026-10-29 16:10:12,778 [INFO] camera: Camera streaming stopped
+2026-10-29 16:10:13,535 [INFO] Thread-1 (_run): Head drop position restored to 147.425
+2026-10-29 16:10:13,547 [INFO] Thread-1 (_run): Result of validation: FAIL
+2026-10-29 16:10:15,118 [INFO] MainThread: Showing page: complete
+2026-10-29 16:10:26,685 [INFO] MainThread: Showing page: finish
+2026-10-29 16:10:26,691 [ERROR] MainThread: Could not build page text
+Traceback (most recent call last):
+  File "c:\Users\KittyGoodridge\OneDrive - elasticStage\Desktop\Repos\Auto_Cal_Tests\gui.py", line 856, in on_show
+    text = self.body_source(self.app.make_context())
+  File "c:\Users\KittyGoodridge\OneDrive - elasticStage\Desktop\Repos\Auto_Cal_Tests\gui.py", line 2097, in finish_text
+    f"Validation: FAIL - one or more groove widths were more than ±{ABS_ERROR_MARGIN} um "
+                                                                    ^^^^^^^^^^^^^^^^
+NameError: name 'ABS_ERROR_MARGIN' is not defined
+2026-10-29 16:11:37,259 [INFO] MainThread: Stop requested
+2026-10-29 16:11:37,296 [ERROR] MainThread: Error closing MQTT client
+Traceback (most recent call last):
+  File "c:\Users\KittyGoodridge\OneDrive - elasticStage\Desktop\Repos\Auto_Cal_Tests\gui.py", line 320, in _close_mqtt
+    self._mqtt.disconnect()   # or whatever your MQTTClient's shutdown method is
+    ^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'MQTTClient' object has no attribute 'disconnect'
+2026-10-29 16:11:37,302 [INFO] MainThread: Closing wizard

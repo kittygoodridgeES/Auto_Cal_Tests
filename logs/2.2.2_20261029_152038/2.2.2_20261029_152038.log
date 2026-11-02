@@ -1,0 +1,52 @@
+2026-10-29 15:20:38,200 [INFO] MainThread: Showing page: instructions
+2026-10-29 15:20:38,203 [INFO] MainThread: Logging to C:\Users\KittyGoodridge\OneDrive - elasticStage\Desktop\Repos\Auto_Cal_Tests\logs\2.2.2_20261029_152038\2.2.2_20261029_152038.log
+2026-10-29 15:20:38,203 [WARNING] MainThread: DEBUG: starting at 'validation' with {'selection': {'factory': '1', 'station': '2', 'cluster': '2', 'cutter': '2', 'transport_ok': False}, 'values': {'mmum': 0.0283628629641722, 'y_int': 1.3956249952316284}}
+2026-10-29 15:20:38,203 [INFO] MainThread: Showing page: validation
+2026-10-29 15:20:38,206 [INFO] Thread-1 (_run): Creating API client for factory 1, slot 2.2.2
+2026-10-29 15:20:38,294 [INFO] Thread-1 (_run): Connecting MQTT for factory 1, machine 2.2.2
+2026-10-29 15:20:38,296 [INFO] Thread-1 (_run): init camerasetup
+2026-10-29 15:20:38,296 [INFO] Thread-1 (_run): printing preamble
+2026-10-29 15:20:38,296 [INFO] Thread-1 (_run): ///////////////////////////////////////////////////
+2026-10-29 15:20:38,297 [INFO] Thread-1 (_run): /// VmbPy Asynchronous Grab with OpenCV Example ///
+2026-10-29 15:20:38,297 [INFO] Thread-1 (_run): ///////////////////////////////////////////////////
+
+2026-10-29 15:20:38,297 [INFO] Thread-1 (_run): parsing args
+2026-10-29 15:20:38,297 [INFO] Thread-1 (_run): Starting validation
+2026-10-29 15:20:38,337 [INFO] Thread-1 (_run): Target 65 um -> piezo 3.239
+2026-10-29 15:20:38,338 [INFO] Thread-1 (_run): Target 45 um -> piezo 2.672
+2026-10-29 15:20:38,338 [INFO] Thread-1 (_run): Target 55 um -> piezo 2.956
+2026-10-29 15:20:38,338 [INFO] Thread-1 (_run): Target 75 um -> piezo 3.523
+2026-10-29 15:20:38,339 [INFO] Thread-1 (_run): Target 95 um -> piezo 4.090
+2026-10-29 15:20:38,339 [INFO] Thread-1 (_run): Target 105 um -> piezo 4.374
+2026-10-29 15:20:42,427 [INFO] camera: Camera opened: DEV_1AB22C06E926
+2026-10-29 15:20:42,427 [INFO] camera: 17 : line number
+2026-10-29 15:20:42,428 [INFO] camera: cutter number: 2.2.2, cutter_no: 2.2.2
+2026-10-29 15:20:42,432 [INFO] camera: Exposure time set to 2000 µs
+2026-10-29 15:20:42,436 [INFO] camera: Camera setup complete
+2026-10-29 15:20:42,457 [INFO] camera: Camera pixel format setup complete
+2026-10-29 15:20:42,508 [INFO] camera: Camera streaming started
+2026-10-29 15:20:42,583 [INFO] Thread-1 (_run): Camera running
+2026-10-29 15:20:42,673 [INFO] Thread-1 (_run): Drop in pitch set to 75.0
+2026-10-29 15:20:50,945 [INFO] Thread-1 (_run): Cutter reset
+2026-10-29 15:20:51,334 [INFO] camera: Camera streaming stopped
+2026-10-29 15:20:52,051 [INFO] Thread-1 (_run): Head drop position restored to 147.425
+2026-10-29 15:20:52,052 [ERROR] Thread-1 (_run): validation_worker failed
+Traceback (most recent call last):
+  File "c:\Users\KittyGoodridge\OneDrive - elasticStage\Desktop\Repos\Auto_Cal_Tests\gui.py", line 1589, in _run
+    self.worker(self.app.make_context(self.frames))
+    ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\KittyGoodridge\OneDrive - elasticStage\Desktop\Repos\Auto_Cal_Tests\gui.py", line 2068, in validation_worker
+    pass_fail = val.run_validation(ctx.selection.machine_id)
+  File "c:\Users\KittyGoodridge\OneDrive - elasticStage\Desktop\Repos\Auto_Cal_Tests\validation.py", line 170, in run_validation
+    photo_list = self._cut_and_sample(piezo_positions, latest, saved_samples)
+  File "c:\Users\KittyGoodridge\OneDrive - elasticStage\Desktop\Repos\Auto_Cal_Tests\validation.py", line 232, in _cut_and_sample
+    move_piezo(api, mqtt, piezo_positions[0])
+    ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\KittyGoodridge\OneDrive - elasticStage\Desktop\Repos\Auto_Cal_Tests\cutter_functions.py", line 26, in move_piezo
+    print(f"set piezo_target_pos {targ} ->", api.set("piezo_target_pos", targ))
+                                             ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\KittyGoodridge\OneDrive - elasticStage\Desktop\Repos\Auto_Cal_Tests\api_requests.py", line 96, in set
+    value = self._validate(name, s, value)
+  File "c:\Users\KittyGoodridge\OneDrive - elasticStage\Desktop\Repos\Auto_Cal_Tests\api_requests.py", line 123, in _validate
+    raise ValueError(f"{name} must be between {lo} and {hi}. {value} is out of bounds.")
+ValueError: piezo_target_pos must be between 0.5 and 3.2. 3.24 is out of bounds.

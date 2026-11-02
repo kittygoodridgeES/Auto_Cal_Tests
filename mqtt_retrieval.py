@@ -29,7 +29,7 @@ class MQTTClient:
         """Read the latest value of a topic, e.g. self.monitor("head_pos")."""
         if name not in endpoints.TOPICS:
             raise KeyError(f"Unknown topic '{name}'. Options: {', '.join(endpoints.TOPICS)}")
-        if name in TRANSPORT_ONLY and self.topic_prefix != endpoints.TRANSPORT_PREFIX:
+        if name in endpoints.TRANSPORT_ONLY and self.topic_prefix != endpoints.TRANSPORT_PREFIX:
             raise ValueError(f"'{name}' can only be read from the transport object")
 
         msg = subscribe.simple(f"{self.topic_prefix}/{endpoints.TOPICS[name]}", hostname=endpoints.MQTT_HOST)

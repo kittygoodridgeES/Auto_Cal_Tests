@@ -48,7 +48,7 @@ class LatestFrame:
 
     def put(self, img):                  # used as Stream.run(frame_callback=...)
         # convert now: gives our own copy, so the camera can safely reuse its buffer
-        gray = img if img.ndim == 2 else cv2.cvtColor(img, cv2.gui.COLOR_BGR2GRAY)
+        gray = img if img.ndim == 2 else cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
         with self._lock:
             self._img = gray
             self.received += 1
@@ -287,7 +287,7 @@ class CalibrationSide:
                 if not groove_seen and not no_groove_bumped and now_t - t_head > timeouts.NO_GROOVE_S:
                     no_groove_bumped = True
                     current_pos = float(self.mqtt.monitor("piezo_actual"))
-                    new_pos = min(current_pos + NO_GROOVE_STEP, cutter.PIEZO_UPPER_LIMIT)
+                    new_pos = min(current_pos + cutter.NO_GROOVE_STEP, cutter.PIEZO_UPPER_LIMIT)
                     if new_pos > current_pos:
                         self.logger.warning("no groove seen %.0f s after head reached cutting position - "
                                             "increasing piezo %.2f -> %.2f", timeouts.NO_GROOVE_S, current_pos, new_pos)
@@ -439,12 +439,12 @@ class CalibrationSide:
                     continue
 
                 # ---- display
-                if res["n"] < N_AVG:
+                if res["n"] < cam_const.N_AVG:
                     reading = "waiting for 5 frames"
                 else:
                     now = "--" if res["width"] is None else f"{res['width']:.1f}"
                     reading = (f"groove {res['groove']}  now {now} um  "
-                            f"avg({res['n']}/{N_AVG}) {res['average']:.1f} um  [{ms:.0f} ms]")
+                            f"avg({res['n']}/{cam_const.N_AVG}) {res['average']:.1f} um  [{ms:.0f} ms]")
                 text = f"{status} | {reading}"
                 self.logger.info("%s  (frames: %d received, %d analysed)", text, latest.received, analysed)
 

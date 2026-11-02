@@ -1,0 +1,46 @@
+2026-10-28 15:45:14,821 [INFO] MainThread: Showing page: instructions
+2026-10-28 15:45:45,295 [INFO] MainThread: Showing page: selection
+2026-10-28 15:45:51,507 [INFO] MainThread: Logging to C:\Users\KittyGoodridge\OneDrive - elasticStage\Desktop\Repos\Auto_Cal_Tests\constants\logs\3.1.1_20261028_154551\3.1.1_20261028_154551.log
+2026-10-28 15:45:51,509 [INFO] MainThread: Machine ID: 3.1.1
+2026-10-28 15:45:51,510 [INFO] MainThread: Selection: Factory ELSTREE, Station 3, Cluster 1, Cutter 1, Transport operational
+2026-10-28 15:45:51,510 [INFO] MainThread: Showing page: check_state
+2026-10-28 15:45:51,518 [INFO] Thread-1 (_run_check): Creating API client for factory 1, slot 3.1.1
+2026-10-28 15:45:51,752 [INFO] Thread-1 (_run_check): PackML mode 3, state 4
+2026-10-28 15:45:51,753 [INFO] Thread-1 (_run_check): Cutter is in IDLE
+2026-10-28 15:45:53,265 [INFO] MainThread: Showing page: confirm
+2026-10-28 15:45:53,275 [INFO] Thread-2 (_read): Looking up diamond ID for 3.1.1
+2026-10-28 15:45:54,036 [INFO] MainThread: Read diamond_id: D17102025_N_01.008
+2026-10-28 15:45:54,820 [INFO] MainThread: diamond_id D17102025_N_01.008 confirmed: Yes
+2026-10-28 15:45:56,759 [INFO] Thread-3 (_decide): Change in diamond length: -0.12
+2026-10-28 15:45:56,783 [INFO] MainThread: choose_after_diamond -> supply
+2026-10-28 15:45:56,784 [INFO] MainThread: Showing page: supply
+2026-10-28 15:45:56,788 [INFO] Thread-4 (_run): Preparing for supply to 3.1.1
+2026-10-28 15:45:56,788 [INFO] Thread-4 (_run): Connecting AMQP transport for factory 1, slot 3.1.1
+2026-10-28 15:45:56,908 [INFO] Thread-4 (_run): AMQP connected, listening on location.uk.factory.1.workstation.3.cluster.1.#
+2026-10-28 15:45:56,946 [INFO] Thread-4 (_run): supply command sent to cutter 1
+2026-10-28 15:45:56,999 [INFO] Thread-4 (_run): Transport event: cutter 1, command supply, result busy
+2026-10-28 15:50:27,822 [INFO] Thread-4 (_run): Transport event: cutter 1, command supply, result success
+2026-10-28 15:50:27,822 [INFO] Thread-4 (_run): supply succeeded on cutter 1
+2026-10-28 15:50:27,845 [INFO] Thread-4 (_run): Supply complete
+2026-10-28 15:50:29,374 [INFO] MainThread: Showing page: Calibration
+2026-10-28 15:50:29,382 [INFO] Thread-6 (_run): Connecting MQTT for factory 1, machine 3.1.1
+2026-10-28 15:50:29,387 [INFO] Thread-6 (_run): init camerasetup
+2026-10-28 15:50:29,387 [INFO] Thread-6 (_run): printing preamble
+2026-10-28 15:50:29,393 [INFO] Thread-6 (_run): ///////////////////////////////////////////////////
+2026-10-28 15:50:29,394 [INFO] Thread-6 (_run): /// VmbPy Asynchronous Grab with OpenCV Example ///
+2026-10-28 15:50:29,394 [INFO] Thread-6 (_run): ///////////////////////////////////////////////////
+
+2026-10-28 15:50:29,395 [INFO] Thread-6 (_run): parsing args
+2026-10-28 15:50:29,536 [ERROR] Thread-6 (_run): run1_worker failed
+Traceback (most recent call last):
+  File "c:\Users\KittyGoodridge\OneDrive - elasticStage\Desktop\Repos\Auto_Cal_Tests\gui.py", line 1589, in _run
+    self.worker(self.app.make_context(self.frames))
+    ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\KittyGoodridge\OneDrive - elasticStage\Desktop\Repos\Auto_Cal_Tests\gui.py", line 1911, in run1_worker
+    csv_path = cal.run_calibration(ctx.selection.machine_id)
+  File "c:\Users\KittyGoodridge\OneDrive - elasticStage\Desktop\Repos\Auto_Cal_Tests\sideA.py", line 150, in run_calibration
+    default_piezo_pos = self.mqtt.monitor("piezo_default_pos")
+  File "c:\Users\KittyGoodridge\OneDrive - elasticStage\Desktop\Repos\Auto_Cal_Tests\mqtt_retrieval.py", line 32, in monitor
+    if name in TRANSPORT_ONLY and self.topic_prefix != endpoints.TRANSPORT_PREFIX:
+               ^^^^^^^^^^^^^^
+NameError: name 'TRANSPORT_ONLY' is not defined

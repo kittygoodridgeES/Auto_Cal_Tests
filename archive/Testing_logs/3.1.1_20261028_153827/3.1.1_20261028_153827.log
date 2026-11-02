@@ -1,0 +1,47 @@
+2026-10-28 15:38:19,301 [INFO] MainThread: Showing page: instructions
+2026-10-28 15:38:21,683 [INFO] MainThread: Showing page: selection
+2026-10-28 15:38:27,457 [INFO] MainThread: Logging to C:\Users\KittyGoodridge\OneDrive - elasticStage\Desktop\Repos\Auto_Cal_Tests\constants\logs\3.1.1_20261028_153827\3.1.1_20261028_153827.log
+2026-10-28 15:38:27,457 [INFO] MainThread: Machine ID: 3.1.1
+2026-10-28 15:38:27,457 [INFO] MainThread: Selection: Factory ELSTREE, Station 3, Cluster 1, Cutter 1, Transport operational
+2026-10-28 15:38:27,458 [INFO] MainThread: Showing page: check_state
+2026-10-28 15:38:27,463 [INFO] Thread-1 (_run_check): Creating API client for factory 1, slot 3.1.1
+2026-10-28 15:38:27,754 [INFO] Thread-1 (_run_check): PackML mode 3, state 4
+2026-10-28 15:38:27,754 [INFO] Thread-1 (_run_check): Cutter is in IDLE
+2026-10-28 15:38:30,635 [INFO] MainThread: Showing page: confirm
+2026-10-28 15:38:30,640 [INFO] Thread-2 (_read): Looking up diamond ID for 3.1.1
+2026-10-28 15:38:31,480 [INFO] MainThread: Read diamond_id: D17102025_N_01.008
+2026-10-28 15:38:33,686 [INFO] MainThread: diamond_id D17102025_N_01.008 confirmed: Yes
+2026-10-28 15:38:37,209 [INFO] Thread-3 (_decide): Change in diamond length: -0.12
+2026-10-28 15:38:37,228 [INFO] MainThread: choose_after_diamond -> supply
+2026-10-28 15:38:37,229 [INFO] MainThread: Showing page: supply
+2026-10-28 15:38:37,234 [INFO] Thread-4 (_run): Preparing for supply to 3.1.1
+2026-10-28 15:38:37,235 [INFO] Thread-4 (_run): Connecting AMQP transport for factory 1, slot 3.1.1
+2026-10-28 15:38:37,375 [INFO] Thread-4 (_run): AMQP connected, listening on location.uk.factory.1.workstation.3.cluster.1.#
+2026-10-28 15:38:37,423 [INFO] Thread-4 (_run): supply command sent to cutter 1
+2026-10-28 15:38:37,447 [INFO] Thread-4 (_run): Transport event: cutter 3, command collect, result busy
+2026-10-28 15:38:37,447 [INFO] Thread-4 (_run): Transport event: cutter 3, command collect, result success
+2026-10-28 15:38:37,448 [INFO] Thread-4 (_run): Transport event: cutter 3, command supply, result busy
+2026-10-28 15:38:37,448 [INFO] Thread-4 (_run): Transport event: cutter 3, command supply, result success
+2026-10-28 15:38:37,448 [INFO] Thread-4 (_run): Transport event: cutter 3, command flip, result busy
+2026-10-28 15:40:03,794 [INFO] Thread-4 (_run): Transport event: cutter 3, command flip, result success
+2026-10-28 15:40:09,854 [INFO] Thread-4 (_run): Transport event: cutter 1, command supply, result busy
+2026-10-28 15:42:31,649 [INFO] Thread-4 (_run): Transport event: cutter 1, command supply, result success
+2026-10-28 15:42:31,650 [INFO] Thread-4 (_run): supply succeeded on cutter 1
+2026-10-28 15:42:31,687 [INFO] Thread-4 (_run): Supply complete
+2026-10-28 15:42:31,750 [ERROR] MainThread: Unhandled error in GUI callback
+Traceback (most recent call last):
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.13_3.13.3824.0_x64__qbz5n2kfra8p0\Lib\tkinter\__init__.py", line 2079, in __call__
+    return self.func(*args)
+           ~~~~~~~~~^^^^^^^
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.13_3.13.3824.0_x64__qbz5n2kfra8p0\Lib\tkinter\__init__.py", line 862, in callit
+    func(*args)
+    ~~~~^^^^^^^
+  File "c:\Users\KittyGoodridge\OneDrive - elasticStage\Desktop\Repos\Auto_Cal_Tests\gui.py", line 345, in _poll_ui_queue
+    fn(*args)
+    ~~^^^^^^^
+  File "c:\Users\KittyGoodridge\OneDrive - elasticStage\Desktop\Repos\Auto_Cal_Tests\gui.py", line 1485, in _finished
+    self.after(AUTO_ADVANCE_DELAY_MS, self.app.show_page, target)
+               ^^^^^^^^^^^^^^^^^^^^^
+NameError: name 'AUTO_ADVANCE_DELAY_MS' is not defined
+2026-10-28 15:42:56,202 [INFO] MainThread: Stop requested
+2026-10-28 15:42:56,230 [INFO] MainThread: Closing wizard

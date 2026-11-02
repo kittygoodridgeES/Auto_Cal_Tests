@@ -1,0 +1,53 @@
+2026-10-28 16:46:54,001 [INFO] MainThread: Showing page: instructions
+2026-10-28 16:46:54,004 [INFO] MainThread: Logging to C:\Users\KittyGoodridge\OneDrive - elasticStage\Desktop\Repos\Auto_Cal_Tests\constants\logs\3.1.1_20261028_164654\3.1.1_20261028_164654.log
+2026-10-28 16:46:54,005 [WARNING] MainThread: DEBUG: starting at 'validation' with {'selection': {'factory': '1', 'station': '3', 'cluster': '1', 'cutter': '1', 'transport_ok': False}, 'values': {'mmum': 0.019564673317317063, 'y_int': 0.49023917566731634}}
+2026-10-28 16:46:54,005 [INFO] MainThread: Showing page: validation
+2026-10-28 16:46:54,010 [INFO] Thread-1 (_run): Creating API client for factory 1, slot 3.1.1
+2026-10-28 16:46:54,050 [INFO] Thread-1 (_run): Connecting MQTT for factory 1, machine 3.1.1
+2026-10-28 16:46:54,052 [INFO] Thread-1 (_run): init camerasetup
+2026-10-28 16:46:54,054 [INFO] Thread-1 (_run): printing preamble
+2026-10-28 16:46:54,054 [INFO] Thread-1 (_run): ///////////////////////////////////////////////////
+2026-10-28 16:46:54,054 [INFO] Thread-1 (_run): /// VmbPy Asynchronous Grab with OpenCV Example ///
+2026-10-28 16:46:54,054 [INFO] Thread-1 (_run): ///////////////////////////////////////////////////
+
+2026-10-28 16:46:54,055 [INFO] Thread-1 (_run): parsing args
+2026-10-28 16:46:54,055 [INFO] Thread-1 (_run): Starting validation
+2026-10-28 16:46:54,129 [INFO] Thread-1 (_run): Target 65 um -> piezo 1.762
+2026-10-28 16:46:54,130 [INFO] Thread-1 (_run): Target 45 um -> piezo 1.371
+2026-10-28 16:46:54,130 [INFO] Thread-1 (_run): Target 55 um -> piezo 1.566
+2026-10-28 16:46:54,130 [INFO] Thread-1 (_run): Target 65 um -> piezo 1.762
+2026-10-28 16:46:54,130 [INFO] Thread-1 (_run): Target 75 um -> piezo 1.958
+2026-10-28 16:46:54,131 [INFO] Thread-1 (_run): Target 95 um -> piezo 2.349
+2026-10-28 16:46:54,131 [INFO] Thread-1 (_run): Target 105 um -> piezo 2.545
+2026-10-28 16:46:57,958 [INFO] camera: Camera opened: DEV_1AB22C06E926
+2026-10-28 16:46:57,959 [INFO] camera: 28 : line number
+2026-10-28 16:46:57,960 [INFO] camera: cutter number: 3.1.1, cutter_no: 3.1.1
+2026-10-28 16:46:57,964 [INFO] camera: Exposure time set to 2000 µs
+2026-10-28 16:46:57,967 [INFO] camera: Camera setup complete
+2026-10-28 16:46:57,988 [INFO] camera: Camera pixel format setup complete
+2026-10-28 16:46:58,034 [INFO] camera: Camera streaming started
+2026-10-28 16:46:58,302 [INFO] Thread-1 (_run): Camera running
+2026-10-28 16:46:58,352 [INFO] Thread-1 (_run): Drop in pitch set to 75.0
+2026-10-28 16:47:08,863 [INFO] Thread-1 (_run): Cutter reset
+2026-10-28 16:47:10,333 [INFO] Thread-1 (_run): Piezo moved to starting position
+2026-10-28 16:47:12,368 [INFO] Thread-1 (_run): Setup cut started
+2026-10-28 16:47:44,083 [INFO] Thread-1 (_run): Head has reached cutting position
+2026-10-28 16:47:44,083 [INFO] Thread-1 (_run): Cutting at 65 um
+2026-10-28 16:48:04,266 [INFO] Thread-1 (_run): Cutting at 45 um
+2026-10-28 16:48:21,701 [INFO] Thread-1 (_run): Cutting at 55 um
+2026-10-28 16:48:39,743 [INFO] Thread-1 (_run): Cutting at 65 um
+2026-10-28 16:48:57,740 [INFO] Thread-1 (_run): Cutting at 75 um
+2026-10-28 16:49:16,286 [INFO] Thread-1 (_run): Cutting at 95 um
+2026-10-28 16:49:33,816 [INFO] Thread-1 (_run): Cutting at 105 um
+2026-10-28 16:49:55,300 [INFO] Thread-1 (_run): Validation cut complete
+2026-10-28 16:50:35,413 [INFO] camera: Camera streaming stopped
+2026-10-28 16:50:36,297 [INFO] Thread-1 (_run): Head drop position restored to 147.2
+2026-10-28 16:50:36,298 [INFO] Thread-1 (_run): Validation stopped before it finished
+2026-10-28 16:50:36,303 [ERROR] Thread-1 (_run): validation_worker failed
+Traceback (most recent call last):
+  File "c:\Users\KittyGoodridge\OneDrive - elasticStage\Desktop\Repos\Auto_Cal_Tests\gui.py", line 1589, in _run
+    self.worker(self.app.make_context(self.frames))
+    ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\KittyGoodridge\OneDrive - elasticStage\Desktop\Repos\Auto_Cal_Tests\gui.py", line 2073, in validation_worker
+    raise RuntimeError("Validation was stopped before it finished")
+RuntimeError: Validation was stopped before it finished

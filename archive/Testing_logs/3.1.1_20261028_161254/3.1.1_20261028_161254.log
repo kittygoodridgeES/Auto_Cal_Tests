@@ -1,0 +1,191 @@
+2026-10-28 16:12:13,251 [INFO] MainThread: Showing page: instructions
+2026-10-28 16:12:48,528 [INFO] MainThread: Showing page: selection
+2026-10-28 16:12:54,814 [INFO] MainThread: Logging to C:\Users\KittyGoodridge\OneDrive - elasticStage\Desktop\Repos\Auto_Cal_Tests\constants\logs\3.1.1_20261028_161254\3.1.1_20261028_161254.log
+2026-10-28 16:12:54,814 [INFO] MainThread: Machine ID: 3.1.1
+2026-10-28 16:12:54,815 [INFO] MainThread: Selection: Factory ELSTREE, Station 3, Cluster 1, Cutter 1, Transport not operational
+2026-10-28 16:12:54,815 [INFO] MainThread: Showing page: check_state
+2026-10-28 16:12:54,823 [INFO] Thread-1 (_run_check): Creating API client for factory 1, slot 3.1.1
+2026-10-28 16:12:55,068 [INFO] Thread-1 (_run_check): PackML mode 6, state 4
+2026-10-28 16:12:55,069 [INFO] Thread-1 (_run_check): Cutter is in IDLE
+2026-10-28 16:12:57,301 [INFO] MainThread: Showing page: confirm
+2026-10-28 16:12:57,307 [INFO] Thread-2 (_read): Looking up diamond ID for 3.1.1
+2026-10-28 16:12:57,934 [INFO] MainThread: Read diamond_id: D17102025_N_01.008
+2026-10-28 16:12:58,566 [INFO] MainThread: diamond_id D17102025_N_01.008 confirmed: Yes
+2026-10-28 16:13:00,230 [INFO] Thread-3 (_decide): Change in diamond length: -0.12
+2026-10-28 16:13:00,287 [INFO] MainThread: choose_after_diamond -> supply
+2026-10-28 16:13:00,288 [INFO] MainThread: Showing page: supply
+2026-10-28 16:13:00,290 [INFO] MainThread: Transport not operational: showing manual instruction (No Disk)
+2026-10-28 16:13:01,832 [INFO] MainThread: Disk position No Disk -> A_side (manual)
+2026-10-28 16:13:01,833 [INFO] MainThread: Showing page: Calibration
+2026-10-28 16:13:01,843 [INFO] Thread-4 (_run): Connecting MQTT for factory 1, machine 3.1.1
+2026-10-28 16:13:01,848 [INFO] Thread-4 (_run): init camerasetup
+2026-10-28 16:13:01,848 [INFO] Thread-4 (_run): printing preamble
+2026-10-28 16:13:01,849 [INFO] Thread-4 (_run): ///////////////////////////////////////////////////
+2026-10-28 16:13:01,849 [INFO] Thread-4 (_run): /// VmbPy Asynchronous Grab with OpenCV Example ///
+2026-10-28 16:13:01,849 [INFO] Thread-4 (_run): ///////////////////////////////////////////////////
+
+2026-10-28 16:13:01,850 [INFO] Thread-4 (_run): parsing args
+2026-10-28 16:13:02,025 [INFO] Thread-4 (_run): Original Config Retrieved: 
+ mm/um:0.0277790829780498 
+ Default piezo pos: 1.7604999542236328 
+ Default GW: 50.0
+2026-10-28 16:13:02,025 [INFO] Thread-4 (_run): Change in diamond length from previous calibration: -0.12
+2026-10-28 16:13:02,025 [INFO] Thread-4 (_run): Drop in piezo pos decided: 2.751663273345625Drop in position estimated from change in diamond length
+2026-10-28 16:13:06,028 [INFO] camera: Camera opened: DEV_1AB22C06E926
+2026-10-28 16:13:06,029 [INFO] camera: 28 : line number
+2026-10-28 16:13:06,030 [INFO] camera: cutter number: 3.1.1, cutter_no: 3.1.1
+2026-10-28 16:13:06,035 [INFO] camera: Exposure time set to 2000 µs
+2026-10-28 16:13:06,040 [INFO] camera: Camera setup complete
+2026-10-28 16:13:06,064 [INFO] camera: Camera pixel format setup complete
+2026-10-28 16:13:06,115 [INFO] camera: Camera streaming started
+2026-10-28 16:13:06,180 [INFO] Thread-4 (_run): Camera running
+2026-10-28 16:13:06,298 [INFO] Thread-4 (_run): Drop in pitch set from 147.2 to 75.0
+2026-10-28 16:13:06,830 [INFO] Thread-4 (_run): Cutter already in setup mode
+2026-10-28 16:13:06,934 [INFO] Thread-4 (_run): Cutter resetting
+2026-10-28 16:13:12,945 [INFO] Thread-4 (_run): Cutter reset
+2026-10-28 16:13:12,946 [INFO] Thread-4 (_run): Moving piezo to starting position 
+ ===
+2026-10-28 16:13:16,306 [INFO] Thread-4 (_run): Piezo moved to starting pos
+2026-10-28 16:13:17,851 [INFO] Thread-4 (_run): starting cutter
+2026-10-28 16:13:17,910 [INFO] Thread-4 (_run): starting setup cut
+2026-10-28 16:13:17,910 [INFO] Thread-4 (_run): Setup cut has started
+2026-10-28 16:13:50,563 [INFO] Thread-4 (_run): Head has reached cutting position
+2026-10-28 16:13:52,748 [INFO] Thread-4 (_run): pos 1.76: waiting for groove (2 s) | waiting for 5 frames  (frames: 1081 received, 1 analysed)
+2026-10-28 16:13:54,385 [INFO] Thread-4 (_run): pos 1.76: waiting for groove (3 s) | waiting for 5 frames  (frames: 1119 received, 2 analysed)
+2026-10-28 16:14:08,232 [INFO] camera: Camera streaming stopped
+2026-10-28 16:14:20,180 [ERROR] Thread-4 (_run): run1_worker failed
+Traceback (most recent call last):
+  File "c:\Users\KittyGoodridge\OneDrive - elasticStage\Desktop\Repos\Auto_Cal_Tests\sideA.py", line 344, in run_calibration
+    current_pos = float(self.mqtt.monitor("piezo_actual"))
+                        ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^
+  File "c:\Users\KittyGoodridge\OneDrive - elasticStage\Desktop\Repos\Auto_Cal_Tests\mqtt_retrieval.py", line 35, in monitor
+    msg = subscribe.simple(f"{self.topic_prefix}/{endpoints.TOPICS[name]}", hostname=endpoints.MQTT_HOST)
+  File "C:\Users\KittyGoodridge\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\paho\mqtt\subscribe.py", line 277, in simple
+    callback(_on_message_simple, topics, qos, userdata, hostname, port,
+    ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+             client_id, keepalive, will, auth, tls, protocol, transport,
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+             clean_session, proxy_args)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\KittyGoodridge\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\paho\mqtt\subscribe.py", line 182, in callback
+    client.connect(hostname, port, keepalive)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\KittyGoodridge\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\paho\mqtt\client.py", line 1435, in connect
+    return self.reconnect()
+           ~~~~~~~~~~~~~~^^
+  File "C:\Users\KittyGoodridge\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\paho\mqtt\client.py", line 1598, in reconnect
+    self._sock = self._create_socket()
+                 ~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\KittyGoodridge\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\paho\mqtt\client.py", line 4609, in _create_socket
+    sock = self._create_socket_connection()
+  File "C:\Users\KittyGoodridge\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\paho\mqtt\client.py", line 4640, in _create_socket_connection
+    return socket.create_connection(addr, timeout=self._connect_timeout, source_address=source)
+           ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.13_3.13.3824.0_x64__qbz5n2kfra8p0\Lib\socket.py", line 844, in create_connection
+    for res in getaddrinfo(host, port, 0, SOCK_STREAM):
+               ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.13_3.13.3824.0_x64__qbz5n2kfra8p0\Lib\socket.py", line 981, in getaddrinfo
+    for res in _socket.getaddrinfo(host, port, family, type, proto, flags):
+               ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+socket.gaierror: [Errno 11001] getaddrinfo failed
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\KittyGoodridge\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\urllib3\connection.py", line 198, in _new_conn
+    sock = connection.create_connection(
+        (self._dns_host, self.port),
+    ...<2 lines>...
+        socket_options=self.socket_options,
+    )
+  File "C:\Users\KittyGoodridge\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\urllib3\util\connection.py", line 60, in create_connection
+    for res in socket.getaddrinfo(host, port, family, socket.SOCK_STREAM):
+               ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.13_3.13.3824.0_x64__qbz5n2kfra8p0\Lib\socket.py", line 981, in getaddrinfo
+    for res in _socket.getaddrinfo(host, port, family, type, proto, flags):
+               ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+socket.gaierror: [Errno 11001] getaddrinfo failed
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\KittyGoodridge\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\urllib3\connectionpool.py", line 787, in urlopen
+    response = self._make_request(
+        conn,
+    ...<10 lines>...
+        **response_kw,
+    )
+  File "C:\Users\KittyGoodridge\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\urllib3\connectionpool.py", line 488, in _make_request
+    raise new_e
+  File "C:\Users\KittyGoodridge\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\urllib3\connectionpool.py", line 464, in _make_request
+    self._validate_conn(conn)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^
+  File "C:\Users\KittyGoodridge\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\urllib3\connectionpool.py", line 1093, in _validate_conn
+    conn.connect()
+    ~~~~~~~~~~~~^^
+  File "C:\Users\KittyGoodridge\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\urllib3\connection.py", line 704, in connect
+    self.sock = sock = self._new_conn()
+                       ~~~~~~~~~~~~~~^^
+  File "C:\Users\KittyGoodridge\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\urllib3\connection.py", line 205, in _new_conn
+    raise NameResolutionError(self.host, self, e) from e
+urllib3.exceptions.NameResolutionError: <urllib3.connection.HTTPSConnection object at 0x0000021052DAC7D0>: Failed to resolve 'cluster1.station3.factory1.elasticstage.com' ([Errno 11001] getaddrinfo failed)
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\KittyGoodridge\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\requests\adapters.py", line 667, in send
+    resp = conn.urlopen(
+        method=request.method,
+    ...<9 lines>...
+        chunked=chunked,
+    )
+  File "C:\Users\KittyGoodridge\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\urllib3\connectionpool.py", line 841, in urlopen
+    retries = retries.increment(
+        method, url, error=new_e, _pool=self, _stacktrace=sys.exc_info()[2]
+    )
+  File "C:\Users\KittyGoodridge\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\urllib3\util\retry.py", line 519, in increment
+    raise MaxRetryError(_pool, url, reason) from reason  # type: ignore[arg-type]
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+urllib3.exceptions.MaxRetryError: HTTPSConnectionPool(host='cluster1.station3.factory1.elasticstage.com', port=443): Max retries exceeded with url: /slot/1/state/command/stop (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x0000021052DAC7D0>: Failed to resolve 'cluster1.station3.factory1.elasticstage.com' ([Errno 11001] getaddrinfo failed)"))
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "c:\Users\KittyGoodridge\OneDrive - elasticStage\Desktop\Repos\Auto_Cal_Tests\api_requests.py", line 62, in _request
+    resp = requests.request(method, url, json=data, timeout=timeouts.TIMEOUT)
+  File "C:\Users\KittyGoodridge\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\requests\api.py", line 59, in request
+    return session.request(method=method, url=url, **kwargs)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\KittyGoodridge\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\requests\sessions.py", line 589, in request
+    resp = self.send(prep, **send_kwargs)
+  File "C:\Users\KittyGoodridge\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\requests\sessions.py", line 703, in send
+    r = adapter.send(request, **kwargs)
+  File "C:\Users\KittyGoodridge\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\requests\adapters.py", line 700, in send
+    raise ConnectionError(e, request=request)
+requests.exceptions.ConnectionError: HTTPSConnectionPool(host='cluster1.station3.factory1.elasticstage.com', port=443): Max retries exceeded with url: /slot/1/state/command/stop (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x0000021052DAC7D0>: Failed to resolve 'cluster1.station3.factory1.elasticstage.com' ([Errno 11001] getaddrinfo failed)"))
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "c:\Users\KittyGoodridge\OneDrive - elasticStage\Desktop\Repos\Auto_Cal_Tests\gui.py", line 1589, in _run
+    self.worker(self.app.make_context(self.frames))
+    ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\KittyGoodridge\OneDrive - elasticStage\Desktop\Repos\Auto_Cal_Tests\gui.py", line 1911, in run1_worker
+    csv_path = cal.run_calibration(ctx.selection.machine_id)
+  File "c:\Users\KittyGoodridge\OneDrive - elasticStage\Desktop\Repos\Auto_Cal_Tests\sideA.py", line 457, in run_calibration
+    self.api.command("stop")
+    ~~~~~~~~~~~~~~~~^^^^^^^^
+  File "c:\Users\KittyGoodridge\OneDrive - elasticStage\Desktop\Repos\Auto_Cal_Tests\api_requests.py", line 87, in command
+    return self._request("POST", endpoints.COMMANDS[name])
+           ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\KittyGoodridge\OneDrive - elasticStage\Desktop\Repos\Auto_Cal_Tests\api_requests.py", line 64, in _request
+    raise ConnectionError(f"{method} {endpoint} failed: {e}") from e
+ConnectionError: POST /state/command/stop failed: HTTPSConnectionPool(host='cluster1.station3.factory1.elasticstage.com', port=443): Max retries exceeded with url: /slot/1/state/command/stop (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x0000021052DAC7D0>: Failed to resolve 'cluster1.station3.factory1.elasticstage.com' ([Errno 11001] getaddrinfo failed)"))
+2026-10-28 16:15:02,343 [INFO] MainThread: Stop requested
+2026-10-28 16:15:02,371 [ERROR] MainThread: Error closing MQTT client
+Traceback (most recent call last):
+  File "c:\Users\KittyGoodridge\OneDrive - elasticStage\Desktop\Repos\Auto_Cal_Tests\gui.py", line 320, in _close_mqtt
+    self._mqtt.disconnect()   # or whatever your MQTTClient's shutdown method is
+    ^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'MQTTClient' object has no attribute 'disconnect'
+2026-10-28 16:15:02,373 [INFO] MainThread: Closing wizard

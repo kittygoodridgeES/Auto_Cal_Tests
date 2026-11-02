@@ -58,7 +58,7 @@ def _crop_bmp(img, margin=cam_const.CROP):
 def _gray(a):
     a = np.asarray(a)
     if a.ndim == 3:
-        a = cv2.cvtColor(a, cv2.gui.COLOR_BGRA2GRAY if a.shape[2] == 4 else cv2.gui.COLOR_BGR2GRAY)
+        a = cv2.cvtColor(a, cv2.COLOR_BGRA2GRAY if a.shape[2] == 4 else cv2.COLOR_BGR2GRAY)
     return a.astype(np.float32)
 
 
@@ -91,7 +91,7 @@ def _unwrap(ratio, c):
 
 def _grooves_in_section(P, j):
     """(inner edge, outer edge) of each complete groove in cross-section j, as rows of P."""
-    blk = P[:, j * SECTION_PX:(j + 1) * SECTION_PX]
+    blk = P[:, j * cam_const.SECTION_PX:(j + 1) * cam_const.SECTION_PX]
     ok = np.isnan(blk).mean(1) < 0.2
     if ok.sum() < 50:
         return np.zeros((0, 2))
@@ -164,6 +164,6 @@ def _robust_mean(w):
 
 # import cv2
 
-# frame = cv2.imread(r"archive\3.2.2_19.10.26.bmp")
+# frame = cv2.imread(r"logs\3.1.1_20261102_112724\val_sample_4.png")
 # widths, land = analyse_frame(frame)
 # print(widths)

@@ -123,7 +123,7 @@ class GrooveMonitor:
     # -- measurement ---------------------------------------------------
     def measure(self, frame):
         """(width µm, radius px) of the innermost complete groove, or None."""
-        g = frame if frame.ndim == 2 else cv2.cvtColor(frame, cv2.gui.COLOR_BGR2GRAY)
+        g = frame if frame.ndim == 2 else cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
         if g.shape != self._shape:
             self._geometry(g.shape)
             self.r_lock = None

@@ -1,0 +1,54 @@
+2026-10-29 15:30:55,449 [INFO] MainThread: Showing page: instructions
+2026-10-29 15:30:55,452 [INFO] MainThread: Logging to C:\Users\KittyGoodridge\OneDrive - elasticStage\Desktop\Repos\Auto_Cal_Tests\logs\2.2.2_20261029_153055\2.2.2_20261029_153055.log
+2026-10-29 15:30:55,453 [WARNING] MainThread: DEBUG: starting at 'validation' with {'selection': {'factory': '1', 'station': '2', 'cluster': '2', 'cutter': '2', 'transport_ok': False}, 'values': {'mmum': 0.0283628629641722, 'y_int': 0.148167303220543}}
+2026-10-29 15:30:55,453 [INFO] MainThread: Showing page: validation
+2026-10-29 15:30:55,458 [INFO] Thread-1 (_run): Creating API client for factory 1, slot 2.2.2
+2026-10-29 15:30:55,823 [INFO] Thread-1 (_run): Connecting MQTT for factory 1, machine 2.2.2
+2026-10-29 15:30:55,825 [INFO] Thread-1 (_run): init camerasetup
+2026-10-29 15:30:55,825 [INFO] Thread-1 (_run): printing preamble
+2026-10-29 15:30:55,825 [INFO] Thread-1 (_run): ///////////////////////////////////////////////////
+2026-10-29 15:30:55,826 [INFO] Thread-1 (_run): /// VmbPy Asynchronous Grab with OpenCV Example ///
+2026-10-29 15:30:55,826 [INFO] Thread-1 (_run): ///////////////////////////////////////////////////
+
+2026-10-29 15:30:55,826 [INFO] Thread-1 (_run): parsing args
+2026-10-29 15:30:55,826 [INFO] Thread-1 (_run): Starting validation
+2026-10-29 15:30:56,120 [INFO] Thread-1 (_run): Target 65 um -> piezo 1.992
+2026-10-29 15:30:56,120 [INFO] Thread-1 (_run): Target 45 um -> piezo 1.424
+2026-10-29 15:30:56,121 [INFO] Thread-1 (_run): Target 55 um -> piezo 1.708
+2026-10-29 15:30:56,121 [INFO] Thread-1 (_run): Target 75 um -> piezo 2.275
+2026-10-29 15:30:56,121 [INFO] Thread-1 (_run): Target 95 um -> piezo 2.843
+2026-10-29 15:30:56,122 [INFO] Thread-1 (_run): Target 105 um -> piezo 3.126
+2026-10-29 15:30:59,997 [INFO] camera: Camera opened: DEV_1AB22C06E926
+2026-10-29 15:30:59,998 [INFO] camera: 17 : line number
+2026-10-29 15:30:59,999 [INFO] camera: cutter number: 2.2.2, cutter_no: 2.2.2
+2026-10-29 15:31:00,006 [INFO] camera: Exposure time set to 2000 µs
+2026-10-29 15:31:00,010 [INFO] camera: Camera setup complete
+2026-10-29 15:31:00,034 [INFO] camera: Camera pixel format setup complete
+2026-10-29 15:31:00,080 [INFO] camera: Camera streaming started
+2026-10-29 15:31:00,151 [INFO] Thread-1 (_run): Camera running
+2026-10-29 15:31:00,335 [INFO] Thread-1 (_run): Drop in pitch set to 75.0
+2026-10-29 15:31:07,632 [INFO] Thread-1 (_run): Cutter reset
+2026-10-29 15:31:08,153 [INFO] Thread-1 (_run): Piezo moved to starting position
+2026-10-29 15:31:09,877 [INFO] Thread-1 (_run): Setup cut started
+2026-10-29 15:32:20,366 [INFO] MainThread: Stop requested
+2026-10-29 15:32:20,405 [ERROR] MainThread: Error closing MQTT client
+Traceback (most recent call last):
+  File "c:\Users\KittyGoodridge\OneDrive - elasticStage\Desktop\Repos\Auto_Cal_Tests\gui.py", line 320, in _close_mqtt
+    self._mqtt.disconnect()   # or whatever your MQTTClient's shutdown method is
+    ^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'MQTTClient' object has no attribute 'disconnect'
+2026-10-29 15:32:20,477 [INFO] camera: Camera streaming stopped
+2026-10-29 15:32:25,543 [INFO] Thread-1 (_run): Cutter stopped during clean-up
+2026-10-29 15:32:25,631 [INFO] Thread-1 (_run): Head drop position restored to 147.425
+2026-10-29 15:32:25,632 [ERROR] Thread-1 (_run): validation_worker failed
+Traceback (most recent call last):
+  File "c:\Users\KittyGoodridge\OneDrive - elasticStage\Desktop\Repos\Auto_Cal_Tests\gui.py", line 1589, in _run
+    self.worker(self.app.make_context(self.frames))
+    ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\KittyGoodridge\OneDrive - elasticStage\Desktop\Repos\Auto_Cal_Tests\gui.py", line 2068, in validation_worker
+    pass_fail = val.run_validation(ctx.selection.machine_id)
+  File "c:\Users\KittyGoodridge\OneDrive - elasticStage\Desktop\Repos\Auto_Cal_Tests\validation.py", line 174, in run_validation
+    for photo in photo_list:
+                 ^^^^^^^^^^
+TypeError: 'bool' object is not iterable
+2026-10-29 15:32:25,663 [INFO] MainThread: Closing wizard

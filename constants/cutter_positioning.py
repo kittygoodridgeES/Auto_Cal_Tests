@@ -5,13 +5,12 @@ ROUND_SHIM = 2                              # number of decimal places to round 
 MANUAL_DISK_CYCLE = {"No Disk": "A_side", "A_side": "B_side", "B_side": "No Disk"}
 DEFAULT_GW = 50                             # default groove width set on the cutter (defualt headweight is measured at this value)
 ABS_ERROR_MARGIN = 5                        # max allowed |measured - target| (um)
+VAL_DROP_IN = 70.0                            # smaller pitch range required for validation so can drop in closer to improve sample range
 
-
-PIEZO_GROOVES = 3                            # grooves at the start of each band affected by the piezo move
-NUMBER_OF_VAL_SAMPLES = 4                    # stationary photos taken after the cut
+PIEZO_GROOVES = 2                            # grooves at the start of each band affected by the piezo move
 REV_S = 1.8                                  # one platter revolution = one groove (s)
 VALIDATION_S = 10 * REV_S                    # cutting time at each target width (s)
-VALIDATION_WIDTHS = [65, 45, 55, 65, 75, 95, 105]   # 77 first for a safe drop-in without lead-in, disk will most likely swarf consistently cutting at 125 so set max at 110
+VALIDATION_WIDTHS = [70, 45, 55, 75, 95, 105]   # 77 first for a safe drop-in without lead-in, disk will most likely swarf consistently cutting at 125 so set max at 110
 DROPIN_PITCH = 75.0                          # pitch where cutter can drop within the camera view
 
 DROP_IN_AIM = 90.0                    # um width that the cutter will aim to drop in at
@@ -25,7 +24,6 @@ MAX_SAFE_GW = 130                       # maximum groove width requested on cutt
 MIN_SAFE_GW = 40                        # minimum groove width requested on cutter
 HEAVY_STEP = 0.2                      # after a heavy-limit hit, go this far below the drop-in position
 NO_GROOVE_STEP = 0.5                  # if no grooves are seen for a set window (timeouts) increase the piezo by this much (capped at PIEZO_UPPER_LIMIT), once
-
 
 MIN_SAMPLES = 20                      # 5-frame averages needed at a position before moving on
 MERGE_RATIO = 1.7                     # width jumping to >= this many times the last good width = merged grooves
@@ -45,8 +43,6 @@ PIEZO_CMD_IDS = {
     14: "Move Position", 
     15: "Move Relative",
 }
-
-
 
 PACKML_MODES = {
     0: "ModeNone",

@@ -1,0 +1,132 @@
+2026-10-29 12:00:35,828 [INFO] MainThread: Showing page: instructions
+2026-10-29 12:00:35,831 [INFO] MainThread: Logging to C:\Users\KittyGoodridge\OneDrive - elasticStage\Desktop\Repos\Auto_Cal_Tests\logs\2.2.2_20261029_120035\2.2.2_20261029_120035.log
+2026-10-29 12:00:35,831 [WARNING] MainThread: DEBUG: starting at 'validation' with {'selection': {'factory': '1', 'station': '2', 'cluster': '2', 'cutter': '2', 'transport_ok': False}, 'values': {'mmum': 0.019564673317317063, 'y_int': 0.49023917566731634}}
+2026-10-29 12:00:35,831 [INFO] MainThread: Showing page: validation
+2026-10-29 12:00:35,836 [INFO] Thread-1 (_run): Creating API client for factory 1, slot 2.2.2
+2026-10-29 12:00:35,897 [INFO] Thread-1 (_run): Connecting MQTT for factory 1, machine 2.2.2
+2026-10-29 12:00:35,898 [INFO] Thread-1 (_run): init camerasetup
+2026-10-29 12:00:35,898 [INFO] Thread-1 (_run): printing preamble
+2026-10-29 12:00:35,898 [INFO] Thread-1 (_run): ///////////////////////////////////////////////////
+2026-10-29 12:00:35,899 [INFO] Thread-1 (_run): /// VmbPy Asynchronous Grab with OpenCV Example ///
+2026-10-29 12:00:35,899 [INFO] Thread-1 (_run): ///////////////////////////////////////////////////
+
+2026-10-29 12:00:35,899 [INFO] Thread-1 (_run): parsing args
+2026-10-29 12:00:35,899 [INFO] Thread-1 (_run): Starting validation
+2026-10-29 12:00:35,948 [INFO] Thread-1 (_run): Target 65 um -> piezo 1.762
+2026-10-29 12:00:35,948 [INFO] Thread-1 (_run): Target 45 um -> piezo 1.371
+2026-10-29 12:00:35,949 [INFO] Thread-1 (_run): Target 55 um -> piezo 1.566
+2026-10-29 12:00:35,949 [INFO] Thread-1 (_run): Target 75 um -> piezo 1.958
+2026-10-29 12:00:35,949 [INFO] Thread-1 (_run): Target 95 um -> piezo 2.349
+2026-10-29 12:00:35,949 [INFO] Thread-1 (_run): Target 105 um -> piezo 2.545
+2026-10-29 12:00:39,604 [INFO] camera: Camera opened: DEV_1AB22C06E926
+2026-10-29 12:00:39,604 [INFO] camera: 17 : line number
+2026-10-29 12:00:39,605 [INFO] camera: cutter number: 2.2.2, cutter_no: 2.2.2
+2026-10-29 12:00:39,608 [INFO] camera: Exposure time set to 2000 µs
+2026-10-29 12:00:39,612 [INFO] camera: Camera setup complete
+2026-10-29 12:00:39,634 [INFO] camera: Camera pixel format setup complete
+2026-10-29 12:00:39,682 [INFO] camera: Camera streaming started
+2026-10-29 12:00:39,754 [INFO] Thread-1 (_run): Camera running
+2026-10-29 12:01:05,691 [INFO] camera: Camera streaming stopped
+2026-10-29 12:01:06,484 [INFO] Thread-1 (_run): Head drop position restored to 147.425
+2026-10-29 12:01:06,485 [ERROR] Thread-1 (_run): validation_worker failed
+Traceback (most recent call last):
+  File "C:\Users\KittyGoodridge\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\urllib3\connectionpool.py", line 534, in _make_request
+    response = conn.getresponse()
+  File "C:\Users\KittyGoodridge\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\urllib3\connection.py", line 516, in getresponse
+    httplib_response = super().getresponse()
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.13_3.13.3824.0_x64__qbz5n2kfra8p0\Lib\http\client.py", line 1459, in getresponse
+    response.begin()
+    ~~~~~~~~~~~~~~^^
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.13_3.13.3824.0_x64__qbz5n2kfra8p0\Lib\http\client.py", line 336, in begin
+    version, status, reason = self._read_status()
+                              ~~~~~~~~~~~~~~~~~^^
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.13_3.13.3824.0_x64__qbz5n2kfra8p0\Lib\http\client.py", line 297, in _read_status
+    line = str(self.fp.readline(_MAXLINE + 1), "iso-8859-1")
+               ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.13_3.13.3824.0_x64__qbz5n2kfra8p0\Lib\socket.py", line 723, in readinto
+    return self._sock.recv_into(b)
+           ~~~~~~~~~~~~~~~~~~~~^^^
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.13_3.13.3824.0_x64__qbz5n2kfra8p0\Lib\ssl.py", line 1304, in recv_into
+    return self.read(nbytes, buffer)
+           ~~~~~~~~~^^^^^^^^^^^^^^^^
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.13_3.13.3824.0_x64__qbz5n2kfra8p0\Lib\ssl.py", line 1138, in read
+    return self._sslobj.read(len, buffer)
+           ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+TimeoutError: The read operation timed out
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\KittyGoodridge\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\requests\adapters.py", line 667, in send
+    resp = conn.urlopen(
+        method=request.method,
+    ...<9 lines>...
+        chunked=chunked,
+    )
+  File "C:\Users\KittyGoodridge\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\urllib3\connectionpool.py", line 841, in urlopen
+    retries = retries.increment(
+        method, url, error=new_e, _pool=self, _stacktrace=sys.exc_info()[2]
+    )
+  File "C:\Users\KittyGoodridge\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\urllib3\util\retry.py", line 474, in increment
+    raise reraise(type(error), error, _stacktrace)
+          ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\KittyGoodridge\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\urllib3\util\util.py", line 39, in reraise
+    raise value
+  File "C:\Users\KittyGoodridge\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\urllib3\connectionpool.py", line 787, in urlopen
+    response = self._make_request(
+        conn,
+    ...<10 lines>...
+        **response_kw,
+    )
+  File "C:\Users\KittyGoodridge\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\urllib3\connectionpool.py", line 536, in _make_request
+    self._raise_timeout(err=e, url=url, timeout_value=read_timeout)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\KittyGoodridge\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\urllib3\connectionpool.py", line 367, in _raise_timeout
+    raise ReadTimeoutError(
+        self, url, f"Read timed out. (read timeout={timeout_value})"
+    ) from err
+urllib3.exceptions.ReadTimeoutError: HTTPSConnectionPool(host='cluster2.station2.factory1.elasticstage.com', port=443): Read timed out. (read timeout=10.0)
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "c:\Users\KittyGoodridge\OneDrive - elasticStage\Desktop\Repos\Auto_Cal_Tests\api_requests.py", line 62, in _request
+    resp = requests.request(method, url, json=data, timeout=timeouts.TIMEOUT)
+  File "C:\Users\KittyGoodridge\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\requests\api.py", line 59, in request
+    return session.request(method=method, url=url, **kwargs)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\KittyGoodridge\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\requests\sessions.py", line 589, in request
+    resp = self.send(prep, **send_kwargs)
+  File "C:\Users\KittyGoodridge\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\requests\sessions.py", line 703, in send
+    r = adapter.send(request, **kwargs)
+  File "C:\Users\KittyGoodridge\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\requests\adapters.py", line 713, in send
+    raise ReadTimeout(e, request=request)
+requests.exceptions.ReadTimeout: HTTPSConnectionPool(host='cluster2.station2.factory1.elasticstage.com', port=443): Read timed out. (read timeout=10.0)
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "c:\Users\KittyGoodridge\OneDrive - elasticStage\Desktop\Repos\Auto_Cal_Tests\gui.py", line 1589, in _run
+    self.worker(self.app.make_context(self.frames))
+    ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\KittyGoodridge\OneDrive - elasticStage\Desktop\Repos\Auto_Cal_Tests\gui.py", line 2068, in validation_worker
+    pass_fail = val.run_validation(ctx.selection.machine_id)
+  File "c:\Users\KittyGoodridge\OneDrive - elasticStage\Desktop\Repos\Auto_Cal_Tests\validation.py", line 170, in run_validation
+    photo_list = self._cut_and_sample(piezo_positions, latest, saved_samples)
+  File "c:\Users\KittyGoodridge\OneDrive - elasticStage\Desktop\Repos\Auto_Cal_Tests\validation.py", line 280, in _cut_and_sample
+    api.command("start")
+    ~~~~~~~~~~~^^^^^^^^^
+  File "c:\Users\KittyGoodridge\OneDrive - elasticStage\Desktop\Repos\Auto_Cal_Tests\api_requests.py", line 87, in command
+    return self._request("POST", endpoints.COMMANDS[name])
+           ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\KittyGoodridge\OneDrive - elasticStage\Desktop\Repos\Auto_Cal_Tests\api_requests.py", line 64, in _request
+    raise ConnectionError(f"{method} {endpoint} failed: {e}") from e
+ConnectionError: POST /state/command/start failed: HTTPSConnectionPool(host='cluster2.station2.factory1.elasticstage.com', port=443): Read timed out. (read timeout=10.0)
+2026-10-29 12:03:38,338 [INFO] MainThread: Stop requested
+2026-10-29 12:03:38,379 [ERROR] MainThread: Error closing MQTT client
+Traceback (most recent call last):
+  File "c:\Users\KittyGoodridge\OneDrive - elasticStage\Desktop\Repos\Auto_Cal_Tests\gui.py", line 320, in _close_mqtt
+    self._mqtt.disconnect()   # or whatever your MQTTClient's shutdown method is
+    ^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'MQTTClient' object has no attribute 'disconnect'
+2026-10-29 12:03:38,382 [INFO] MainThread: Closing wizard

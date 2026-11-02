@@ -1,0 +1,106 @@
+2026-10-29 15:34:19,197 [INFO] MainThread: Showing page: instructions
+2026-10-29 15:34:19,201 [INFO] MainThread: Logging to C:\Users\KittyGoodridge\OneDrive - elasticStage\Desktop\Repos\Auto_Cal_Tests\logs\2.2.2_20261029_153419\2.2.2_20261029_153419.log
+2026-10-29 15:34:19,201 [WARNING] MainThread: DEBUG: starting at 'validation' with {'selection': {'factory': '1', 'station': '2', 'cluster': '2', 'cutter': '2', 'transport_ok': False}, 'values': {'mmum': 0.0283628629641722, 'y_int': 0.148167303220543}}
+2026-10-29 15:34:19,202 [INFO] MainThread: Showing page: validation
+2026-10-29 15:34:19,208 [INFO] Thread-1 (_run): Creating API client for factory 1, slot 2.2.2
+2026-10-29 15:34:19,290 [INFO] Thread-1 (_run): Connecting MQTT for factory 1, machine 2.2.2
+2026-10-29 15:34:19,292 [INFO] Thread-1 (_run): init camerasetup
+2026-10-29 15:34:19,292 [INFO] Thread-1 (_run): printing preamble
+2026-10-29 15:34:19,292 [INFO] Thread-1 (_run): ///////////////////////////////////////////////////
+2026-10-29 15:34:19,293 [INFO] Thread-1 (_run): /// VmbPy Asynchronous Grab with OpenCV Example ///
+2026-10-29 15:34:19,293 [INFO] Thread-1 (_run): ///////////////////////////////////////////////////
+
+2026-10-29 15:34:19,293 [INFO] Thread-1 (_run): parsing args
+2026-10-29 15:34:19,293 [INFO] Thread-1 (_run): Starting validation
+2026-10-29 15:34:19,374 [INFO] Thread-1 (_run): Target 65 um -> piezo 1.992
+2026-10-29 15:34:19,375 [INFO] Thread-1 (_run): Target 45 um -> piezo 1.424
+2026-10-29 15:34:19,376 [INFO] Thread-1 (_run): Target 55 um -> piezo 1.708
+2026-10-29 15:34:19,376 [INFO] Thread-1 (_run): Target 75 um -> piezo 2.275
+2026-10-29 15:34:19,376 [INFO] Thread-1 (_run): Target 95 um -> piezo 2.843
+2026-10-29 15:34:19,377 [INFO] Thread-1 (_run): Target 105 um -> piezo 3.126
+2026-10-29 15:34:23,294 [INFO] camera: Camera opened: DEV_1AB22C06E926
+2026-10-29 15:34:23,294 [INFO] camera: 17 : line number
+2026-10-29 15:34:23,295 [INFO] camera: cutter number: 2.2.2, cutter_no: 2.2.2
+2026-10-29 15:34:23,299 [INFO] camera: Exposure time set to 2000 µs
+2026-10-29 15:34:23,303 [INFO] camera: Camera setup complete
+2026-10-29 15:34:23,324 [INFO] camera: Camera pixel format setup complete
+2026-10-29 15:34:23,367 [INFO] camera: Camera streaming started
+2026-10-29 15:34:23,438 [INFO] Thread-1 (_run): Camera running
+2026-10-29 15:34:23,512 [INFO] Thread-1 (_run): Drop in pitch set to 75.0
+2026-10-29 15:34:24,889 [INFO] Thread-1 (_run): Cutter already in setup mode
+2026-10-29 15:34:31,022 [INFO] Thread-1 (_run): Cutter reset
+2026-10-29 15:34:31,638 [INFO] Thread-1 (_run): Piezo moved to starting position
+2026-10-29 15:34:33,788 [INFO] Thread-1 (_run): Setup cut started
+2026-10-29 15:35:05,457 [INFO] Thread-1 (_run): Head has reached cutting position
+2026-10-29 15:35:05,457 [INFO] Thread-1 (_run): Cutting at 65 um
+2026-10-29 15:35:24,648 [INFO] Thread-1 (_run): Cutting at 45 um
+2026-10-29 15:35:43,758 [INFO] Thread-1 (_run): Cutting at 55 um
+2026-10-29 15:36:03,639 [INFO] Thread-1 (_run): Cutting at 75 um
+2026-10-29 15:36:21,583 [INFO] Thread-1 (_run): Cutting at 95 um
+2026-10-29 15:36:38,023 [INFO] Thread-1 (_run): Cutting at 105 um
+2026-10-29 15:36:53,775 [INFO] Thread-1 (_run): Validation cut complete
+2026-10-29 15:39:04,244 [INFO] Thread-1 (_run): [((118.5, 118.0, 118.3, 118.4, 118.1, 119.6, 111.0, 111.2, 111.1, 111.0, 111.7, 111.5, 111.6, 111.7, 111.8, 104.3, 93.4, 92.9, 93.2, 93.1, 92.5, 93.7, 93.3, 93.4, 93.1, 80.5, 63.1, 62.6, 62.8, 62.8, 63.0, 62.5, 63.9, 63.9, 65.9, 61.9, 40.8, 39.5, 39.6, 40.2, 39.8, 39.9, 39.9, 39.3, 39.4, 39.1, 34.6, 33.9, 33.6, 34.4, 33.1, 33.9, 33.3, 32.1), array([[         nan,          nan,          nan, ...,          nan,
+                 nan,          nan],
+       [         nan,          nan,          nan, ...,          nan,
+                 nan,          nan],
+       [         nan,          nan,  33.75724208, ...,          nan,
+                 nan,          nan],
+       ...,
+       [         nan,          nan,          nan, ..., 120.20108599,
+        119.79261489,          nan],
+       [         nan,          nan,          nan, ..., 119.2290803 ,
+        119.25838382,          nan],
+       [         nan,          nan,          nan, ..., 120.88977207,
+        120.51351394,          nan]], shape=(53, 73))), ((113.7, 113.9, 114.2, 113.6, 114.5, 114.5, 110.5, 106.9, 107.9, 107.5, 107.1, 107.3, 107.4, 108.1, 107.8, 105.2, 94.1, 86.6, 88.0, 87.6, 87.3, 87.7, 88.3, 87.5, 87.7, 83.2, 65.4, 53.7, 54.2, 53.3, 53.9, 53.7, 53.4, 53.7, 54.1, 53.7, 45.1, 29.6, 29.1, 29.0, 29.0, 29.1, 28.8, 28.9, 28.9, 28.8, 28.9, 23.6, 23.5, 23.5, 23.4, 23.7, 23.8, 23.5, 23.3), array([[         nan,          nan,          nan, ...,          nan,
+                 nan,          nan],
+       [         nan,          nan,          nan, ...,          nan,
+                 nan,          nan],
+       [         nan,          nan,          nan, ...,          nan,
+                 nan,          nan],
+       ...,
+       [         nan,          nan,          nan, ..., 127.70886438,
+        128.07143046,          nan],
+       [         nan,          nan,          nan, ..., 127.34847075,
+        127.55935756,          nan],
+       [         nan,          nan,          nan, ..., 127.49558123,
+        127.66889964,          nan]], shape=(54, 73))), ((117.3, 116.9, 117.3, 116.6, 117.5, 117.7, 108.5, 108.2, 108.9, 108.4, 108.7, 109.1, 108.8, 109.6, 109.4, 101.8, 91.4, 89.5, 90.3, 90.7, 90.2, 90.6, 90.2, 89.9, 91.6, 80.2, 60.9, 57.9, 57.5, 57.6, 57.3, 56.8, 57.8, 58.0, 57.4, 57.6, 39.5, 34.1, 34.8, 34.4, 34.3, 34.7, 33.9, 35.6, 33.7, 33.8, 33.3, 29.2, 28.6, 28.6, 28.1, 28.8, 27.9, 27.5), array([[         nan,          nan,          nan, ...,          nan,
+                 nan,          nan],
+       [         nan,          nan,          nan, ...,          nan,
+                 nan,          nan],
+       [         nan,          nan,  37.68468272, ...,          nan,
+                 nan,          nan],
+       ...,
+       [         nan,          nan,          nan, ..., 124.22668654,
+        124.2161549 ,          nan],
+       [         nan,          nan,          nan, ..., 124.19051328,
+        123.80866052,          nan],
+       [         nan,          nan,          nan, ..., 123.95598693,
+        123.86046156,          nan]], shape=(53, 73))), ((117.9, 117.0, 116.2, 116.9, 117.1, 115.6, 109.4, 110.0, 109.4, 110.2, 110.1, 110.5, 110.0, 110.4, 110.2, 100.4, 90.7, 91.2, 91.4, 91.1, 91.6, 92.0, 91.3, 91.3, 90.9, 77.7, 58.4, 60.1, 59.2, 59.0, 59.2, 62.7, 58.4, 58.9, 58.8, 55.2, 35.5, 35.8, 35.6, 36.1, 35.4, 35.5, 35.4, 35.4, 35.2, 35.0, 30.0, 29.8, 29.7, 29.7, 29.6, 29.6, 29.2, 28.1), array([[         nan,          nan,          nan, ...,          nan,
+                 nan,          nan],
+       [         nan,          nan,          nan, ...,          nan,
+                 nan,          nan],
+       [         nan,          nan,  34.31753571, ...,          nan,
+                 nan,          nan],
+       ...,
+       [         nan,          nan,          nan, ..., 124.6749485 ,
+        124.54049833,          nan],
+       [         nan,          nan,          nan, ..., 123.87946538,
+        124.14003541,          nan],
+       [         nan,          nan,          nan, ..., 125.17607812,
+        125.08604707,          nan]], shape=(53, 73)))]
+2026-10-29 15:39:04,262 [WARNING] Thread-1 (_run): Sample 0: expected 60.0 values, got 2
+2026-10-29 15:39:04,376 [INFO] camera: Camera streaming stopped
+2026-10-29 15:39:05,122 [INFO] Thread-1 (_run): Head drop position restored to 147.425
+2026-10-29 15:39:05,122 [ERROR] Thread-1 (_run): validation_worker failed
+Traceback (most recent call last):
+  File "c:\Users\KittyGoodridge\OneDrive - elasticStage\Desktop\Repos\Auto_Cal_Tests\gui.py", line 1589, in _run
+    self.worker(self.app.make_context(self.frames))
+    ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\KittyGoodridge\OneDrive - elasticStage\Desktop\Repos\Auto_Cal_Tests\gui.py", line 2068, in validation_worker
+    pass_fail = val.run_validation(ctx.selection.machine_id)
+  File "c:\Users\KittyGoodridge\OneDrive - elasticStage\Desktop\Repos\Auto_Cal_Tests\validation.py", line 181, in run_validation
+    pass_fail = self.check_groove_widths(all_width_arrays, cutter.VALIDATION_WIDTHS)
+  File "c:\Users\KittyGoodridge\OneDrive - elasticStage\Desktop\Repos\Auto_Cal_Tests\validation.py", line 310, in check_groove_widths
+    band = values[b * band_size:(b + 1) * band_size]
+           ~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: slice indices must be integers or None or have an __index__ method

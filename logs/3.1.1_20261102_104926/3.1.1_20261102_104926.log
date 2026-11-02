@@ -1,0 +1,14 @@
+2026-11-02 10:49:14,534 [INFO] MainThread: Showing page: instructions
+2026-11-02 10:49:19,047 [INFO] MainThread: Showing page: selection
+2026-11-02 10:49:26,851 [INFO] MainThread: Logging to C:\Users\KittyGoodridge\OneDrive - elasticStage\Desktop\Repos\Auto_Cal_Tests\logs\3.1.1_20261102_104926\3.1.1_20261102_104926.log
+2026-11-02 10:49:26,851 [INFO] MainThread: Machine ID: 3.1.1
+2026-11-02 10:49:26,852 [INFO] MainThread: Selection: Factory ELSTREE, Station 3, Cluster 1, Cutter 1, Transport operational
+2026-11-02 10:49:26,852 [INFO] MainThread: Showing page: check_state
+2026-11-02 10:49:26,858 [INFO] Thread-1 (_run_check): Creating API client for factory 1, slot 3.1.1
+2026-11-02 10:49:27,079 [INFO] Thread-1 (_run_check): PackML mode 2, state 4
+2026-11-02 10:49:27,079 [INFO] Thread-1 (_run_check): Cutter is in IDLE
+2026-11-02 10:49:28,657 [INFO] MainThread: Showing page: confirm
+2026-11-02 10:49:28,667 [INFO] Thread-2 (_read): Looking up diamond ID for 3.1.1
+2026-11-02 10:49:29,448 [INFO] MainThread: Read diamond_id: D17102025_N_01.008
+2026-11-02 10:49:45,430 [INFO] MainThread: Stop requested
+2026-11-02 10:49:45,456 [INFO] MainThread: Closing wizard

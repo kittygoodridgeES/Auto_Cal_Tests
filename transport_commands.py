@@ -6,7 +6,7 @@ import pika
 from dotenv import load_dotenv
 
 from api_requests import APIRequests
-
+from constants import timeouts
 
 class AMQP_Transport:
     def __init__(self, factory_id, slot_id, transport_running, logger):
@@ -44,7 +44,7 @@ class AMQP_Transport:
             return "auto.new.calibration", f"{base}.#"
         return "auto.new.calibration.cluster", f"{base}.cluster.{self.cluster}.#"
 
-    def run_command(self, command, stop_event=None, timeout=300):
+    def run_command(self, command, stop_event=None, timeout=timeouts.TRANSPORT_TIMEOUT):
         """
         Send `command` ("supply", "flip", ...) to this cutter and block until the
         transport reports success for it. Raises on failure, timeout, or stop.

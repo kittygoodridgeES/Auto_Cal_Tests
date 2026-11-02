@@ -1,0 +1,30 @@
+2026-10-29 12:03:44,125 [INFO] MainThread: Showing page: instructions
+2026-10-29 12:03:44,129 [INFO] MainThread: Logging to C:\Users\KittyGoodridge\OneDrive - elasticStage\Desktop\Repos\Auto_Cal_Tests\logs\2.2.2_20261029_120344\2.2.2_20261029_120344.log
+2026-10-29 12:03:44,129 [WARNING] MainThread: DEBUG: starting at 'validation' with {'selection': {'factory': '1', 'station': '2', 'cluster': '2', 'cutter': '2', 'transport_ok': False}, 'values': {'mmum': 0.019564673317317063, 'y_int': 0.49023917566731634}}
+2026-10-29 12:03:44,130 [INFO] MainThread: Showing page: validation
+2026-10-29 12:03:44,134 [INFO] Thread-1 (_run): Creating API client for factory 1, slot 2.2.2
+2026-10-29 12:03:44,215 [INFO] Thread-1 (_run): Connecting MQTT for factory 1, machine 2.2.2
+2026-10-29 12:03:44,216 [INFO] Thread-1 (_run): init camerasetup
+2026-10-29 12:03:44,216 [INFO] Thread-1 (_run): printing preamble
+2026-10-29 12:03:44,216 [INFO] Thread-1 (_run): ///////////////////////////////////////////////////
+2026-10-29 12:03:44,216 [INFO] Thread-1 (_run): /// VmbPy Asynchronous Grab with OpenCV Example ///
+2026-10-29 12:03:44,217 [INFO] Thread-1 (_run): ///////////////////////////////////////////////////
+
+2026-10-29 12:03:44,217 [INFO] Thread-1 (_run): parsing args
+2026-10-29 12:03:44,217 [INFO] Thread-1 (_run): Starting validation
+2026-10-29 12:03:44,251 [INFO] Thread-1 (_run): Target 65 um -> piezo 1.762
+2026-10-29 12:03:44,251 [INFO] Thread-1 (_run): Target 45 um -> piezo 1.371
+2026-10-29 12:03:44,251 [INFO] Thread-1 (_run): Target 55 um -> piezo 1.566
+2026-10-29 12:03:44,252 [INFO] Thread-1 (_run): Target 75 um -> piezo 1.958
+2026-10-29 12:03:44,252 [INFO] Thread-1 (_run): Target 95 um -> piezo 2.349
+2026-10-29 12:03:44,252 [INFO] Thread-1 (_run): Target 105 um -> piezo 2.545
+2026-10-29 12:03:48,030 [INFO] camera: Camera opened: DEV_1AB22C06E926
+2026-10-29 12:03:48,031 [INFO] camera: 17 : line number
+2026-10-29 12:03:48,031 [INFO] camera: cutter number: 2.2.2, cutter_no: 2.2.2
+2026-10-29 12:03:48,036 [INFO] camera: Exposure time set to 2000 µs
+2026-10-29 12:03:48,040 [INFO] camera: Camera setup complete
+2026-10-29 12:03:48,062 [INFO] camera: Camera pixel format setup complete
+2026-10-29 12:03:48,116 [INFO] camera: Camera streaming started
+2026-10-29 12:03:48,185 [INFO] Thread-1 (_run): Camera running
+2026-10-29 12:03:48,278 [INFO] Thread-1 (_run): Drop in pitch set to 75.0
+2026-10-29 12:03:55,712 [INFO] Thread-1 (_run): Cutter reset

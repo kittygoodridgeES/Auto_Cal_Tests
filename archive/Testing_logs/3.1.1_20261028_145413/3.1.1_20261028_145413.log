@@ -1,0 +1,54 @@
+2026-10-28 14:54:02,063 [INFO] MainThread: Showing page: instructions
+2026-10-28 14:54:06,401 [INFO] MainThread: Showing page: selection
+2026-10-28 14:54:13,289 [INFO] MainThread: Logging to C:\Users\KittyGoodridge\OneDrive - elasticStage\Desktop\Repos\Auto_Cal_Tests\constants\logs\3.1.1_20261028_145413\3.1.1_20261028_145413.log
+2026-10-28 14:54:13,290 [INFO] MainThread: Machine ID: 3.1.1
+2026-10-28 14:54:13,290 [INFO] MainThread: Selection: Factory ELSTREE, Station 3, Cluster 1, Cutter 1, Transport operational
+2026-10-28 14:54:13,290 [INFO] MainThread: Showing page: check_state
+2026-10-28 14:54:13,295 [INFO] Thread-1 (_run_check): Creating API client for factory 1, slot 3.1.1
+2026-10-28 14:54:13,662 [INFO] Thread-1 (_run_check): PackML mode 3, state 4
+2026-10-28 14:54:13,662 [INFO] Thread-1 (_run_check): Cutter is in IDLE
+2026-10-28 14:54:15,406 [INFO] MainThread: Showing page: confirm
+2026-10-28 14:54:15,417 [INFO] Thread-2 (_read): Looking up diamond ID for 3.1.1
+2026-10-28 14:54:23,402 [INFO] MainThread: Read diamond_id: D17102025_N_01.008
+2026-10-28 14:54:34,592 [INFO] MainThread: diamond_id D17102025_N_01.008 confirmed: Yes
+2026-10-28 14:54:37,148 [INFO] Thread-3 (_decide): Change in diamond length: -0.12
+2026-10-28 14:54:37,214 [INFO] MainThread: choose_after_diamond -> supply
+2026-10-28 14:54:37,214 [INFO] MainThread: Showing page: supply
+2026-10-28 14:54:37,218 [INFO] Thread-4 (_run): Preparing for supply to 3.1.1
+2026-10-28 14:54:37,218 [INFO] Thread-4 (_run): Connecting AMQP transport for factory 1, slot 3.1.1
+2026-10-28 14:54:44,271 [ERROR] Thread-4 (_run): supply_task failed
+Traceback (most recent call last):
+  File "c:\Users\KittyGoodridge\OneDrive - elasticStage\Desktop\Repos\Auto_Cal_Tests\gui.py", line 1469, in _run
+    self.task(ctx)
+    ~~~~~~~~~^^^^^
+  File "c:\Users\KittyGoodridge\OneDrive - elasticStage\Desktop\Repos\Auto_Cal_Tests\gui.py", line 1811, in supply_task
+    ctx.get_transport().run_command("supply", ctx.stop_event, timeout=300)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\KittyGoodridge\OneDrive - elasticStage\Desktop\Repos\Auto_Cal_Tests\transport_commands.py", line 55, in run_command
+    connection = self._connect()
+  File "c:\Users\KittyGoodridge\OneDrive - elasticStage\Desktop\Repos\Auto_Cal_Tests\transport_commands.py", line 39, in _connect
+    return pika.BlockingConnection(parameters)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^
+  File "C:\Users\KittyGoodridge\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\pika\adapters\blocking_connection.py", line 360, in __init__
+    self._impl = self._create_connection(parameters, _impl_class)
+                 ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\KittyGoodridge\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\pika\adapters\blocking_connection.py", line 451, in _create_connection
+    raise self._reap_last_connection_workflow_error(error)
+pika.exceptions.AMQPConnectionError
+2026-10-28 14:57:07,483 [INFO] Thread-6 (_run): Preparing for supply to 3.1.1
+2026-10-28 14:57:07,576 [INFO] Thread-6 (_run): AMQP connected, listening on location.uk.factory.1.workstation.3.cluster.1.#
+2026-10-28 14:57:07,587 [ERROR] Thread-6 (_run): supply_task failed
+Traceback (most recent call last):
+  File "c:\Users\KittyGoodridge\OneDrive - elasticStage\Desktop\Repos\Auto_Cal_Tests\gui.py", line 1469, in _run
+    self.task(ctx)
+    ~~~~~~~~~^^^^^
+  File "c:\Users\KittyGoodridge\OneDrive - elasticStage\Desktop\Repos\Auto_Cal_Tests\gui.py", line 1811, in supply_task
+    ctx.get_transport().run_command("supply", ctx.stop_event, timeout=300)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\KittyGoodridge\OneDrive - elasticStage\Desktop\Repos\Auto_Cal_Tests\transport_commands.py", line 65, in run_command
+    self.api.command(command)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "c:\Users\KittyGoodridge\OneDrive - elasticStage\Desktop\Repos\Auto_Cal_Tests\api_requests.py", line 85, in command
+    if name not in enspoints.COMMANDS:
+                   ^^^^^^^^^
+NameError: name 'enspoints' is not defined. Did you mean: 'endpoints'?

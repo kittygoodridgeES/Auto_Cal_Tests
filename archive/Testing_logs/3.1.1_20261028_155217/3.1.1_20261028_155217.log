@@ -1,0 +1,67 @@
+2026-10-28 15:52:02,759 [INFO] MainThread: Showing page: instructions
+2026-10-28 15:52:06,887 [INFO] MainThread: Showing page: selection
+2026-10-28 15:52:17,698 [INFO] MainThread: Logging to C:\Users\KittyGoodridge\OneDrive - elasticStage\Desktop\Repos\Auto_Cal_Tests\constants\logs\3.1.1_20261028_155217\3.1.1_20261028_155217.log
+2026-10-28 15:52:17,698 [INFO] MainThread: Machine ID: 3.1.1
+2026-10-28 15:52:17,699 [INFO] MainThread: Selection: Factory ELSTREE, Station 3, Cluster 1, Cutter 1, Transport operational
+2026-10-28 15:52:17,699 [INFO] MainThread: Showing page: check_state
+2026-10-28 15:52:17,712 [INFO] Thread-1 (_run_check): Creating API client for factory 1, slot 3.1.1
+2026-10-28 15:52:18,012 [INFO] Thread-1 (_run_check): PackML mode 3, state 4
+2026-10-28 15:52:18,012 [INFO] Thread-1 (_run_check): Cutter is in IDLE
+2026-10-28 15:52:20,430 [INFO] MainThread: Showing page: confirm
+2026-10-28 15:52:20,437 [INFO] Thread-2 (_read): Looking up diamond ID for 3.1.1
+2026-10-28 15:52:21,017 [INFO] MainThread: Read diamond_id: D17102025_N_01.008
+2026-10-28 15:52:21,875 [INFO] MainThread: diamond_id D17102025_N_01.008 confirmed: Yes
+2026-10-28 15:52:23,661 [INFO] Thread-3 (_decide): Change in diamond length: -0.12
+2026-10-28 15:52:23,711 [INFO] MainThread: choose_after_diamond -> supply
+2026-10-28 15:52:23,712 [INFO] MainThread: Showing page: supply
+2026-10-28 15:52:23,717 [INFO] Thread-4 (_run): Preparing for supply to 3.1.1
+2026-10-28 15:52:23,717 [INFO] Thread-4 (_run): Connecting AMQP transport for factory 1, slot 3.1.1
+2026-10-28 15:52:23,852 [INFO] Thread-4 (_run): AMQP connected, listening on location.uk.factory.1.workstation.3.cluster.1.#
+2026-10-28 15:52:23,900 [INFO] Thread-4 (_run): supply command sent to cutter 1
+2026-10-28 15:52:23,964 [INFO] Thread-4 (_run): Transport event: cutter 1, command supply, result busy
+2026-10-28 15:54:32,658 [INFO] Thread-4 (_run): Transport event: cutter 1, command supply, result success
+2026-10-28 15:54:32,659 [INFO] Thread-4 (_run): supply succeeded on cutter 1
+2026-10-28 15:54:32,694 [INFO] Thread-4 (_run): Supply complete
+2026-10-28 15:54:34,247 [INFO] MainThread: Showing page: Calibration
+2026-10-28 15:54:34,258 [INFO] Thread-6 (_run): Connecting MQTT for factory 1, machine 3.1.1
+2026-10-28 15:54:34,263 [INFO] Thread-6 (_run): init camerasetup
+2026-10-28 15:54:34,264 [INFO] Thread-6 (_run): printing preamble
+2026-10-28 15:54:34,264 [INFO] Thread-6 (_run): ///////////////////////////////////////////////////
+2026-10-28 15:54:34,265 [INFO] Thread-6 (_run): /// VmbPy Asynchronous Grab with OpenCV Example ///
+2026-10-28 15:54:34,265 [INFO] Thread-6 (_run): ///////////////////////////////////////////////////
+
+2026-10-28 15:54:34,266 [INFO] Thread-6 (_run): parsing args
+2026-10-28 15:54:34,438 [INFO] Thread-6 (_run): Original Config Retrieved: 
+ mm/um:0.0277790829780498 
+ Default piezo pos: 1.7604999542236328 
+ Default GW: 50.0
+2026-10-28 15:54:34,439 [INFO] Thread-6 (_run): Change in diamond length from previous calibration: -0.12
+2026-10-28 15:54:34,439 [INFO] Thread-6 (_run): Drop in piezo pos decided: 2.751663273345625Drop in position estimated from change in diamond length
+2026-10-28 15:54:38,854 [INFO] camera: Camera opened: DEV_1AB22C06E926
+2026-10-28 15:54:38,854 [INFO] camera: 28 : line number
+2026-10-28 15:54:38,866 [INFO] camera: cutter number: 3.1.1, cutter_no: 3.1.1
+2026-10-28 15:54:38,879 [INFO] camera: Exposure time set to 2000 µs
+2026-10-28 15:54:38,888 [INFO] camera: Camera setup complete
+2026-10-28 15:54:38,912 [INFO] camera: Camera pixel format setup complete
+2026-10-28 15:54:38,970 [INFO] camera: Camera streaming started
+2026-10-28 15:54:39,132 [INFO] camera: Camera streaming stopped
+2026-10-28 15:54:39,770 [ERROR] camera: Camera/vision stream failed
+Traceback (most recent call last):
+  File "c:\Users\KittyGoodridge\OneDrive - elasticStage\Desktop\Repos\Auto_Cal_Tests\camera\camera_grab.py", line 326, in run
+    frame_callback(img)
+    ~~~~~~~~~~~~~~^^^^^
+  File "c:\Users\KittyGoodridge\OneDrive - elasticStage\Desktop\Repos\Auto_Cal_Tests\sideA.py", line 51, in put
+    gray = img if img.ndim == 2 else cv2.cvtColor(img, cv2.gui.COLOR_BGR2GRAY)
+                                                       ^^^^^^^
+AttributeError: module 'cv2' has no attribute 'gui'
+2026-10-28 15:54:49,453 [ERROR] Thread-6 (_run): run1_worker failed
+Traceback (most recent call last):
+  File "c:\Users\KittyGoodridge\OneDrive - elasticStage\Desktop\Repos\Auto_Cal_Tests\gui.py", line 1589, in _run
+    self.worker(self.app.make_context(self.frames))
+    ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\KittyGoodridge\OneDrive - elasticStage\Desktop\Repos\Auto_Cal_Tests\gui.py", line 1911, in run1_worker
+    csv_path = cal.run_calibration(ctx.selection.machine_id)
+  File "c:\Users\KittyGoodridge\OneDrive - elasticStage\Desktop\Repos\Auto_Cal_Tests\sideA.py", line 186, in run_calibration
+    raise RuntimeError(f"Camera did not start "
+                       f"({camera_error[0] if camera_error else 'no frames'!r}) - cutter left unchanged")
+RuntimeError: Camera did not start (AttributeError("module 'cv2' has no attribute 'gui'")) - cutter left unchanged

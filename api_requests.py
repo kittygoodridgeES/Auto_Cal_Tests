@@ -2,7 +2,7 @@ import requests
 import json
 from dataclasses import dataclass
 
-from constants import endpoints as endpoint
+from constants import endpoints as endpoints
 from constants import timeouts as timeouts
 from constants import cutter_positioning as cutter
 
@@ -19,10 +19,11 @@ SETTINGS = {
     "piezo_target_pos":  Setting("/config/piezo_par_position", "piezoParPosition", float, limits=(0.5, 3.2)),
     "default_piezo_pos": Setting("/config/default_piezo_position", None, float, limits=(0.5, 3.2)),
     "head_drop_pos":     Setting("/config/head_drop_position", "headDropPosition", float),
-    "piezo_cmd_id":      Setting("/config/piezo_cmd_id", "piezoCmdId", int, allowed=frozenset(endpoint.PIEZO_CMD_IDS)),
+    "piezo_cmd_id":      Setting("/config/piezo_cmd_id", "piezoCmdId", int, allowed=frozenset(endpoints.PIEZO_CMD_IDS)),
     "head_ctrl":         Setting("/state/head", "headLiftCmdId", int),
     "packml_mode":       Setting("/state/mode", None, int),
     "setup_cut":         Setting("/state/command/start/setup_mode", "setupMode", bool),
+    "maintenance_cut":         Setting("/state/command/start/maintenance_mode", "maintenanceMode", bool),
 }
 class APIRequests():
     def __init__(self, factory_id, slot_id):
@@ -82,16 +83,16 @@ class APIRequests():
  
     def command(self, name: str) -> str:
         """Send a command with no data, e.g. self.command("stop")."""
-        if name not in enspoints.COMMANDS:
+        if name not in endpoints.COMMANDS:
             raise KeyError(f"Unknown command '{name}'. Options: {', '.join(endpoints.COMMANDS)}")
         return self._request("POST", endpoints.COMMANDS[name])
  
     def set(self, name: str, value) -> str:
         """Send a validated value, e.g. self.set("piezo_target_pos", 1.8)."""
-        if name not in endpoints.SETTINGS:
-            raise KeyError(f"Unknown setting '{name}'. Options: {', '.join(endpoints.SETTINGS)}")
+        if name not in SETTINGS:
+            raise KeyError(f"Unknown setting '{name}'. Options: {', '.join(SETTINGS)}")
  
-        s = endpoints.SETTINGS[name]
+        s = SETTINGS[name]
         value = self._validate(name, s, value)
         data = {s.key: value} if s.key else value
         return self._request("POST", s.endpoint, data)

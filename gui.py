@@ -31,7 +31,7 @@ import dotenv
 # ===== import constants  ===== #
 from constants import gui_presentation as gui
 from constants import cutter_positioning as cutter
-from constants import timeouts as timeout
+from constants import timeouts as timeouts
 from constants import general as gen
 
 
@@ -562,7 +562,7 @@ class WizardApp(tk.Tk):
         with self._transport_lock:
             self._close_transport()
         alive = [t for t in self.threads if t.is_alive()]
-        if alive and elapsed < timeout.THREAD_SHUTDOWN_TIMEOUT_MS:
+        if alive and elapsed < timeouts.THREAD_SHUTDOWN_TIMEOUT_MS:
             self.after(25, self._wait_for_threads, elapsed + 25)
             return
         if alive:
@@ -1088,7 +1088,7 @@ class ImageTaskPage(BasePage):
         if ok:
             self.status_label.configure(text="Complete. Moving on...", fg=gui.COLOR_SUCCESS)
             self._load_image()
-            self.after(timeout.AUTO_ADVANCE_DELAY_MS, self.app.show_page, self.next_target)
+            self.after(timeouts.AUTO_ADVANCE_DELAY_MS, self.app.show_page, self.next_target)
         else:
             self.status_label.configure(text=f"Failed: {error}", fg=gui.COLOR_DANGER)
             self.retry_button.pack(pady=5)
@@ -1482,7 +1482,7 @@ class TaskPage(BasePage):
             return
         if ok:
             self.status_label.configure(text="Complete. Moving on...", fg=gui.COLOR_SUCCESS)
-            self.after(AUTO_ADVANCE_DELAY_MS, self.app.show_page, target)
+            self.after(timeouts.AUTO_ADVANCE_DELAY_MS, self.app.show_page, target)
         else:
             self.status_label.configure(text=f"Failed: {error}", fg=gui.COLOR_DANGER)
             self.retry_button.pack(pady=10)
@@ -1608,7 +1608,7 @@ class CameraLogPage(BasePage):
                 self.status_label.configure(text=f"Status: Failed: {e}", fg=gui.COLOR_DANGER)
                 return
             self.status_label.configure(text="Status: Complete. Moving on...", fg=gui.COLOR_SUCCESS)
-            self.after(AUTO_ADVANCE_DELAY_MS, self.app.show_page, target)
+            self.after(timeouts.AUTO_ADVANCE_DELAY_MS, self.app.show_page, target)
 
     def _update_camera(self):
         if not self._running or self.app.stop_event.is_set():
@@ -1619,7 +1619,7 @@ class CameraLogPage(BasePage):
                 if frame.ndim == 2:
                     rgb = cv2.cvtColor(frame, cv2.COLOR_GRAY2RGB)   # grayscale -> 3 channels
                 else:
-                    rgb = cv2.cvtColor(frame, cv2.gui.COLOR_BGR2RGB)    # OpenCV BGR -> Tkinter RGB
+                    rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)    # OpenCV BGR -> Tkinter RGB
                 image = Image.fromarray(rgb)
                 image.thumbnail(gui.CAMERA_DISPLAY_SIZE)
                 self.tk_image = ImageTk.PhotoImage(image)
@@ -2094,7 +2094,7 @@ def finish_text(ctx: WorkerContext):
                 "Press Finish to close.")
     if result == "FAIL":
         return (f"Calibration of cutter {machine} did not pass validation.\n\n"
-                f"Validation: FAIL - one or more groove widths were more than ±{ABS_ERROR_MARGIN} um "
+                f"Validation: FAIL - one or more groove widths were more than ±{cutter.ABS_ERROR_MARGIN} um "
                 "from target. See the log for details.\n\n"
                 "Do not return this cutter to production. Press Finish to close.")
     return "Validation did not run, so the calibration result is unknown."
@@ -2105,5 +2105,37 @@ def run_gui(logger):
     app.mainloop()
 
 
+# if __name__ == "__main__":
+#     run_gui(setup_logging())
+
+#test from validation onwards
+# Set to a page name to skip ahead for testing, or None for the normal flow
+DEBUG_START_PAGE = "validation"
+
+#INPUT VARIABLES HERE
+DEBUG_PRESET = {
+    "selection": {"factory": "1", "station": "3", "cluster": "1", "cutter": "1",
+                  "transport_ok": False},
+    "values": {"mmum": 0.0196, "y_int": 0.51},   # use the fit from a real run
+}
+
+
+def _jump_to(app, page, preset):
+    sel = app.selection
+    for key, value in preset.get("selection", {}).items():
+        setattr(sel, key, value)
+    sel.log_file, sel.log_folder = start_file_logging(app.logger, sel.machine_id)
+    app.values.update(preset.get("values", {}))
+    app.logger.warning(f"DEBUG: starting at '{page}' with {preset}")
+    app.show_page(page)
+
+
+def run_gui(logger, start_page=None, preset=None):
+    app = WizardApp(logger)
+    if start_page:
+        app.after(0, _jump_to, app, start_page, preset or {})
+    app.mainloop()
+
+
 if __name__ == "__main__":
-    run_gui(setup_logging())
+    run_gui(setup_logging(), DEBUG_START_PAGE, DEBUG_PRESET)

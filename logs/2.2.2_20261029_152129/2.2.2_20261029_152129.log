@@ -1,0 +1,66 @@
+2026-10-29 15:21:29,615 [INFO] MainThread: Showing page: instructions
+2026-10-29 15:21:29,620 [INFO] MainThread: Logging to C:\Users\KittyGoodridge\OneDrive - elasticStage\Desktop\Repos\Auto_Cal_Tests\logs\2.2.2_20261029_152129\2.2.2_20261029_152129.log
+2026-10-29 15:21:29,622 [WARNING] MainThread: DEBUG: starting at 'validation' with {'selection': {'factory': '1', 'station': '2', 'cluster': '2', 'cutter': '2', 'transport_ok': False}, 'values': {'mmum': 0.0283628629641722, 'y_int': 0.148167303220543}}
+2026-10-29 15:21:29,622 [INFO] MainThread: Showing page: validation
+2026-10-29 15:21:29,625 [INFO] Thread-1 (_run): Creating API client for factory 1, slot 2.2.2
+2026-10-29 15:21:29,700 [INFO] Thread-1 (_run): Connecting MQTT for factory 1, machine 2.2.2
+2026-10-29 15:21:29,702 [INFO] Thread-1 (_run): init camerasetup
+2026-10-29 15:21:29,702 [INFO] Thread-1 (_run): printing preamble
+2026-10-29 15:21:29,703 [INFO] Thread-1 (_run): ///////////////////////////////////////////////////
+2026-10-29 15:21:29,703 [INFO] Thread-1 (_run): /// VmbPy Asynchronous Grab with OpenCV Example ///
+2026-10-29 15:21:29,703 [INFO] Thread-1 (_run): ///////////////////////////////////////////////////
+
+2026-10-29 15:21:29,703 [INFO] Thread-1 (_run): parsing args
+2026-10-29 15:21:29,704 [INFO] Thread-1 (_run): Starting validation
+2026-10-29 15:21:29,759 [INFO] Thread-1 (_run): Target 65 um -> piezo 1.992
+2026-10-29 15:21:29,760 [INFO] Thread-1 (_run): Target 45 um -> piezo 1.424
+2026-10-29 15:21:29,760 [INFO] Thread-1 (_run): Target 55 um -> piezo 1.708
+2026-10-29 15:21:29,760 [INFO] Thread-1 (_run): Target 75 um -> piezo 2.275
+2026-10-29 15:21:29,760 [INFO] Thread-1 (_run): Target 95 um -> piezo 2.843
+2026-10-29 15:21:29,761 [INFO] Thread-1 (_run): Target 105 um -> piezo 3.126
+2026-10-29 15:21:33,526 [INFO] camera: Camera opened: DEV_1AB22C06E926
+2026-10-29 15:21:33,527 [INFO] camera: 17 : line number
+2026-10-29 15:21:33,528 [INFO] camera: cutter number: 2.2.2, cutter_no: 2.2.2
+2026-10-29 15:21:33,532 [INFO] camera: Exposure time set to 2000 µs
+2026-10-29 15:21:33,535 [INFO] camera: Camera setup complete
+2026-10-29 15:21:33,556 [INFO] camera: Camera pixel format setup complete
+2026-10-29 15:21:33,599 [INFO] camera: Camera streaming started
+2026-10-29 15:21:33,663 [INFO] Thread-1 (_run): Camera running
+2026-10-29 15:21:33,784 [INFO] Thread-1 (_run): Drop in pitch set to 75.0
+2026-10-29 15:21:35,033 [INFO] Thread-1 (_run): Cutter already in setup mode
+2026-10-29 15:21:41,108 [INFO] Thread-1 (_run): Cutter reset
+2026-10-29 15:21:41,649 [INFO] Thread-1 (_run): Piezo moved to starting position
+2026-10-29 15:21:43,138 [INFO] Thread-1 (_run): Setup cut started
+2026-10-29 15:22:15,646 [INFO] Thread-1 (_run): Head has reached cutting position
+2026-10-29 15:22:15,647 [INFO] Thread-1 (_run): Cutting at 65 um
+2026-10-29 15:22:34,639 [INFO] Thread-1 (_run): Cutting at 45 um
+2026-10-29 15:22:54,284 [INFO] Thread-1 (_run): Cutting at 55 um
+2026-10-29 15:23:13,613 [INFO] Thread-1 (_run): Cutting at 75 um
+2026-10-29 15:23:31,796 [INFO] Thread-1 (_run): Cutting at 95 um
+2026-10-29 15:23:48,110 [INFO] Thread-1 (_run): Cutting at 105 um
+2026-10-29 15:24:08,676 [INFO] Thread-1 (_run): Validation cut complete
+2026-10-29 15:25:54,817 [INFO] camera: Camera streaming stopped
+2026-10-29 15:25:55,579 [INFO] Thread-1 (_run): Head drop position restored to 147.425
+2026-10-29 15:25:55,579 [ERROR] Thread-1 (_run): validation_worker failed
+Traceback (most recent call last):
+  File "c:\Users\KittyGoodridge\OneDrive - elasticStage\Desktop\Repos\Auto_Cal_Tests\gui.py", line 1589, in _run
+    self.worker(self.app.make_context(self.frames))
+    ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\KittyGoodridge\OneDrive - elasticStage\Desktop\Repos\Auto_Cal_Tests\gui.py", line 2068, in validation_worker
+    pass_fail = val.run_validation(ctx.selection.machine_id)
+  File "c:\Users\KittyGoodridge\OneDrive - elasticStage\Desktop\Repos\Auto_Cal_Tests\validation.py", line 175, in run_validation
+    width_array = analyse_frame(photo)
+  File "c:\Users\KittyGoodridge\OneDrive - elasticStage\Desktop\Repos\Auto_Cal_Tests\camera\gw_analysis_stationary.py", line 35, in analyse_frame
+    crop = _crop_bmp(frame)
+  File "c:\Users\KittyGoodridge\OneDrive - elasticStage\Desktop\Repos\Auto_Cal_Tests\camera\gw_analysis_stationary.py", line 52, in _crop_bmp
+    h, w = img.shape[:2]
+           ^^^^^^^^^
+AttributeError: 'WindowsPath' object has no attribute 'shape'
+2026-10-29 15:30:25,724 [INFO] MainThread: Stop requested
+2026-10-29 15:30:25,765 [ERROR] MainThread: Error closing MQTT client
+Traceback (most recent call last):
+  File "c:\Users\KittyGoodridge\OneDrive - elasticStage\Desktop\Repos\Auto_Cal_Tests\gui.py", line 320, in _close_mqtt
+    self._mqtt.disconnect()   # or whatever your MQTTClient's shutdown method is
+    ^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'MQTTClient' object has no attribute 'disconnect'
+2026-10-29 15:30:25,767 [INFO] MainThread: Closing wizard
