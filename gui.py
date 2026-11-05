@@ -24,7 +24,7 @@ import cv2
 import numpy as np
 from PIL import Image, ImageTk
 import yaml
-import os
+import os, json, sys
 import dotenv
 
 
@@ -2090,7 +2090,7 @@ def finish_text(ctx: WorkerContext):
     machine = ctx.selection.machine_id
     if result == "PASS":
         return (f"Calibration of cutter {machine} is complete.\n\n"
-                f"Validation: PASS - all groove widths are within ±{ABS_ERROR_MARGIN} um.\n\n"
+                f"Validation: PASS - all groove widths are within ±{cutter.ABS_ERROR_MARGIN} um.\n\n"
                 "Press Finish to close.")
     if result == "FAIL":
         return (f"Calibration of cutter {machine} did not pass validation.\n\n"
@@ -2114,9 +2114,9 @@ DEBUG_START_PAGE = "validation"
 
 #INPUT VARIABLES HERE
 DEBUG_PRESET = {
-    "selection": {"factory": "1", "station": "3", "cluster": "1", "cutter": "1",
+    "selection": {"factory": "1", "station": "2", "cluster": "2", "cutter": "4",
                   "transport_ok": False},
-    "values": {"mmum": 0.0196, "y_int": 0.51},   # use the fit from a real run
+    "values": {"mmum": 0.02713019581097408, "y_int": -0.38783594830002727},   # use the fit from a real run
 }
 
 
@@ -2128,6 +2128,17 @@ def _jump_to(app, page, preset):
     app.values.update(preset.get("values", {}))
     app.logger.warning(f"DEBUG: starting at '{page}' with {preset}")
     app.show_page(page)
+
+def load_machine_config():
+    root = Path(os.environ.get("APP_ROOT", Path(__file__).resolve().parents[2]))
+    cfg_path = root / "config" / "computer.json"
+    try:
+        with open(cfg_path, encoding="utf-8") as f:
+            cfg = json.load(f)
+        return cfg
+    except FileNotFoundError:
+        sys.exit(f"Machine config not found at {cfg_path}. Create it before running.")
+
 
 
 def run_gui(logger, start_page=None, preset=None):

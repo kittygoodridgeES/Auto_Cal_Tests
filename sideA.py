@@ -33,9 +33,11 @@ from api_requests import APIRequests
 from mqtt_retrieval import MQTTClient
 from cutter_functions import move_piezo
 from airtable_retrieval import AirtableReader
+
 from constants import cutter_positioning as cutter
 from constants import timeouts as timeouts
 from constants import camera_constants as cam_const
+from constants import general as gen
 
 class LatestFrame:
     """Holds only the newest camera frame; written by the camera thread."""
@@ -166,6 +168,11 @@ class CalibrationSide:
             drop_in_piezo_pos = self.calculate_drop_in_pos(default_piezo_pos, grams_per_micron,default_groove_width, self.change_in_diamond_length)
             self.logger.info(f"Drop in piezo pos decided: {drop_in_piezo_pos}"
                              f"Drop in position estimated from change in diamond length")
+
+            if (drop_in_piezo_pos < cutter.PIEZO_LOWER_LIMIT) or (drop_in_piezo_pos > cutter.PIEZO_UPPER_LIMIT):
+                self.logger.info("Drop in piezo position is out of range, reverting to default")
+                drop_in_piezo_pos = gen.DEFAULT_DROP_IN_PIEZO_POS
+
 
         #3. start camera
         def run_camera():

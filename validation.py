@@ -131,7 +131,7 @@ class ValidationSide:
         """Returns True (pass), False (fail) or None (stopped before finishing)."""
         stop = self.stop_event
         latest = LatestFrame()
-        # stream = Stream(self.logger, cutter_no)
+        stream = Stream(self.logger, cutter_no)
         camera_error = []
         self._cutter_running = False
         pass_fail = False
@@ -245,7 +245,7 @@ class ValidationSide:
 
         #attempt to move to initial piezo position
         move_piezo(api, mqtt, piezo_positions[0])
-        self.logger.info(f"Piezo goal: {piezo_positions[0]} moved to {mqtt.moitor("piezo_actual")}")
+        self.logger.info(f"Piezo goal: {piezo_positions[0]} moved to {mqtt.monitor("piezo_actual")}")
 
         # start the cut
         api.command("start")
@@ -254,8 +254,9 @@ class ValidationSide:
         self.logger.info("Setup cut started")
 
         # move again to the next position as a double check in case not achieved
-        move_piezo(api, mqtt, piezo_positions[0])
-        self.logger.info("Piezo moved to starting position")
+        
+        #move_piezo(api, mqtt, piezo_positions[0])
+        #self.logger.info("Piezo moved to starting position")
 
         while float(mqtt.monitor("head_pos")) > cutter.DROPIN_PITCH:
             if stop.is_set():
@@ -494,14 +495,14 @@ class ValidationSide:
             fig.savefig(save_path, dpi=150)
         return fig
 
-api = APIRequests("1", "3.1.1")
-mqtt = MQTTClient("1", "3.1.1")
-stop_event = threading.Event()
-logging.basicConfig(
-    level=logging.INFO,
-    format="%(asctime)s %(levelname)s %(name)s: %(message)s",
-)
-logger = logging.getLogger(__name__)
-val = ValidationSide(logger, r"C:\Users\KittyGoodridge\OneDrive - elasticStage\Desktop\Repos\Auto_Cal_Tests\logs\3.1.1_20261102_112724", stop_event, api, mqtt, 0.0196, 0.51, frame_sink=None)
-pass_or_fail = val.run_validation("3.1.1")
-print(pass_or_fail)
+# api = APIRequests("1", "3.1.1")
+# mqtt = MQTTClient("1", "3.1.1")
+# stop_event = threading.Event()
+# logging.basicConfig(
+#     level=logging.INFO,
+#     format="%(asctime)s %(levelname)s %(name)s: %(message)s",
+# )
+# logger = logging.getLogger(__name__)
+# val = ValidationSide(logger, r"C:\Users\KittyGoodridge\OneDrive - elasticStage\Desktop\Repos\Auto_Cal_Tests\logs\3.1.1_20261102_112724", stop_event, api, mqtt, 0.0196, 0.51, frame_sink=None)
+# pass_or_fail = val.run_validation("3.1.1")
+# print(pass_or_fail)
