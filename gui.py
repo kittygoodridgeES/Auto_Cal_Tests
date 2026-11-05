@@ -2099,36 +2099,6 @@ def finish_text(ctx: WorkerContext):
                 "Do not return this cutter to production. Press Finish to close.")
     return "Validation did not run, so the calibration result is unknown."
 
-
-def run_gui(logger):
-    app = WizardApp(logger)
-    app.mainloop()
-
-
-# if __name__ == "__main__":
-#     run_gui(setup_logging())
-
-#test from validation onwards
-# Set to a page name to skip ahead for testing, or None for the normal flow
-DEBUG_START_PAGE = "validation"
-
-#INPUT VARIABLES HERE
-DEBUG_PRESET = {
-    "selection": {"factory": "1", "station": "2", "cluster": "2", "cutter": "4",
-                  "transport_ok": False},
-    "values": {"mmum": 0.02713019581097408, "y_int": -0.38783594830002727},   # use the fit from a real run
-}
-
-
-def _jump_to(app, page, preset):
-    sel = app.selection
-    for key, value in preset.get("selection", {}).items():
-        setattr(sel, key, value)
-    sel.log_file, sel.log_folder = start_file_logging(app.logger, sel.machine_id)
-    app.values.update(preset.get("values", {}))
-    app.logger.warning(f"DEBUG: starting at '{page}' with {preset}")
-    app.show_page(page)
-
 def load_machine_config():
     root = Path(os.environ.get("APP_ROOT", Path(__file__).resolve().parents[2]))
     cfg_path = root / "config" / "computer.json"
@@ -2140,13 +2110,43 @@ def load_machine_config():
         sys.exit(f"Machine config not found at {cfg_path}. Create it before running.")
 
 
-
-def run_gui(logger, start_page=None, preset=None):
+def run_gui(logger):
     app = WizardApp(logger)
-    if start_page:
-        app.after(0, _jump_to, app, start_page, preset or {})
     app.mainloop()
 
 
 if __name__ == "__main__":
-    run_gui(setup_logging(), DEBUG_START_PAGE, DEBUG_PRESET)
+    run_gui(setup_logging())
+
+# #test from validation onwards
+# # Set to a page name to skip ahead for testing, or None for the normal flow
+# DEBUG_START_PAGE = "validation"
+
+# #INPUT VARIABLES HERE
+# DEBUG_PRESET = {
+#     "selection": {"factory": "1", "station": "2", "cluster": "2", "cutter": "4",
+#                   "transport_ok": False},
+#     "values": {"mmum": 0.02713019581097408, "y_int": -0.38783594830002727},   # use the fit from a real run
+# }
+
+
+# def _jump_to(app, page, preset):
+#     sel = app.selection
+#     for key, value in preset.get("selection", {}).items():
+#         setattr(sel, key, value)
+#     sel.log_file, sel.log_folder = start_file_logging(app.logger, sel.machine_id)
+#     app.values.update(preset.get("values", {}))
+#     app.logger.warning(f"DEBUG: starting at '{page}' with {preset}")
+#     app.show_page(page)
+
+
+
+# def run_gui(logger, start_page=None, preset=None):
+#     app = WizardApp(logger)
+#     if start_page:
+#         app.after(0, _jump_to, app, start_page, preset or {})
+#     app.mainloop()
+
+
+# if __name__ == "__main__":
+#     run_gui(setup_logging(), DEBUG_START_PAGE, DEBUG_PRESET)
