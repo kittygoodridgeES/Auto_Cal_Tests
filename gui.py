@@ -1684,12 +1684,19 @@ class CameraLogPage(BasePage):
         self._started = True
         self._running = True
         self.frames.clear()
+        self.tk_image = None
+        self.camera_label.configure(image=None, text="Waiting for camera...")
+
         self.hide_next()
         self.status_label.configure(text="Status: Running", fg=gui.COLOR_TEXT)
 
         self._handler = QueueLogHandler(self.log_queue)
         self.app.logger.addHandler(self._handler)
 
+        self.log_text.configure(state="normal")
+        self.log_text.delete("1.0", "end")
+        self.log_text.configure(state="disabled")
+        
         self.app.run_in_background(self._run)
         self._update_camera()
         self._drain_logs()
