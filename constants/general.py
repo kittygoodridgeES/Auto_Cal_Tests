@@ -1,4 +1,5 @@
 from pathlib import Path
+import re
 
 
 LOG_DIR = Path(__file__).resolve().parent.parent / "logs"
@@ -17,3 +18,19 @@ REJECT_OUTLIERS = True
 OUTLIER_K = 3.5
 OUTLIER_MIN_RESID = 0.05
 MIN_FIT_GROOVES = 3
+
+# e.g. groove_piezo_20261102_162352_plot.png
+GROOVE_PLOT_PATTERN = re.compile(r"groove_piezo_(\d{8}_\d{6})_plot\.png")
+
+# ===== Database ===== #
+# Change this if the table has a different name
+CALIBRATION_TABLE = "calibration"
+
+# end_time is filled in by the database, so it isn't sent
+CALIBRATION_INSERT_SQL = f"""
+    INSERT INTO {CALIBRATION_TABLE}
+        (laptop, slot, transport_on, diamond_id, mmum, y_int, "pass", discs_used, default_headweight, time_taken, correlation_graph, validation_graph)
+    VALUES
+        (%(laptop)s, %(slot)s, %(transport_on)s, %(diamond_id)s, %(mmum)s, %(y_int)s, %(pass)s,
+         %(discs_used)s, %(default_headweight)s, %(time_taken)s, %(correlation_graph)s, %(validation_graph)s)
+"""

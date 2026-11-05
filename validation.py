@@ -187,12 +187,22 @@ class ValidationSide:
 
             self.logger.info(width_array)
 
+            # remove a sample that doesn't follow the others before pass/fail
+            sample_names = [str(i + 1) for i in range(len(width_array))]
+            bumpy = self.are_any_bumpy(width_array, n_bands=len(cutter.VALIDATION_WIDTHS) + 1)
+            if bumpy is not None:
+                self.logger.warning(f"Removing sample {sample_names[bumpy]} before pass/fail")
+                width_array = [w for i, w in enumerate(width_array) if i != bumpy]
+                del sample_names[bumpy]
+
             #ensure groove widths across all array are within tolerance
             val_widths = cutter.VALIDATION_WIDTHS
 
             pass_fail, data = self.check_all_sides(width_array, val_widths[::-1])
             self.logger.info(f"Validation result: {pass_fail}")
-            fig = self.plot_results(width_array, data, tolerance=cutter.ABS_ERROR_MARGIN, save_path=f"{self.log_folder}/groove_width_validation.png")
+            fig = self.plot_results(width_array, data, tolerance=cutter.ABS_ERROR_MARGIN,
+                                    side_names=sample_names,
+                                    save_path=f"{self.log_folder}/groove_width_validation.png")
                     
             finished = True
 
@@ -359,57 +369,204 @@ class ValidationSide:
             if e - s >= min_size:
                 blocks.append((s, e))
         return blocks
+
+
     
-    
-    def check_against_targets(self, values, targets, tolerance=cutter.ABS_ERROR_MARGIN, drop_last=True, **plateau_kwargs):
+    def are_any_bumpy(self, width_array, n_bands, tol=1.5, odd_fraction=0.5, agree_fraction=0.75,
+                      **segment_kwargs):
         """
-        Group `values` into plateaus, ignore the final plateau, and check every
-        value in plateau i is within `tolerance` of targets[i].
-    
-        Returns (all_passed, results) where results is a list of dicts per block.
+        Overlay all the samples where every one of them is in a plateau and find
+        a sample that doesn't follow the same pattern as the others.
+
+        1. Split each sample into `n_bands` bands with segment_bands (every band
+           assumed present) and keep only the reading indices that are inside a
+           band on *every* sample. Each continuous run of these
+           indices is one overlaid plateau. Transitions and stray readings on any
+           sample are left out.
+        2. On each overlaid plateau, take each sample's median and compare it to
+           the median of the other samples -> that sample's offset there.
+        3. A sample is bumpy if
+             - its offset is bigger than `tol` on at least `odd_fraction` of the
+               overlaid plateaus, and
+             - the other samples agree with each other (all within `tol` of their
+               own median) on at least `agree_fraction` of the overlaid plateaus.
+           The second condition stops a 2-vs-2 split, or samples that are all
+           scattered, from blaming one sample.
+
+        Assumes reading index i is the same groove in every sample.
+
+        Returns the index of the bumpy sample in width_array, or None.
+        """
+        arrays = [np.asarray(s, dtype=float) for s in width_array]
+        n = len(arrays)
+        if n < 3:
+            self.logger.info("Fewer than 3 samples - cannot tell which one is bumpy.")
+            return None
+        length = min(len(a) for a in arrays)
+
+        # 1. overlay: readings that are in a plateau on every sample
+        in_all = np.ones(length, dtype=bool)
+        for a in arrays:
+            mask = np.zeros(length, dtype=bool)
+            for s, e in self.segment_bands(a, n_bands, **segment_kwargs):
+                mask[s:min(e, length)] = True
+            in_all &= mask
+        idx = np.flatnonzero(in_all)
+        if idx.size == 0:
+            self.logger.warning("No readings where all samples are in a plateau - bumpy check skipped.")
+            return None
+        runs = np.split(idx, np.flatnonzero(np.diff(idx) > 1) + 1)
+        segments = [(int(r[0]), int(r[-1]) + 1) for r in runs]
+
+        # 2. level of each sample on each overlaid plateau
+        levels = np.array([[np.median(a[s:e]) for s, e in segments] for a in arrays])
+
+        # 3. each sample vs the others
+        candidates = []
+        for i in range(n):
+            others = np.delete(levels, i, axis=0)
+            ref = np.median(others, axis=0)
+            offsets = levels[i] - ref
+            off_frac = np.mean(np.abs(offsets) > tol)
+            agree_frac = np.mean(np.all(np.abs(others - ref) <= tol, axis=0))
+            self.logger.info(f"Sample {i + 1} offset from others per plateau: "
+                             f"{np.round(offsets, 2).tolist()}")
+            if off_frac >= odd_fraction and agree_frac >= agree_fraction:
+                candidates.append(i)
+
+        if len(candidates) == 1:
+            self.logger.warning(f"Sample {candidates[0] + 1} is bumpy - it doesn't follow the other samples.")
+            return candidates[0]
+        if len(candidates) > 1:
+            self.logger.warning("More than one sample looks bumpy ("
+                                + ", ".join(str(i + 1) for i in candidates)
+                                + ") - none removed.")
+        else:
+            self.logger.info("No bumpy sample found.")
+        return None
+
+
+    def segment_bands(self, values, n_bands, min_size=3, edge_tol=3.0, max_trim=2):
+        """
+        Split `values` into exactly `n_bands` consecutive bands of roughly constant
+        value - every band is assumed to be present, however noisy it is.
+
+        The split points are the ones that make each band as flat as possible
+        (least squared deviation from each band's mean), with every band at least
+        `min_size` readings long. Then up to `max_trim` readings are trimmed from
+        each end of a band if they are further than `edge_tol` from the band's
+        median (transition readings ramping in or out). Trimming is capped, so a
+        noisy band is never trimmed away.
+
+        Returns a list of n_bands (start, end) index pairs, end exclusive.
+        """
+        v = np.asarray(values, dtype=float)
+        n = len(v)
+        if n_bands < 1 or n < n_bands * min_size:
+            raise ValueError(f"{n} readings can't be split into {n_bands} bands "
+                             f"of at least {min_size}")
+
+        # cost(i, j) = squared deviation of v[i:j] from its mean
+        s1 = np.concatenate(([0.0], np.cumsum(v)))
+        s2 = np.concatenate(([0.0], np.cumsum(v * v)))
+
+        def cost(i, j):
+            return s2[j] - s2[i] - (s1[j] - s1[i]) ** 2 / (j - i)
+
+        # best[k][j]: lowest cost of splitting v[:j] into k bands
+        inf = float("inf")
+        best = np.full((n_bands + 1, n + 1), inf)
+        prev = np.zeros((n_bands + 1, n + 1), dtype=int)
+        best[0][0] = 0.0
+        for k in range(1, n_bands + 1):
+            for j in range(k * min_size, n - (n_bands - k) * min_size + 1):
+                for i in range((k - 1) * min_size, j - min_size + 1):
+                    c = best[k - 1][i] + cost(i, j)
+                    if c < best[k][j]:
+                        best[k][j], prev[k][j] = c, i
+
+        cuts, j = [], n
+        for k in range(n_bands, 0, -1):
+            i = prev[k][j]
+            cuts.append((int(i), int(j)))
+            j = i
+        cuts.reverse()
+
+        # trim transition readings off the ends of each band (capped)
+        bands = []
+        for s, e in cuts:
+            m = np.median(v[s:e])
+            for _ in range(max_trim):
+                if e - s > min_size and abs(v[s] - m) > edge_tol:
+                    s += 1
+            for _ in range(max_trim):
+                if e - s > min_size and abs(v[e - 1] - m) > edge_tol:
+                    e -= 1
+            bands.append((s, e))
+        return bands
+
+
+    def check_against_targets(self, values, targets, tolerance=cutter.ABS_ERROR_MARGIN, drop_last=True,
+                              average=False, **segment_kwargs):
+        """
+        Split `values` into one band per target (plus the final block when
+        `drop_last`, which is then ignored) and check every value in band i is
+        within `tolerance` of targets[i]. Every band is assumed to be present,
+        so band i always lines up with targets[i].
+
+        average : if True, a band passes when the mean of its readings is within
+                  `tolerance` of the target, instead of needing every reading
+                  within tolerance. Its readings are then all marked as failing
+                  or all as passing, so the plot colours the band as a whole.
+
+        Returns (all_passed, results) with one dict per target.
         """
         values = np.asarray(values, dtype=float)
-        blocks = self.find_plateaus(values, **plateau_kwargs)
-        if drop_last and blocks:
-            blocks = blocks[:-1]
-    
-        if len(blocks) != len(targets):
-            self.logger.warning(
-                f"Found {len(blocks)} blocks but {len(targets)} targets; "
-                "comparing the first {min(len(blocks), len(targets))}."
-            )
-    
+        n_bands = len(targets) + (1 if drop_last else 0)
+        bands = self.segment_bands(values, n_bands, **segment_kwargs)[:len(targets)]
+
         results = []
-        for i, ((s, e), target) in enumerate(zip(blocks, targets)):
+        for i, ((s, e), target) in enumerate(zip(bands, targets)):
             block = values[s:e]
-            bad = np.where(np.abs(block - target) > tolerance)[0] + s
+            mean = float(np.mean(block))
+            if average:
+                passed = abs(mean - target) <= tolerance
+                bad = np.array([], dtype=int) if passed else np.arange(s, e)
+            else:
+                bad = np.where(np.abs(block - target) > tolerance)[0] + s
+                passed = bad.size == 0
             results.append({
                 "block": i,
                 "start": s,
                 "end": e,                      # exclusive
+                "mean": mean,
+                "mean_deviation": mean - target,
                 "median": float(np.median(block)),
                 "target": target,
                 "max_deviation": float(np.max(np.abs(block - target))),
                 "failing_indices": bad.tolist(),
-                "passed": bad.size == 0,
+                "passed": passed,
             })
-    
-        all_passed = len(blocks) == len(targets) and all(r["passed"] for r in results)
+
+        all_passed = all(r["passed"] for r in results)
         return all_passed, results
-    
-    
-    def check_all_sides(self, width_array, targets, tolerance=5.0, **plateau_kwargs):
+
+
+    def check_all_sides(self, width_array, targets, tolerance=5.0, average=False, **segment_kwargs):
         """
         width_array : list of per-side lists (e.g. sides A-D), lengths may differ.
         targets     : one list used for every side, or a list of per-side lists.
-    
+        average     : judge each band on the mean of its readings (see
+                      check_against_targets).
+
         Returns (all_passed, {side_index: (passed, results)}).
         """
         per_side = isinstance(targets[0], (list, tuple, np.ndarray))
         out = {}
         for i, side in enumerate(width_array):
             t = targets[i] if per_side else targets
-            out[i] = self.check_against_targets(side, t, tolerance=tolerance, **plateau_kwargs)
+            out[i] = self.check_against_targets(side, t, tolerance=tolerance, average=average,
+                                                **segment_kwargs)
         return all(p for p, _ in out.values()), out
 
     def plot_rows(self, data, labels=None, xlabel="Index", ylabel="GW", title="Validation gw measurements"):
@@ -461,6 +618,11 @@ class ValidationSide:
                 ax.hlines(t, s - 0.5, e - 0.5, colors="tab:blue", linewidth=2)
                 ax.text((s + e - 1) / 2, t - tolerance - 1, f"target {t:g}", ha="center",
                         va="top", fontsize=8, color="tab:blue")
+                if "mean" in b:
+                    mc = "tab:green" if b["passed"] else "tab:red"
+                    ax.hlines(b["mean"], s - 0.5, e - 0.5, colors=mc, linestyles="--", linewidth=1.5)
+                    ax.text((s + e - 1) / 2, max(t + tolerance, np.max(values[s:e])) + 1, f"mean {b['mean']:.1f}", ha="center",
+                            va="bottom", fontsize=8, color=mc)
     
                 idx = np.arange(s, e)
                 fail = np.isin(idx, b["failing_indices"])
@@ -483,12 +645,13 @@ class ValidationSide:
         from matplotlib.patches import Patch
         handles = [
             Line2D([], [], color="tab:blue", linewidth=2, label="Target"),
+            Line2D([], [], color="grey", linestyle="--", linewidth=1.5, label="Band mean"),
             Patch(color="tab:blue", alpha=0.15, label=f"±{tolerance:g} tolerance"),
             Line2D([], [], marker="o", ls="", color="tab:green", label="Within tolerance"),
             Line2D([], [], marker="o", ls="", color="tab:red", label="Out of tolerance"),
             Line2D([], [], marker="o", ls="", color="lightgrey", label="Ignored (transition / final block)"),
         ]
-        fig.legend(handles=handles, loc="lower center", ncol=5, frameon=False)
+        fig.legend(handles=handles, loc="lower center", ncol=6, frameon=False)
         fig.tight_layout(rect=(0, 0.05, 1, 1))
     
         if save_path:

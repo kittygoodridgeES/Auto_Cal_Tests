@@ -10,6 +10,7 @@ from pathlib import Path
 from tkinter import ttk
 from tkinter.scrolledtext import ScrolledText
 from typing import Callable
+from datetime import datetime
 
 from airtable_retrieval import AirtableReader
 from mqtt_retrieval import MQTTClient
@@ -26,6 +27,7 @@ from PIL import Image, ImageTk
 import yaml
 import os, json, sys
 import dotenv
+import psycopg2
 
 
 # ===== import constants  ===== #
@@ -37,6 +39,19 @@ from constants import general as gen
 
 #disk position tracking: "No Disk", "A_side" or "B_side"
 disk_position = "No Disk"
+
+# Discs used this run: goes up by 1 each time a disc arrives on the A side
+discs_used = 0
+
+
+def set_disk_position(new_position: str, logger: logging.Logger):
+    """Change disk_position. Moving onto A_side from anything else means a new
+    disc has been put in, so discs_used goes up by 1."""
+    global disk_position, discs_used
+    if new_position == "A_side" and disk_position != "A_side":
+        discs_used += 1
+        logger.info(f"Disc {discs_used} placed on side A")
+    disk_position = new_position
 
 # Manual mode (transport not operational): each manual task moves the disc one step on
 #   No Disk --place disc A up--> A_side --flip--> B_side --remove--> No Disk
@@ -79,6 +94,53 @@ def station_layout(factory: str, station: str) -> dict:
 def cutter_count(layout: dict) -> int:
     """Cutters on the station, or per cluster for stations with clusters."""
     return layout.get("cutters", layout.get("slots"))
+
+
+# ===== Laptop config ===== #
+def load_machine_config():
+    """Read config/computer.json from the install root (set by the .bat as APP_ROOT)."""
+    root = Path(os.environ.get("APP_ROOT", Path(__file__).resolve().parents[2]))
+    cfg_path = root / "config" / "computer.json"
+    try:
+        with open(cfg_path, encoding="utf-8") as f:
+            cfg = json.load(f)
+        return cfg
+    except FileNotFoundError:
+        sys.exit(f"Machine config not found at {cfg_path}. Create it before running.")
+
+
+def load_laptop_number() -> int:
+    """The laptop number from computer.json, e.g. {"laptop": 3}. Exits if it's missing."""
+    cfg = load_machine_config()
+    try:
+        return int(cfg["laptop"])
+    except (KeyError, TypeError, ValueError):
+        sys.exit('computer.json must contain a whole-number "laptop" entry, e.g. {"laptop": 3}')
+
+def post_calibration_record(record: dict, log_folder: Path | None, logger: logging.Logger):
+    """Insert one row for this run. If the database can't be reached, save the
+    record as JSON in the run's log folder so it isn't lost."""
+    conn = psycopg2.connect(
+
+            user=str(os.getenv("DB_USER")),
+            password= str(os.getenv("DB_PASSWORD")),
+            host= (os.getenv("DB_HOST")),
+            hostaddr= str(os.getenv("DB_HOST")),
+            port= os.getenv("DB_PORT"),
+            database= str(os.getenv("DB_DATABASE"))
+            )
+    try:
+        conn.execute(gen.CALIBRATION_INSERT_SQL, record)   # commits when the 'with' block exits
+        logger.info(f"Calibration record saved to database: {record}")
+    except Exception:
+        logger.exception("Could not save calibration record to database")
+        if log_folder is not None:
+            try:
+                fallback = Path(log_folder) / "calibration_record_unsent.json"
+                fallback.write_text(json.dumps(record, default=str, indent=2), encoding="utf-8")
+                logger.info(f"Calibration record written to {fallback} instead")
+            except Exception:
+                logger.exception("Could not write fallback calibration record")
 
 
 # ===== Logging ===== #
@@ -251,6 +313,15 @@ class WizardApp(tk.Tk):
         self._transport_lock = threading.Lock()
         self._api = None
         self._api_lock = threading.Lock()
+
+        #mark the start time of the wizard for logging purposes
+        self.start_time = time.monotonic()
+
+        # Which laptop this is, from config/computer.json
+        self.laptop = load_laptop_number()
+        self.logger.info(f"Running on laptop {self.laptop}")
+        # Set once the selection page is completed; a database record is only posted after that
+        self.machine_selected = False
 
 
         self.title("Setup Wizard")
@@ -550,11 +621,50 @@ class WizardApp(tk.Tk):
 
     # --- shutdown --- #
     def stop_program(self):
+        """Called by STOP PROGRAM, FINISH and closing the window."""
         if self.stop_event.is_set():
             return
         self.logger.info("Stop requested")
         self.stop_event.set()
+
+        ####TODO: prepare database
+        # self._post_calibration_record()
         self.after(25, self._wait_for_threads, 0)
+
+    def _post_calibration_record(self):
+        """Post one row to the calibration table, but only once the machine has been selected."""
+        if not self.machine_selected:
+            self.logger.info("Stopped before a machine was selected - no database record posted")
+            return
+        sel, v = self.selection, self.values
+        img_1 = latest_groove_plot(sel.log_folder)   # or sel.log_folder    
+        img_2 = f"{sel.log_folder}/groove_width_validation.png"
+        correlation_graph = psycopg2.Binary(img_1) if img_1 is not None else None
+        validation_graph = psycopg2.Binary(img_2) if img_2 is not None else None
+        time_taken = round(time.monotonic() - self.start_time, 1)
+        diamond = v.get("diamond_id")
+        mmum = v.get("mmum")
+        y_int = v.get("y_int")
+        record = {
+            "laptop": self.laptop,
+            "slot": sel.machine_id,
+            "transport_on": bool(sel.transport_ok),
+            "diamond_id": str(diamond) if diamond is not None else None,
+            "mmum": float(mmum) if mmum is not None else None,
+            "y_int": float(y_int) if y_int is not None else None,
+            # PASS -> True; FAIL or validation not run -> False
+            "pass": v.get("validation_result") == "PASS",
+            "discs_used": discs_used,
+            "default_headweight": v.get("default_headweight"),
+            "time_taken": time_taken,
+            'correlation_graph': correlation_graph,
+            'validation_graph': validation_graph,
+        }
+        self.logger.info(f"Posting calibration record: {record}")
+        # Non-daemon so Python waits for the insert to finish even after the window closes
+        threading.Thread(target=post_calibration_record,
+                         args=(record, getattr(sel, "log_folder", None), self.logger),
+                         name="db_post").start()
 
     def _wait_for_threads(self, elapsed):
         with self._mqtt_lock:
@@ -781,6 +891,7 @@ class SelectionPage(BasePage):
             return
         sel = self.app.selection
         sel.log_file, sel.log_folder = start_file_logging(self.app.logger, sel.machine_id)
+        self.app.machine_selected = True     # from here on, stopping posts a database record
         self.app.logger.info(f"Machine ID: {sel.machine_id}")
         self.app.logger.info(f"Selection: {sel.summary()}")
         self.app.show_page(self.next_target)
@@ -1515,7 +1626,6 @@ class TaskPage(BasePage):
 
     def on_next(self):
         # Only reachable in manual mode
-        global disk_position
         try:
             target = self._resolve_next(self.app.make_context())
         except Exception as e:
@@ -1526,7 +1636,7 @@ class TaskPage(BasePage):
             new_position = self.manual_next_position.get(disk_position, disk_position)
             if new_position != disk_position:
                 self.app.logger.info(f"Disk position {disk_position} -> {new_position} (manual)")
-                disk_position = new_position
+                set_disk_position(new_position, self.app.logger)
         self.app.show_page(target)
 
 
@@ -1806,11 +1916,10 @@ def read_live_value(ctx: WorkerContext):
 
 
 def supply_task(ctx: WorkerContext):
-    global disk_position
     ctx.log(f"Preparing for supply to {ctx.selection.machine_id}")
     ctx.get_transport().run_command("supply", ctx.stop_event, timeout=300)
     ctx.log("Supply complete")
-    disk_position= "A_side"
+    set_disk_position("A_side", ctx.logger)
 
 
 def transition_task(ctx: WorkerContext):
@@ -1818,7 +1927,6 @@ def transition_task(ctx: WorkerContext):
         No Disk -> supply (shouldn't happen, but handled)
         A_side  -> flip
         B_side  -> operator manually rejects the disc, then supply"""
-    global disk_position
     transport = ctx.get_transport()
     machine = ctx.selection.machine_id
     ctx.log(f"Switch over: disc is currently {disk_position}")
@@ -1826,22 +1934,22 @@ def transition_task(ctx: WorkerContext):
     if disk_position == "No Disk":
         ctx.logger.warning(f"No disc recorded in {machine} at switch over - requesting supply")
         transport.run_command("supply", ctx.stop_event, timeout=300)
-        disk_position = "A_side"
+        set_disk_position("A_side", ctx.logger)
 
     elif disk_position == "A_side":
         ctx.log(f"Requesting flip for {machine}")
         transport.run_command("flip", ctx.stop_event, timeout=300)
-        disk_position = "B_side"
+        set_disk_position("B_side", ctx.logger)
 
     elif disk_position == "B_side":
         ctx.log("Disc has been used on both sides - manual reject required")
         ctx.ask_operator("Please manually remove and reject the disc currently in the cutter.\n\n"
                          "Press CONFIRM once it has been removed.")
         # Recorded straight away, so if the supply fails, RETRY supplies without asking again
-        disk_position = "No Disk"
+        set_disk_position("No Disk", ctx.logger)
         ctx.log(f"Requesting supply for {machine}")
         transport.run_command("supply", ctx.stop_event, timeout=300)
-        disk_position = "A_side"
+        set_disk_position("A_side", ctx.logger)
 
     else:
         raise RuntimeError(f"Unknown disk position: {disk_position!r}")
@@ -1975,6 +2083,8 @@ def measure_and_set_headweight(ctx: WorkerContext) -> bool:
                            f"piezo pos {config_list[2]} - config not changed")
         return False
 
+    ctx.values["default_headweight"] = config_list[1]
+
     data = {
         "HEAD_DROP_AND_CALIBRATION_CFG_DEFAULT_WEIGHT": float(config_list[1]),
         "HEAD_DROP_AND_CALIBRATION_CFG_GRAMS_PER_MICRON": mmum,
@@ -2099,16 +2209,26 @@ def finish_text(ctx: WorkerContext):
                 "Do not return this cutter to production. Press Finish to close.")
     return "Validation did not run, so the calibration result is unknown."
 
-def load_machine_config():
-    root = Path(os.environ.get("APP_ROOT", Path(__file__).resolve().parents[2]))
-    cfg_path = root / "config" / "computer.json"
-    try:
-        with open(cfg_path, encoding="utf-8") as f:
-            cfg = json.load(f)
-        return cfg
-    except FileNotFoundError:
-        sys.exit(f"Machine config not found at {cfg_path}. Create it before running.")
 
+
+def latest_groove_plot(folder: Path | None) -> Path | None:
+    """Return the groove_piezo_<YYYYMMDD_HHMMSS>_plot.png in folder with the most
+    recent timestamp in its name, or None if there isn't one."""
+    if folder is None or not Path(folder).is_dir():
+        return None
+
+    newest_path, newest_time = None, None
+    for path in Path(folder).iterdir():
+        match = gen.GROOVE_PLOT_PATTERN.fullmatch(path.name)
+        if match is None:
+            continue                      # not a groove plot
+        try:
+            stamp = datetime.strptime(match.group(1), "%Y%m%d_%H%M%S")
+        except ValueError:
+            continue                      # right shape but not a real date
+        if newest_time is None or stamp > newest_time:
+            newest_path, newest_time = path, stamp
+    return newest_path
 
 def run_gui(logger):
     app = WizardApp(logger)
