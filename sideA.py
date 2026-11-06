@@ -198,6 +198,11 @@ class CalibrationSide:
 
         try:
             #4. start cutter into setup mode 
+
+                #check that there is a disc present
+            if not self.mqtt.monitor("record_present"):
+                raise RuntimeError("No disc present - cannot start calibration")
+            
                 #set new head drop position
             self.api.set("head_drop_pos", cutter.DROPIN_PITCH)
             self.logger.info(f"Drop in pitch set from {original_head_drop_pos} to {cutter.DROPIN_PITCH}")

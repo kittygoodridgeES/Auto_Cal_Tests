@@ -29,8 +29,8 @@ CALIBRATION_TABLE = "calibration"
 # end_time is filled in by the database, so it isn't sent
 CALIBRATION_INSERT_SQL = f"""
     INSERT INTO {CALIBRATION_TABLE}
-        (laptop, slot, transport_on, diamond_id, mmum, y_int, "pass", discs_used, default_headweight, time_taken, correlation_graph, validation_graph)
+        (laptop, slot, transport_on, diamond_id, mmum, y_int, "pass", discs_used, default_headweight, time_taken, correlation_graph, validation_graph, maintenance_narrative)
     VALUES
         (%(laptop)s, %(slot)s, %(transport_on)s, %(diamond_id)s, %(mmum)s, %(y_int)s, %(pass)s,
-         %(discs_used)s, %(default_headweight)s, %(time_taken)s, %(correlation_graph)s, %(validation_graph)s)
+         %(discs_used)s, %(default_headweight)s, %(time_taken)s, %(correlation_graph)s, %(validation_graph)s, %(maintenance_narrative)s)
 """

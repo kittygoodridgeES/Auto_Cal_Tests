@@ -41,8 +41,11 @@ from constants import general as gen
 disk_position = "No Disk"
 
 # Discs used this run: goes up by 1 each time a disc arrives on the A side
+#   No Disk --place disc A up--> A_side --flip--> B_side --remove--> No Disk
 discs_used = 0
 
+# Maintenance narrative for records
+maintenance_narrative = ""
 
 def set_disk_position(new_position: str, logger: logging.Logger):
     """Change disk_position. Moving onto A_side from anything else means a new
@@ -53,8 +56,13 @@ def set_disk_position(new_position: str, logger: logging.Logger):
         logger.info(f"Disc {discs_used} placed on side A")
     disk_position = new_position
 
-# Manual mode (transport not operational): each manual task moves the disc one step on
-#   No Disk --place disc A up--> A_side --flip--> B_side --remove--> No Disk
+def append_maintenance_narrative(adjustment, magnitude):
+    """Append a line to the maintenance narrative with the current time and adjustment"""
+    global maintenance_narrative
+    now = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    maintenance_narrative += f"{now} - Adjustment: {adjustment} - Magnitude: {magnitude}\n"
+
+
 length_change = None
 
 #load .env file
@@ -629,6 +637,8 @@ class WizardApp(tk.Tk):
 
         ####TODO: prepare database
         # self._post_calibration_record()
+
+
         self.after(25, self._wait_for_threads, 0)
 
     def _post_calibration_record(self):
@@ -645,6 +655,7 @@ class WizardApp(tk.Tk):
         diamond = v.get("diamond_id")
         mmum = v.get("mmum")
         y_int = v.get("y_int")
+        maintenance_nar = maintenance_narrative if maintenance_narrative else None
         record = {
             "laptop": self.laptop,
             "slot": sel.machine_id,
@@ -659,6 +670,7 @@ class WizardApp(tk.Tk):
             "time_taken": time_taken,
             'correlation_graph': correlation_graph,
             'validation_graph': validation_graph,
+            'maintenance_narrative': maintenance_nar
         }
         self.logger.info(f"Posting calibration record: {record}")
         # Non-daemon so Python waits for the insert to finish even after the window closes
@@ -1696,7 +1708,7 @@ class CameraLogPage(BasePage):
         self.log_text.configure(state="normal")
         self.log_text.delete("1.0", "end")
         self.log_text.configure(state="disabled")
-        
+
         self.app.run_in_background(self._run)
         self._update_camera()
         self._drain_logs()
@@ -2069,6 +2081,10 @@ def measure_and_set_headweight(ctx: WorkerContext) -> bool:
     """Find the default headweight. If it can be set at the default groove width, post and
     apply the new config and return True. Otherwise store the readings for the
     LoadCellShim page and return False."""
+    ctx.values["shim_required"] = False
+    ctx.values["shim_headweight"] = None
+    ctx.values["shim_piezo_pos"] = None
+
     api = ctx.get_api()
     mqtt = ctx.get_mqtt()
 
@@ -2102,7 +2118,7 @@ def measure_and_set_headweight(ctx: WorkerContext) -> bool:
     ctx.logger.info(f"New calibration values set on cutter: {data}")
     return True
     
-        #FUTURE DEVELOPMENT
+        #FUTURE DEVELOPMENT WITH NO LOADCELL
         # default_headweight = config_list[1]
         # piezo_pos = config_list[2]
         # #using the piezo pos find the groove width
@@ -2154,11 +2170,14 @@ def choose_after_calibration(ctx: WorkerContext):
 
 def manual_adjust_text(ctx: WorkerContext):
     instruction = ctx.values.get("manual_ajd_instr")
+    
     if instruction == None:
         instructions = "Replace the spring: Spring has been overstretched and can no longer keep head in acceptable range"
     elif float(instruction) > 0:
+        append_maintenance_narrative("Headweight screw UP", abs(float(instruction)))
         instructions = f"Please shift the head UPWARDS by approx. {instruction}"
     else:
+        append_maintenance_narrative("Headweight screw DOWN", abs(float(instruction)))
         instructions = f"Please shift the head DOWNWARDS by approx. {abs(instruction)}"
 
     return (f"A manual adjustment is required before continuing:\n\n{instructions}\n\n"
@@ -2198,6 +2217,7 @@ def load_cell_shim_text(ctx: WorkerContext):
     default_piezo_pos =  float(ctx.values.get("default_piezo_pos"))
 
     shim_dist = round(abs(piezo_pos - default_piezo_pos), cutter.ROUND_SHIM) + cutter.SHIM_OFFSET
+    append_maintenance_narrative("Loadcell shim", float(shim_dist))
     return ("The default headweight could not be set at the current loadcell height.\n\n"
             f"Please shim the loadcell upwards by {shim_dist} from its current position\n"
             "Please shim the load cell, then press OK to measure again.")

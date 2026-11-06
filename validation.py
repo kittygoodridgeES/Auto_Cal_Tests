@@ -253,6 +253,10 @@ class ValidationSide:
         self.wait_for(lambda: self._state() == STATE_IDLE, "reset to finish (IDLE)")
         self.logger.info("Cutter reset")
 
+        #check that there is a disc present
+        if not self.mqtt.monitor("record_present"):
+            raise RuntimeError("No disc present - cannot start calibration")
+        
         #attempt to move to initial piezo position
         move_piezo(api, mqtt, piezo_positions[0])
         self.logger.info(f"Piezo goal: {piezo_positions[0]} moved to {mqtt.monitor("piezo_actual")}")
