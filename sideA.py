@@ -82,7 +82,7 @@ class CalibrationSide:
             w = csv.writer(f)
             w.writerow(["time_s", "step", "piezo_pos", "groove", "average_5_um", "width_um"])
             w.writerows(samples)
-        self.logger.info("saved %d samples to %s", len(samples), path)
+        self.logger.info("Saved %d samples to %s", len(samples), path)
         return path
 
 
@@ -231,18 +231,18 @@ class CalibrationSide:
             self.logger.info("Cutter reset")
 
                 # move piezo to starting position post cut
-            self.logger.info(f"Moving piezo to starting position \n ===")
+            self.logger.info(f"Moving piezo to starting position: {drop_in_piezo_pos}")
             move_piezo(self.api, self.mqtt, drop_in_piezo_pos)
             self.logger.info(f"Piezo moved to starting pos")
 
                 #start the cutter
-            self.api.command("start")
-            self.logger.info("starting cutter")
+            self.api.command("Start")
+            self.logger.info("Starting cutter")
 
 
                 #starting cut
             self.api.set("setup_cut", True)
-            self.logger.info("starting setup cut")
+            self.logger.info("Starting setup cut")
             self.logger.info("Setup cut has started")
 
 
@@ -306,18 +306,18 @@ class CalibrationSide:
                     current_pos = float(self.mqtt.monitor("piezo_actual"))
                     new_pos = min(current_pos + cutter.NO_GROOVE_STEP, cutter.PIEZO_UPPER_LIMIT)
                     if new_pos > current_pos:
-                        self.logger.warning("no groove seen %.0f s after head reached cutting position - "
+                        self.logger.warning("No groove seen %.0f s after head reached cutting position - "
                                             "increasing piezo %.2f -> %.2f", timeouts.NO_GROOVE_S, current_pos, new_pos)
                         step += 1
                         pos_start = move_and_wait(self.api, self.mqtt, new_pos)
                         window_end = None
                         last_width = None
                         pos = round(new_pos, 2)
-                        self.logger.info("drop-in piezo position updated %.2f -> %.2f",
+                        self.logger.info("Drop-in piezo position updated %.2f -> %.2f",
                                          drop_in_piezo_pos, new_pos)
                         drop_in_piezo_pos = new_pos
                     else:
-                        self.logger.warning("no groove seen %.0f s after head reached cutting position, "
+                        self.logger.warning("No groove seen %.0f s after head reached cutting position, "
                                             "piezo already at %.2f - not increasing", timeouts.NO_GROOVE_S, current_pos)
                     continue
 
@@ -361,20 +361,20 @@ class CalibrationSide:
                     current_pos = float(self.mqtt.monitor("piezo_actual"))
                     new_pos = min(current_pos + cutter.HEAVY_STEP, cutter.PIEZO_UPPER_LIMIT)
                     if new_pos <= current_pos:
-                        self.logger.warning("light groove width %.1f um at piezo %.2f, already at upper limit "
+                        self.logger.warning("Light groove width %.1f um at piezo %.2f, already at upper limit "
                                             "- stopping cutter", width, current_pos)
                         endflag = True
                         self.api.command("stop")
                         self.wait_for(lambda: self.api.get("packml_state") == 2, "cutter to stop", self.api)
                         break
-                    self.logger.warning("light groove width %.1f um on first position - increasing piezo "
+                    self.logger.warning("Light groove width %.1f um on first position - increasing piezo "
                                         "%.2f -> %.2f", width, current_pos, new_pos)
                     step += 1
                     pos_start = move_and_wait(self.api, self.mqtt, new_pos)
                     window_end = None
                     last_width = None
                     pos = round(new_pos, 2)
-                    self.logger.info("drop-in piezo position updated %.2f -> %.2f",
+                    self.logger.info("Drop-in piezo position updated %.2f -> %.2f",
                                      drop_in_piezo_pos, new_pos)
                     drop_in_piezo_pos = new_pos
                     continue                  # don't record the too-light frame
@@ -383,7 +383,7 @@ class CalibrationSide:
                 if res["n"] == cam_const.N_AVG and res["width"] is not None:
                     if window_end is None:
                         window_end = now_t + cutter.MEASURE_S
-                        self.logger.info("groove found at piezo %s, measuring for %.1f s", pos, cutter.MEASURE_S)
+                        self.logger.info("Groove found at piezo %s, measuring for %.1f s", pos, cutter.MEASURE_S)
                     samples.append((round(now_t - t_start, 3), step, pos, res["groove"],
                                     res["average"], res["width"]))
                 n_here = sum(1 for s in samples if s[1] == step)
@@ -460,10 +460,11 @@ class CalibrationSide:
                     reading = "waiting for 5 frames"
                 else:
                     now = "--" if res["width"] is None else f"{res['width']:.1f}"
-                    reading = (f"groove {res['groove']}  now {now} um  "
+                    reading = (f"Groove {res['groove']}  now {now} um  "
                             f"avg({res['n']}/{cam_const.N_AVG}) {res['average']:.1f} um  [{ms:.0f} ms]")
                 text = f"{status} | {reading}"
-                self.logger.info("%s  (frames: %d received, %d analysed)", text, latest.received, analysed)
+                if analysed % 15 == 0:
+                    self.logger.info("%s  (frames: %d received, %d analysed)", text, latest.received, analysed)
 
                 self.show(frame, mon, text)
 
