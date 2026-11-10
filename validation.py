@@ -676,14 +676,14 @@ class ValidationSide:
             fig.savefig(save_path, dpi=150)
         return fig
 
-api = APIRequests("1", "2.1.2")
-mqtt = MQTTClient("1", "2.1.2")
-stop_event = threading.Event()
-logging.basicConfig(
-    level=logging.INFO,
-    format="%(asctime)s %(levelname)s %(name)s: %(message)s",
-)
-logger = logging.getLogger(__name__)
-val = ValidationSide(logger, r"C:\Users\KittyGoodridge\OneDrive - elasticStage\Desktop\Repos\Auto_Cal_Tests\logs\2.1.2_20261109_164748", stop_event, api, mqtt,0.01644 , 0.38334, frame_sink=None)
-pass_or_fail = val.run_validation("2.1.2")
-print(pass_or_fail)
+# api = APIRequests("1", "2.1.2")
+# mqtt = MQTTClient("1", "2.1.2")
+# stop_event = threading.Event()
+# logging.basicConfig(
+#     level=logging.INFO,
+#     format="%(asctime)s %(levelname)s %(name)s: %(message)s",
+# )
+# logger = logging.getLogger(__name__)
+# val = ValidationSide(logger, r"C:\Users\KittyGoodridge\OneDrive - elasticStage\Desktop\Repos\Auto_Cal_Tests\logs\2.1.2_20261109_164748", stop_event, api, mqtt,0.01644 , 0.38334, frame_sink=None)
+# pass_or_fail = val.run_validation("2.1.2")
+# print(pass_or_fail)

@@ -636,9 +636,11 @@ class WizardApp(tk.Tk):
         self.stop_event.set()
 
         #ensure that cutter is stopped before closing the wizard
-        if api.get("packml_state") != 2:
-            api = self.get_api()
-            api.command("stop")
+        if self.selection.machine_id is not None:
+            self.logger.info(f"Stopping cutter on {self.selection.machine_id}")
+            if self._api is not None:
+                if self._api.get("packml_state") != 2:
+                    self._api.command("stop")
 
         ####TODO: prepare database
         # self._post_calibration_record()
@@ -809,22 +811,34 @@ class BasePage(ttk.Frame):
         raise NotImplementedError
 
 
+    
 class SelectionPage(BasePage):
     """Page 1: one question at a time.
-    Factory -> Station -> Cluster (if the station has clusters) -> Cutter -> Transport.
+    Right column: Factory -> Station -> Cluster (if the station has clusters) -> Cutter.
+    Left column (once a cutter is picked): Transport operational? / First calibration after diamond change?
     Changing an earlier answer removes the questions below it so they're asked again."""
 
     def __init__(self, parent, app, next_target):
         super().__init__(parent, app, title="Select Machine")
         self.next_target = next_target
-        self._steps: list[ttk.Frame] = []     # question widgets currently shown, top to bottom
-        self._transport_group = None
+        self._steps: list[ttk.Frame] = []        # machine questions currently shown, top to bottom
+        self._condition_groups: list[ttk.Frame] = []   # yes/no questions in the left column
 
         body = ttk.Frame(self.content)
         body.pack(anchor="n", fill="x", padx=40)
 
-        self.steps_frame = ttk.Frame(body)
-        self.steps_frame.pack(anchor="w", fill="x")
+        columns = ttk.Frame(body)
+        columns.pack(anchor="w", fill="x")
+        # Fixed width for the machine column so the yes/no questions don't jump sideways
+        # as Cluster/Cutter rows appear with different numbers of options
+        columns.columnconfigure(0, minsize=320)
+        columns.columnconfigure(1, weight=1)
+
+        self.steps_frame = ttk.Frame(columns)
+        self.steps_frame.grid(row=0, column=0, sticky="nw", padx=(0, 40))
+
+        self.conditions_frame = ttk.Frame(columns)
+        self.conditions_frame.grid(row=0, column=1, sticky="nw")
 
         self.summary_label = ttk.Label(body, text="", font=gui.FONT_BODY)
         self.summary_label.pack(anchor="w", pady=(8, 0))
@@ -840,19 +854,35 @@ class SelectionPage(BasePage):
         self._steps.append(group)
         return group
 
+    def _add_condition(self, label, on_select) -> ChoiceGroup:
+        group = ChoiceGroup(self.conditions_frame, label, [(True, "Yes"), (False, "No")], on_select)
+        group.pack(anchor="w", pady=(0, 16))
+        self._condition_groups.append(group)
+        return group
+
+    def _clear_conditions(self):
+        for widget in self._condition_groups:
+            widget.destroy()
+        self._condition_groups.clear()
+
     def _keep_steps(self, count):
-        """Keep the first `count` questions and remove everything below them."""
+        """Keep the first `count` questions and remove everything below them.
+        Any change above the cutter is a new location, so the yes/no questions go too."""
         for widget in self._steps[count:]:
-            if widget is self._transport_group:
-                self._transport_group = None
             widget.destroy()
         del self._steps[count:]
+        self._clear_conditions()
 
     # --- answers --- #
+    def _reset_conditions(self, sel):
+        sel.transport_ok = None
+        sel.first_after_diamond_change = None
+
     def _on_factory(self, value):
         sel = self.app.selection
         sel.factory = value
-        sel.station = sel.cluster = sel.cutter = sel.transport_ok = None
+        sel.station = sel.cluster = sel.cutter = None
+        self._reset_conditions(sel)
 
         self._keep_steps(1)
         stations = [(s, f"Station {s}") for s in stations_for(value)]
@@ -862,7 +892,8 @@ class SelectionPage(BasePage):
     def _on_station(self, value):
         sel = self.app.selection
         sel.station = value
-        sel.cluster = sel.cutter = sel.transport_ok = None
+        sel.cluster = sel.cutter = None
+        self._reset_conditions(sel)
 
         self._keep_steps(2)
         layout = sel.layout()
@@ -876,7 +907,8 @@ class SelectionPage(BasePage):
     def _on_cluster(self, value):
         sel = self.app.selection
         sel.cluster = value
-        sel.cutter = sel.transport_ok = None
+        sel.cutter = None
+        self._reset_conditions(sel)
 
         self._keep_steps(3)
         self._add_cutter_step(cutter_count(sel.layout()))
@@ -888,14 +920,19 @@ class SelectionPage(BasePage):
 
     def _on_cutter(self, value):
         self.app.selection.cutter = value
-        # Changing cutter keeps the transport answer; it's only asked once per location
-        if self._transport_group is None:
-            self._transport_group = self._add_step(
-                "Is transport operational?", [(True, "Yes"), (False, "No")], self._on_transport)
+        # Changing cutter keeps the yes/no answers; they're only asked once per location
+        if not self._condition_groups:
+            self._add_condition("Is transport operational?", self._on_transport)
+            self._add_condition("Is this the first calibration after a diamond change?",
+                                self._on_diamond_change)
         self._refresh()
 
     def _on_transport(self, value):
         self.app.selection.transport_ok = value
+        self._refresh()
+
+    def _on_diamond_change(self, value):
+        self.app.selection.first_after_diamond_change = value
         self._refresh()
 
     def _refresh(self):
@@ -910,8 +947,8 @@ class SelectionPage(BasePage):
         self.app.machine_selected = True     # from here on, stopping posts a database record
         self.app.logger.info(f"Machine ID: {sel.machine_id}")
         self.app.logger.info(f"Selection: {sel.summary()}")
+        self.app.logger.info(f"First calibration after diamond change: {sel.first_after_diamond_change}")
         self.app.show_page(self.next_target)
-
 
 class InfoPage(BasePage):
     """Text plus optional images that resize to fit the window."""
@@ -2052,7 +2089,7 @@ def run1_worker(ctx: WorkerContext):
 
     cal = CalibrationSide(ctx.logger, ctx.selection.log_folder, cal_stop, api, mqtt, change, frame_sink=ctx.frames.set, new_drop_in=new_drop_in)
     try:
-        csv_path = cal.run_calibration(ctx.selection.machine_id)
+        csv_path = cal.run_calibration(ctx.selection.machine_id, ctx.selection.first_after_diamond_change)
     finally:
         cal_stop.set()   # also ends forward_stop
     ctx.values["side_a_csv"] = csv_path
@@ -2274,43 +2311,43 @@ def latest_groove_plot(folder: Path | None) -> Path | None:
             newest_path, newest_time = path, stamp
     return newest_path
 
-# def run_gui(logger):
-#     app = WizardApp(logger)
-#     app.mainloop()
-
-
-# if __name__ == "__main__":
-#     run_gui(setup_logging())
-
-#test from validation onwards
-# Set to a page name to skip ahead for testing, or None for the normal flow
-DEBUG_START_PAGE = "validation"
-
-#INPUT VARIABLES HERE
-DEBUG_PRESET = {
-    "selection": {"factory": "1", "station": "2", "cluster": "1", "cutter": "2",
-                  "transport_ok": False},
-    "values": {"mmum":0.01644, "y_int": 0.383340},   # use the fit from a real run
-}
-
-
-def _jump_to(app, page, preset):
-    sel = app.selection
-    for key, value in preset.get("selection", {}).items():
-        setattr(sel, key, value)
-    sel.log_file, sel.log_folder = start_file_logging(app.logger, sel.machine_id)
-    app.values.update(preset.get("values", {}))
-    app.logger.warning(f"DEBUG: starting at '{page}' with {preset}")
-    app.show_page(page)
-
-
-
-def run_gui(logger, start_page=None, preset=None):
+def run_gui(logger):
     app = WizardApp(logger)
-    if start_page:
-        app.after(0, _jump_to, app, start_page, preset or {})
     app.mainloop()
 
 
 if __name__ == "__main__":
-    run_gui(setup_logging(), DEBUG_START_PAGE, DEBUG_PRESET)
+    run_gui(setup_logging())
+
+# #test from validation onwards
+# # Set to a page name to skip ahead for testing, or None for the normal flow
+# DEBUG_START_PAGE = "validation"
+
+# #INPUT VARIABLES HERE
+# DEBUG_PRESET = {
+#     "selection": {"factory": "1", "station": "2", "cluster": "1", "cutter": "2",
+#                   "transport_ok": False},
+#     "values": {"mmum":0.01644, "y_int": 0.383340},   # use the fit from a real run
+# }
+
+
+# def _jump_to(app, page, preset):
+#     sel = app.selection
+#     for key, value in preset.get("selection", {}).items():
+#         setattr(sel, key, value)
+#     sel.log_file, sel.log_folder = start_file_logging(app.logger, sel.machine_id)
+#     app.values.update(preset.get("values", {}))
+#     app.logger.warning(f"DEBUG: starting at '{page}' with {preset}")
+#     app.show_page(page)
+
+
+
+# def run_gui(logger, start_page=None, preset=None):
+#     app = WizardApp(logger)
+#     if start_page:
+#         app.after(0, _jump_to, app, start_page, preset or {})
+#     app.mainloop()
+
+
+# if __name__ == "__main__":
+#     run_gui(setup_logging(), DEBUG_START_PAGE, DEBUG_PRESET)

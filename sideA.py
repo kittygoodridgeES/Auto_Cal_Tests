@@ -132,7 +132,7 @@ class CalibrationSide:
                 )
             time.sleep(poll)
 
-    def run_calibration(self, cutter_no):
+    def run_calibration(self, cutter_no, first_after_diamond_change):
 
         dotenv.load_dotenv()
 
@@ -165,12 +165,17 @@ class CalibrationSide:
                              f"Decided based on manual adjustment that was made")
 
         else:
-            drop_in_piezo_pos = self.calculate_drop_in_pos(default_piezo_pos, grams_per_micron,default_groove_width, self.change_in_diamond_length)
-            self.logger.info(f"Drop in piezo pos decided: {drop_in_piezo_pos}"
-                             f"Drop in position estimated from change in diamond length")
+            if first_after_diamond_change:
 
-            if (drop_in_piezo_pos < cutter.PIEZO_LOWER_LIMIT) or (drop_in_piezo_pos > cutter.PIEZO_UPPER_LIMIT):
-                self.logger.info("Drop in piezo position is out of range, reverting to default")
+                drop_in_piezo_pos = self.calculate_drop_in_pos(default_piezo_pos, grams_per_micron,default_groove_width, self.change_in_diamond_length)
+                self.logger.info(f"Drop in piezo pos decided: {drop_in_piezo_pos}"
+                                f"Drop in position estimated from change in diamond length")
+
+                if (drop_in_piezo_pos < cutter.PIEZO_LOWER_LIMIT) or (drop_in_piezo_pos > cutter.PIEZO_UPPER_LIMIT):
+                    self.logger.info("Drop in piezo position is out of range, reverting to default")
+                    drop_in_piezo_pos = gen.DEFAULT_DROP_IN_PIEZO_POS
+            else:
+                self.logger.info("Calibration is not the first after a diamond change, using default drop in piezo position")
                 drop_in_piezo_pos = gen.DEFAULT_DROP_IN_PIEZO_POS
 
 
