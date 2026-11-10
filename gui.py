@@ -635,9 +635,13 @@ class WizardApp(tk.Tk):
         self.logger.info("Stop requested")
         self.stop_event.set()
 
+        #ensure that cutter is stopped before closing the wizard
+        if api.get("packml_state") != 2:
+            api = self.get_api()
+            api.command("stop")
+
         ####TODO: prepare database
         # self._post_calibration_record()
-
 
         self.after(25, self._wait_for_threads, 0)
 
