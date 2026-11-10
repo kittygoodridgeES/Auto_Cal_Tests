@@ -20,8 +20,10 @@ SETTLE_S = 0.2                        # ignore frames for this long after a move
 
 PIEZO_UPPER_LIMIT = 3.2                # maximum mm position of the piezo
 PIEZO_LOWER_LIMIT = 0.5                # minimum mm position of the piezo
+
 MAX_SAFE_GW = 130                       # maximum groove width requested on cutter
 MIN_SAFE_GW = 40                        # minimum groove width requested on cutter
+
 HEAVY_STEP = 0.2                      # after a heavy-limit hit, go this far below the drop-in position
 NO_GROOVE_STEP = 0.5                  # if no grooves are seen for a set window (timeouts) increase the piezo by this much (capped at PIEZO_UPPER_LIMIT), once
 
@@ -32,6 +34,7 @@ MERGE_WINDOW_S = 0.5                  # ...if the jump happens within this many 
 HEAD_SETTLE_TIME = 20                   # time taken for headweight to settle on the loadcell
 HEAD_DROP_TIME = 5                      # rough time taken for head to drop once command is sent
 
+DISC_ERROR_MARGIN = 0.15                 # max allowed |measured - target| (um) for validation disc widths
  
 # ===== PACKML codes ===== #
 PIEZO_CMD_IDS = {

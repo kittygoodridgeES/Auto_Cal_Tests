@@ -56,7 +56,7 @@ def set_disk_position(new_position: str, logger: logging.Logger):
         logger.info(f"Disc {discs_used} placed on side A")
     disk_position = new_position
 
-def append_maintenance_narrative(adjustment, magnitude):
+def append_maintenance_narrative(adjustment: str, magnitude: float):
     """Append a line to the maintenance narrative with the current time and adjustment"""
     global maintenance_narrative
     now = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
@@ -1685,6 +1685,9 @@ class CameraLogPage(BasePage):
                                      relief="flat", bd=0)
         self.log_text.pack(fill="both", expand=True)
 
+        self._camera_after_id = None
+        self._logs_after_id = None
+
         # Moves on by itself; Next only reappears (as RETRY) if the run fails
         self.hide_next()
     
@@ -1696,8 +1699,11 @@ class CameraLogPage(BasePage):
         self._started = True
         self._running = True
         self.frames.clear()
+
+        # Clear the label BEFORE releasing the old PhotoImage.
+        # image=None is ignored by tkinter; "" actually clears it.
+        self.camera_label.configure(image="", text="Waiting for camera...")
         self.tk_image = None
-        self.camera_label.configure(image=None, text="Waiting for camera...")
 
         self.hide_next()
         self.status_label.configure(text="Status: Running", fg=gui.COLOR_TEXT)
@@ -1712,6 +1718,46 @@ class CameraLogPage(BasePage):
         self.app.run_in_background(self._run)
         self._update_camera()
         self._drain_logs()
+
+    def _update_camera(self):
+        if self._camera_after_id is not None:
+            self.after_cancel(self._camera_after_id)
+            self._camera_after_id = None
+        if not self._running or self.app.stop_event.is_set():
+            return
+        frame = self.frames.get()
+        if frame is not None:
+            try:
+                if frame.ndim == 2:
+                    rgb = cv2.cvtColor(frame, cv2.COLOR_GRAY2RGB)   # grayscale -> 3 channels
+                else:
+                    rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)    # OpenCV BGR -> Tkinter RGB
+                image = Image.fromarray(rgb)
+                image.thumbnail(gui.CAMERA_DISPLAY_SIZE)
+                new_image = ImageTk.PhotoImage(image)
+                self.camera_label.configure(image=new_image, text="")
+                self.tk_image = new_image  # swap reference only after the label uses the new one
+            except Exception:
+                self.app.logger.exception("Error updating camera frame")
+        self._camera_after_id = self.after(33, self._update_camera)
+
+    def _drain_logs(self):
+        if self._logs_after_id is not None:
+            self.after_cancel(self._logs_after_id)
+            self._logs_after_id = None
+        lines = []
+        try:
+            while True:
+                lines.append(self.log_queue.get_nowait())
+        except queue.Empty:
+            pass
+        if lines:
+            self.log_text.configure(state="normal")
+            self.log_text.insert("end", "\n".join(lines) + "\n")
+            self.log_text.see("end")
+            self.log_text.configure(state="disabled")
+        if self._running and not self.app.stop_event.is_set():
+            self._logs_after_id = self.after(100, self._drain_logs)
 
     def _run(self):
         try:
@@ -1738,39 +1784,6 @@ class CameraLogPage(BasePage):
                 return
             self.status_label.configure(text="Status: Complete. Moving on...", fg=gui.COLOR_SUCCESS)
             self.after(timeouts.AUTO_ADVANCE_DELAY_MS, self.app.show_page, target)
-
-    def _update_camera(self):
-        if not self._running or self.app.stop_event.is_set():
-            return
-        frame = self.frames.get()
-        if frame is not None:
-            try:
-                if frame.ndim == 2:
-                    rgb = cv2.cvtColor(frame, cv2.COLOR_GRAY2RGB)   # grayscale -> 3 channels
-                else:
-                    rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)    # OpenCV BGR -> Tkinter RGB
-                image = Image.fromarray(rgb)
-                image.thumbnail(gui.CAMERA_DISPLAY_SIZE)
-                self.tk_image = ImageTk.PhotoImage(image)
-                self.camera_label.configure(image=self.tk_image, text="")
-            except Exception:
-                self.app.logger.exception("Error updating camera frame")
-        self.after(33, self._update_camera)
-
-    def _drain_logs(self):
-        lines = []
-        try:
-            while True:
-                lines.append(self.log_queue.get_nowait())
-        except queue.Empty:
-            pass
-        if lines:
-            self.log_text.configure(state="normal")
-            self.log_text.insert("end", "\n".join(lines) + "\n")
-            self.log_text.see("end")
-            self.log_text.configure(state="disabled")
-        if self._running and not self.app.stop_event.is_set():
-            self.after(100, self._drain_logs)
     
     def _resolve_next(self):
         """next_target can be a page name or a function (ctx) -> page name."""
@@ -2257,43 +2270,43 @@ def latest_groove_plot(folder: Path | None) -> Path | None:
             newest_path, newest_time = path, stamp
     return newest_path
 
-def run_gui(logger):
-    app = WizardApp(logger)
-    app.mainloop()
-
-
-if __name__ == "__main__":
-    run_gui(setup_logging())
-
-# #test from validation onwards
-# # Set to a page name to skip ahead for testing, or None for the normal flow
-# DEBUG_START_PAGE = "validation"
-
-# #INPUT VARIABLES HERE
-# DEBUG_PRESET = {
-#     "selection": {"factory": "1", "station": "2", "cluster": "2", "cutter": "4",
-#                   "transport_ok": False},
-#     "values": {"mmum": 0.02713019581097408, "y_int": -0.38783594830002727},   # use the fit from a real run
-# }
-
-
-# def _jump_to(app, page, preset):
-#     sel = app.selection
-#     for key, value in preset.get("selection", {}).items():
-#         setattr(sel, key, value)
-#     sel.log_file, sel.log_folder = start_file_logging(app.logger, sel.machine_id)
-#     app.values.update(preset.get("values", {}))
-#     app.logger.warning(f"DEBUG: starting at '{page}' with {preset}")
-#     app.show_page(page)
-
-
-
-# def run_gui(logger, start_page=None, preset=None):
+# def run_gui(logger):
 #     app = WizardApp(logger)
-#     if start_page:
-#         app.after(0, _jump_to, app, start_page, preset or {})
 #     app.mainloop()
 
 
 # if __name__ == "__main__":
-#     run_gui(setup_logging(), DEBUG_START_PAGE, DEBUG_PRESET)
+#     run_gui(setup_logging())
+
+#test from validation onwards
+# Set to a page name to skip ahead for testing, or None for the normal flow
+DEBUG_START_PAGE = "validation"
+
+#INPUT VARIABLES HERE
+DEBUG_PRESET = {
+    "selection": {"factory": "1", "station": "2", "cluster": "1", "cutter": "2",
+                  "transport_ok": False},
+    "values": {"mmum":0.01644, "y_int": 0.383340},   # use the fit from a real run
+}
+
+
+def _jump_to(app, page, preset):
+    sel = app.selection
+    for key, value in preset.get("selection", {}).items():
+        setattr(sel, key, value)
+    sel.log_file, sel.log_folder = start_file_logging(app.logger, sel.machine_id)
+    app.values.update(preset.get("values", {}))
+    app.logger.warning(f"DEBUG: starting at '{page}' with {preset}")
+    app.show_page(page)
+
+
+
+def run_gui(logger, start_page=None, preset=None):
+    app = WizardApp(logger)
+    if start_page:
+        app.after(0, _jump_to, app, start_page, preset or {})
+    app.mainloop()
+
+
+if __name__ == "__main__":
+    run_gui(setup_logging(), DEBUG_START_PAGE, DEBUG_PRESET)

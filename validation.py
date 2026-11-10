@@ -136,6 +136,9 @@ class ValidationSide:
         self._cutter_running = False
         pass_fail = False
 
+        val_targets = cutter.VALIDATION_WIDTHS[1:][::-1]   
+        n_bands = len(cutter.VALIDATION_WIDTHS) 
+
         self.logger.info("Starting validation")
         config = self.api.get("config")
         original_head_drop_pos = float(config["PROCESS_POSITIONS_HEADDROPPOSITION"])
@@ -174,7 +177,7 @@ class ValidationSide:
         finished = False
         try:
             # make the validation cut and sample with photos
-            self._cut_and_sample(piezo_positions, latest, saved_samples)
+            # self._cut_and_sample(piezo_positions, latest, saved_samples)
 
             #iterate through the photo list and perform stationary analysis
             width_array = []
@@ -189,7 +192,7 @@ class ValidationSide:
 
             # remove a sample that doesn't follow the others before pass/fail
             sample_names = [str(i + 1) for i in range(len(width_array))]
-            bumpy = self.are_any_bumpy(width_array, n_bands=len(cutter.VALIDATION_WIDTHS) + 1)
+            bumpy = self.are_any_bumpy(width_array, n_bands=n_bands)
             if bumpy is not None:
                 self.logger.warning(f"Removing sample {sample_names[bumpy]} before pass/fail")
                 width_array = [w for i, w in enumerate(width_array) if i != bumpy]
@@ -198,7 +201,7 @@ class ValidationSide:
             #ensure groove widths across all array are within tolerance
             val_widths = cutter.VALIDATION_WIDTHS
 
-            pass_fail, data = self.check_all_sides(width_array, val_widths[::-1])
+            pass_fail, data = self.check_all_sides(width_array, val_targets)
             self.logger.info(f"Validation result: {pass_fail}")
             fig = self.plot_results(width_array, data, tolerance=cutter.ABS_ERROR_MARGIN,
                                     side_names=sample_names,
@@ -267,10 +270,9 @@ class ValidationSide:
         api.set("setup_cut", True)
         self.logger.info("Setup cut started")
 
-        # move again to the next position as a double check in case not achieved
-        
-        #move_piezo(api, mqtt, piezo_positions[0])
-        #self.logger.info("Piezo moved to starting position")
+        #time.sleep(3)
+        # move_piezo(api, mqtt, piezo_positions[0])
+        # self.logger.info("Piezo moved to starting position")
 
         while float(mqtt.monitor("head_pos")) > cutter.DROPIN_PITCH:
             if stop.is_set():
@@ -278,6 +280,8 @@ class ValidationSide:
             time.sleep(0.1)
         self.logger.info("Head has reached cutting position")
 
+        # move_piezo(api, mqtt, piezo_positions[0])
+        # self.logger.info("Piezo moved to starting position")
         # cut each band for VALIDATION_S
         next_move = time.monotonic() + cutter.VALIDATION_S
         self.logger.info(f"Cutting at {cutter.VALIDATION_WIDTHS[0]} um")
@@ -510,7 +514,7 @@ class ValidationSide:
         return bands
 
 
-    def check_against_targets(self, values, targets, tolerance=cutter.ABS_ERROR_MARGIN, drop_last=True,
+    def check_against_targets(self, values, targets, tolerance, drop_last=True,
                               average=False, **segment_kwargs):
         """
         Split `values` into one band per target (plus the final block when
@@ -525,6 +529,8 @@ class ValidationSide:
 
         Returns (all_passed, results) with one dict per target.
         """
+
+
         values = np.asarray(values, dtype=float)
         n_bands = len(targets) + (1 if drop_last else 0)
         bands = self.segment_bands(values, n_bands, **segment_kwargs)[:len(targets)]
@@ -556,7 +562,7 @@ class ValidationSide:
         return all_passed, results
 
 
-    def check_all_sides(self, width_array, targets, tolerance=5.0, average=False, **segment_kwargs):
+    def check_all_sides(self, width_array, targets, tolerance=cutter.ABS_ERROR_MARGIN, average=False, **segment_kwargs):
         """
         width_array : list of per-side lists (e.g. sides A-D), lengths may differ.
         targets     : one list used for every side, or a list of per-side lists.
@@ -565,6 +571,14 @@ class ValidationSide:
 
         Returns (all_passed, {side_index: (passed, results)}).
         """
+        if tolerance > ((1/self.mmum)*cutter.DISC_ERROR_MARGIN):
+            # keep tolerance at the set value of 5um
+            self.logger.warning(f"Tolerance {tolerance} um is larger than the cutter's error margin {(1/self.mmum)*cutter.DISC_ERROR_MARGIN:.2f} um")
+        else:
+            # set tolerance to the cutter's error margin
+            tolerance = (1/self.mmum)*cutter.DISC_ERROR_MARGIN
+            self.logger.info(f"Tolerance set to the cutter's error margin {(1/self.mmum)*cutter.DISC_ERROR_MARGIN:.2f} um")
+
         per_side = isinstance(targets[0], (list, tuple, np.ndarray))
         out = {}
         for i, side in enumerate(width_array):
@@ -662,14 +676,14 @@ class ValidationSide:
             fig.savefig(save_path, dpi=150)
         return fig
 
-# api = APIRequests("1", "3.1.1")
-# mqtt = MQTTClient("1", "3.1.1")
-# stop_event = threading.Event()
-# logging.basicConfig(
-#     level=logging.INFO,
-#     format="%(asctime)s %(levelname)s %(name)s: %(message)s",
-# )
-# logger = logging.getLogger(__name__)
-# val = ValidationSide(logger, r"C:\Users\KittyGoodridge\OneDrive - elasticStage\Desktop\Repos\Auto_Cal_Tests\logs\3.1.1_20261102_112724", stop_event, api, mqtt, 0.0196, 0.51, frame_sink=None)
-# pass_or_fail = val.run_validation("3.1.1")
-# print(pass_or_fail)
+api = APIRequests("1", "2.1.2")
+mqtt = MQTTClient("1", "2.1.2")
+stop_event = threading.Event()
+logging.basicConfig(
+    level=logging.INFO,
+    format="%(asctime)s %(levelname)s %(name)s: %(message)s",
+)
+logger = logging.getLogger(__name__)
+val = ValidationSide(logger, r"C:\Users\KittyGoodridge\OneDrive - elasticStage\Desktop\Repos\Auto_Cal_Tests\logs\2.1.2_20261109_164748", stop_event, api, mqtt,0.01644 , 0.38334, frame_sink=None)
+pass_or_fail = val.run_validation("2.1.2")
+print(pass_or_fail)
