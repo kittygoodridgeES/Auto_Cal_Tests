@@ -1,0 +1,386 @@
+2026-11-11 12:41:20,494 [INFO] MainThread: Running on laptop 1
+2026-11-11 12:41:21,355 [INFO] MainThread: Showing page: instructions
+2026-11-11 12:41:25,762 [INFO] MainThread: Showing page: selection
+2026-11-11 12:41:30,861 [INFO] MainThread: Machine ID: 3.2.4
+2026-11-11 12:41:37,164 [INFO] MainThread: Logging to C:\Users\KittyGoodridge\OneDrive - elasticStage\Desktop\Repos\Auto_Cal_Tests\logs\3.2.4_20261111_124137\3.2.4_20261111_124137.log
+2026-11-11 12:41:37,164 [INFO] MainThread: Machine ID: 3.2.4
+2026-11-11 12:41:37,165 [INFO] MainThread: Selection: Factory ELSTREE, Station 3, Cluster 2, Cutter 4, Transport operational
+2026-11-11 12:41:37,168 [INFO] MainThread: First calibration after diamond change: False
+2026-11-11 12:41:37,168 [INFO] MainThread: Showing page: check_state
+2026-11-11 12:41:37,174 [INFO] Thread-1 (_run_check): Creating API client for factory 1, slot 3.2.4
+2026-11-11 12:41:37,602 [INFO] Thread-1 (_run_check): PackML mode 1, state 4
+2026-11-11 12:41:37,603 [INFO] Thread-1 (_run_check): Cutter is in production, not continuing with calibration
+2026-11-11 12:41:53,631 [INFO] Thread-2 (_run_check): PackML mode 6, state 4
+2026-11-11 12:41:53,631 [INFO] Thread-2 (_run_check): Cutter is in IDLE
+2026-11-11 12:41:55,027 [INFO] MainThread: Showing page: confirm
+2026-11-11 12:41:55,033 [INFO] Thread-3 (_read): Looking up diamond ID for 3.2.4
+2026-11-11 12:41:55,757 [INFO] MainThread: Read diamond_id: D24082026_N_10.009
+2026-11-11 12:42:00,802 [INFO] MainThread: diamond_id D24082026_N_10.009 confirmed: Yes
+2026-11-11 12:42:02,870 [INFO] Thread-4 (_decide): Change in diamond length: 0.008
+2026-11-11 12:42:02,931 [INFO] MainThread: choose_after_diamond -> supply
+2026-11-11 12:42:02,931 [INFO] MainThread: Showing page: supply
+2026-11-11 12:42:02,935 [INFO] Thread-5 (_run): Preparing for supply to 3.2.4
+2026-11-11 12:42:02,935 [INFO] Thread-5 (_run): Connecting AMQP transport for factory 1, slot 3.2.4
+2026-11-11 12:42:10,034 [ERROR] Thread-5 (_run): supply_task failed
+Traceback (most recent call last):
+  File "c:\Users\KittyGoodridge\OneDrive - elasticStage\Desktop\Repos\Auto_Cal_Tests\gui.py", line 1634, in _run
+    self.task(ctx)
+    ~~~~~~~~~^^^^^
+  File "c:\Users\KittyGoodridge\OneDrive - elasticStage\Desktop\Repos\Auto_Cal_Tests\gui.py", line 1994, in supply_task
+    ctx.get_transport().run_command("supply", ctx.stop_event, timeout=300)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\KittyGoodridge\OneDrive - elasticStage\Desktop\Repos\Auto_Cal_Tests\transport_commands.py", line 55, in run_command
+    connection = self._connect()
+  File "c:\Users\KittyGoodridge\OneDrive - elasticStage\Desktop\Repos\Auto_Cal_Tests\transport_commands.py", line 39, in _connect
+    return pika.BlockingConnection(parameters)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^
+  File "C:\Users\KittyGoodridge\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\pika\adapters\blocking_connection.py", line 360, in __init__
+    self._impl = self._create_connection(parameters, _impl_class)
+                 ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\KittyGoodridge\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\pika\adapters\blocking_connection.py", line 451, in _create_connection
+    raise self._reap_last_connection_workflow_error(error)
+pika.exceptions.AMQPConnectionError
+2026-11-11 12:43:01,567 [INFO] Thread-7 (_run): Preparing for supply to 3.2.4
+2026-11-11 12:43:01,671 [INFO] Thread-7 (_run): AMQP connected, listening on location.uk.factory.1.workstation.3.cluster.2.#
+2026-11-11 12:43:01,782 [ERROR] Thread-7 (_run): supply_task failed
+Traceback (most recent call last):
+  File "c:\Users\KittyGoodridge\OneDrive - elasticStage\Desktop\Repos\Auto_Cal_Tests\gui.py", line 1634, in _run
+    self.task(ctx)
+    ~~~~~~~~~^^^^^
+  File "c:\Users\KittyGoodridge\OneDrive - elasticStage\Desktop\Repos\Auto_Cal_Tests\gui.py", line 1994, in supply_task
+    ctx.get_transport().run_command("supply", ctx.stop_event, timeout=300)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\KittyGoodridge\OneDrive - elasticStage\Desktop\Repos\Auto_Cal_Tests\transport_commands.py", line 65, in run_command
+    self.api.command(command)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "c:\Users\KittyGoodridge\OneDrive - elasticStage\Desktop\Repos\Auto_Cal_Tests\api_requests.py", line 88, in command
+    return self._request("POST", endpoints.COMMANDS[name])
+           ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\KittyGoodridge\OneDrive - elasticStage\Desktop\Repos\Auto_Cal_Tests\api_requests.py", line 68, in _request
+    raise RuntimeError(f"{method} {endpoint} returned {resp.status_code}: {resp.text}")
+RuntimeError: POST /supply returned 404: 404 page not found
+
+2026-11-11 12:43:06,623 [INFO] Thread-9 (_run): Preparing for supply to 3.2.4
+2026-11-11 12:43:06,944 [INFO] Thread-9 (_run): AMQP connected, listening on location.uk.factory.1.workstation.3.cluster.2.#
+2026-11-11 12:43:07,070 [INFO] Thread-9 (_run): supply command sent to cutter 4
+2026-11-11 12:43:07,157 [INFO] Thread-9 (_run): Transport event: cutter 4, command supply, result busy
+2026-11-11 12:45:07,382 [INFO] Thread-9 (_run): Transport event: cutter 4, command supply, result success
+2026-11-11 12:45:07,385 [INFO] Thread-9 (_run): supply succeeded on cutter 4
+2026-11-11 12:45:07,425 [INFO] Thread-9 (_run): Supply complete
+2026-11-11 12:45:07,426 [INFO] Thread-9 (_run): Disc 1 placed on side A
+2026-11-11 12:45:08,937 [INFO] MainThread: Showing page: Calibration
+2026-11-11 12:45:08,946 [INFO] Thread-11 (_run): Connecting MQTT for factory 1, machine 3.2.4
+2026-11-11 12:45:08,950 [INFO] Thread-11 (_run): init camerasetup
+2026-11-11 12:45:08,952 [INFO] Thread-11 (_run): printing preamble
+2026-11-11 12:45:08,952 [INFO] Thread-11 (_run): ///////////////////////////////////////////////////
+2026-11-11 12:45:08,953 [INFO] Thread-11 (_run): /// VmbPy Asynchronous Grab with OpenCV Example ///
+2026-11-11 12:45:08,953 [INFO] Thread-11 (_run): ///////////////////////////////////////////////////
+
+2026-11-11 12:45:08,953 [INFO] Thread-11 (_run): parsing args
+2026-11-11 12:45:09,137 [INFO] Thread-11 (_run): Original Config Retrieved: 
+ mm/um:0.012289664475241 
+ Default piezo pos: 2.0956249237060547 
+ Default GW: 50.0
+2026-11-11 12:45:09,139 [INFO] Thread-11 (_run): Change in diamond length from previous calibration: 0.008
+2026-11-11 12:45:09,140 [INFO] Thread-11 (_run): Calibration is not the first after a diamond change, using default drop in piezo position
+2026-11-11 12:45:12,925 [INFO] camera: Camera opened: DEV_1AB22C06E926
+2026-11-11 12:45:12,925 [INFO] camera: 35 : line number
+2026-11-11 12:45:12,927 [INFO] camera: cutter number: 3.2.4, cutter_no: 3.2.4
+2026-11-11 12:45:12,932 [INFO] camera: Exposure time set to 2000 µs
+2026-11-11 12:45:12,936 [INFO] camera: Camera setup complete
+2026-11-11 12:45:12,959 [INFO] camera: Camera pixel format setup complete
+2026-11-11 12:45:13,005 [INFO] camera: Camera streaming started
+2026-11-11 12:45:13,274 [INFO] Thread-11 (_run): Camera running
+2026-11-11 12:45:13,472 [INFO] Thread-11 (_run): Drop in pitch set from 147.4 to 75.0
+2026-11-11 12:45:14,038 [INFO] Thread-11 (_run): Cutter already in setup mode
+2026-11-11 12:45:14,218 [INFO] Thread-11 (_run): Cutter resetting
+2026-11-11 12:45:20,165 [INFO] Thread-11 (_run): Cutter reset
+2026-11-11 12:45:20,167 [INFO] Thread-11 (_run): Moving piezo to starting position: 1.85
+2026-11-11 12:45:21,931 [INFO] Thread-11 (_run): Piezo moved to starting pos
+2026-11-11 12:45:24,076 [INFO] Thread-11 (_run): Starting cutter
+2026-11-11 12:45:24,152 [INFO] Thread-11 (_run): Starting setup cut
+2026-11-11 12:45:24,154 [INFO] Thread-11 (_run): Setup cut has started
+2026-11-11 12:45:55,606 [INFO] Thread-11 (_run): Head has reached cutting position
+2026-11-11 12:46:02,310 [INFO] Thread-11 (_run): Groove found at piezo 2.09, measuring for 9.0 s
+2026-11-11 12:46:03,525 [INFO] Thread-11 (_run): pos 2.09: 7.8 s left, 6 samples | Groove 2  now 48.3 um  avg(5/5) 51.5 um  [14 ms]  (frames: 207 received, 15 analysed)
+2026-11-11 12:46:07,191 [INFO] Thread-11 (_run): pos 2.09: 4.1 s left, 21 samples | Groove 2  now 49.2 um  avg(5/5) 52.9 um  [22 ms]  (frames: 222 received, 30 analysed)
+2026-11-11 12:46:10,850 [INFO] Thread-11 (_run): pos 2.09: 0.5 s left, 36 samples | Groove 2  now 46.7 um  avg(5/5) 51.0 um  [23 ms]  (frames: 237 received, 45 analysed)
+2026-11-11 12:46:11,333 [INFO] Thread-11 (_run): piezo 2.09: 38 samples, mean 50.94 um, sd 1.29 um
+2026-11-11 12:46:11,416 [INFO] Thread-11 (_run): moving piezo to 2.294749927520752
+2026-11-11 12:46:14,755 [INFO] Thread-11 (_run): Groove found at piezo 2.29, measuring for 9.0 s
+2026-11-11 12:46:16,707 [INFO] Thread-11 (_run): pos 2.29: 7.0 s left, 9 samples | Groove 3  now 64.1 um  avg(5/5) 63.1 um  [27 ms]  (frames: 261 received, 60 analysed)
+2026-11-11 12:46:20,361 [INFO] Thread-11 (_run): pos 2.29: 3.4 s left, 24 samples | Groove 3  now 64.4 um  avg(5/5) 63.5 um  [25 ms]  (frames: 276 received, 75 analysed)
+2026-11-11 12:46:23,783 [INFO] Thread-11 (_run): piezo 2.29: 38 samples, mean 64.33 um, sd 0.86 um
+2026-11-11 12:46:24,183 [INFO] Thread-11 (_run): moving piezo to 2.4898750305175783
+2026-11-11 12:46:26,470 [INFO] Thread-11 (_run): pos 2.49: waiting for groove (0 s) | waiting for 5 frames  (frames: 301 received, 90 analysed)
+2026-11-11 12:46:27,436 [INFO] Thread-11 (_run): Groove found at piezo 2.49, measuring for 9.0 s
+2026-11-11 12:46:30,120 [INFO] Thread-11 (_run): pos 2.49: 6.3 s left, 12 samples | Groove 4  now 73.3 um  avg(5/5) 75.9 um  [27 ms]  (frames: 316 received, 105 analysed)
+2026-11-11 12:46:33,780 [INFO] Thread-11 (_run): pos 2.49: 2.7 s left, 27 samples | Groove 4  now 73.2 um  avg(5/5) 74.7 um  [28 ms]  (frames: 331 received, 120 analysed)
+2026-11-11 12:46:36,463 [INFO] Thread-11 (_run): piezo 2.49: 38 samples, mean 73.96 um, sd 0.86 um
+2026-11-11 12:46:36,571 [INFO] Thread-11 (_run): moving piezo to 2.690249872207642
+2026-11-11 12:46:39,637 [INFO] Thread-11 (_run): pos 2.69: waiting for groove (1 s) | waiting for 5 frames  (frames: 355 received, 135 analysed)
+2026-11-11 12:46:39,880 [INFO] Thread-11 (_run): Groove found at piezo 2.69, measuring for 9.0 s
+2026-11-11 12:46:43,291 [INFO] Thread-11 (_run): pos 2.69: 5.6 s left, 15 samples | Groove 5  now 82.9 um  avg(5/5) 84.5 um  [30 ms]  (frames: 370 received, 150 analysed)
+2026-11-11 12:46:46,952 [INFO] Thread-11 (_run): pos 2.69: 1.9 s left, 30 samples | Groove 5  now 81.0 um  avg(5/5) 82.9 um  [31 ms]  (frames: 385 received, 165 analysed)
+2026-11-11 12:46:48,904 [INFO] Thread-11 (_run): piezo 2.69: 38 samples, mean 83.39 um, sd 0.74 um
+2026-11-11 12:46:49,094 [INFO] Thread-11 (_run): moving piezo to 2.888874959945679
+2026-11-11 12:46:52,319 [INFO] Thread-11 (_run): Groove found at piezo 2.89, measuring for 9.0 s
+2026-11-11 12:46:52,816 [INFO] Thread-11 (_run): pos 2.89: 8.5 s left, 3 samples | Groove 6  now 93.2 um  avg(5/5) 91.3 um  [42 ms]  (frames: 409 received, 180 analysed)
+2026-11-11 12:46:56,459 [INFO] Thread-11 (_run): pos 2.89: 4.9 s left, 18 samples | Groove 6  now 93.3 um  avg(5/5) 91.6 um  [29 ms]  (frames: 424 received, 195 analysed)
+2026-11-11 12:47:00,119 [INFO] Thread-11 (_run): pos 2.89: 1.2 s left, 33 samples | Groove 6  now 93.2 um  avg(5/5) 91.9 um  [29 ms]  (frames: 439 received, 210 analysed)
+2026-11-11 12:47:01,336 [INFO] Thread-11 (_run): piezo 2.89: 38 samples, mean 92.52 um, sd 0.69 um
+2026-11-11 12:47:01,440 [INFO] Thread-11 (_run): moving piezo to 3.090125036239624
+2026-11-11 12:47:07,459 [INFO] Thread-11 (_run): Groove found at piezo 3.09, measuring for 9.0 s
+2026-11-11 12:47:08,430 [INFO] Thread-11 (_run): pos 3.09: 8.0 s left, 5 samples | Groove 8  now 99.2 um  avg(5/5) 101.1 um  [45 ms]  (frames: 473 received, 225 analysed)
+2026-11-11 12:47:12,086 [INFO] Thread-11 (_run): pos 3.09: 4.4 s left, 20 samples | Groove 8  now 98.4 um  avg(5/5) 100.9 um  [40 ms]  (frames: 488 received, 240 analysed)
+2026-11-11 12:47:15,747 [INFO] Thread-11 (_run): pos 3.09: 0.7 s left, 35 samples | Groove 8  now 98.3 um  avg(5/5) 100.7 um  [41 ms]  (frames: 503 received, 255 analysed)
+2026-11-11 12:47:16,469 [INFO] Thread-11 (_run): piezo 3.09: 38 samples, mean 100.82 um, sd 0.55 um
+2026-11-11 12:47:16,548 [INFO] Thread-11 (_run): Reached heaviest possible piezo position
+2026-11-11 12:47:16,633 [INFO] Thread-11 (_run): moving piezo to 1.6500000000000001
+2026-11-11 12:47:26,716 [WARNING] Thread-11 (_run): Cutting is at an unsafe light groove width: 39.4
+2026-11-11 12:47:31,812 [WARNING] Thread-11 (_run): Cutting is at an unsafe light groove width: 39.2
+2026-11-11 12:47:32,202 [INFO] Thread-11 (_run): Groove found at piezo 1.65, measuring for 9.0 s
+2026-11-11 12:47:32,203 [WARNING] Thread-11 (_run): Cutting is at an unsafe light groove width: 39.2
+2026-11-11 12:47:32,467 [WARNING] Thread-11 (_run): Cutting is at an unsafe light groove width: 39.2
+2026-11-11 12:47:32,947 [WARNING] Thread-11 (_run): Cutting is at an unsafe light groove width: 39.2
+2026-11-11 12:47:33,286 [WARNING] Thread-11 (_run): Cutting is at an unsafe light groove width: 39.2
+2026-11-11 12:47:33,801 [WARNING] Thread-11 (_run): Cutting is at an unsafe light groove width: 39.2
+2026-11-11 12:47:34,108 [WARNING] Thread-11 (_run): Cutting is at an unsafe light groove width: 39.2
+2026-11-11 12:47:34,469 [INFO] Thread-11 (_run): pos 1.65: 7.1 s left, 6 samples | Groove 11  now 39.2 um  avg(5/5) 39.2 um  [40 ms]  (frames: 579 received, 270 analysed)
+2026-11-11 12:47:34,521 [WARNING] Thread-11 (_run): Cutting is at an unsafe light groove width: 39.2
+2026-11-11 12:47:35,116 [WARNING] Thread-11 (_run): Cutting is at an unsafe light groove width: 39.2
+2026-11-11 12:47:35,401 [WARNING] Thread-11 (_run): Cutting is at an unsafe light groove width: 39.2
+2026-11-11 12:47:35,855 [WARNING] Thread-11 (_run): Cutting is at an unsafe light groove width: 39.2
+2026-11-11 12:47:36,228 [WARNING] Thread-11 (_run): Cutting is at an unsafe light groove width: 39.2
+2026-11-11 12:47:36,528 [WARNING] Thread-11 (_run): Cutting is at an unsafe light groove width: 39.2
+2026-11-11 12:47:36,813 [WARNING] Thread-11 (_run): Cutting is at an unsafe light groove width: 39.2
+2026-11-11 12:47:37,081 [WARNING] Thread-11 (_run): Cutting is at an unsafe light groove width: 39.2
+2026-11-11 12:47:37,611 [WARNING] Thread-11 (_run): Cutting is at an unsafe light groove width: 39.2
+2026-11-11 12:47:37,920 [WARNING] Thread-11 (_run): Cutting is at an unsafe light groove width: 39.2
+2026-11-11 12:47:38,191 [WARNING] Thread-11 (_run): Cutting is at an unsafe light groove width: 39.2
+2026-11-11 12:47:38,833 [WARNING] Thread-11 (_run): Cutting is at an unsafe light groove width: 39.2
+2026-11-11 12:47:39,306 [WARNING] Thread-11 (_run): Cutting is at an unsafe light groove width: 39.2
+2026-11-11 12:47:39,620 [WARNING] Thread-11 (_run): Cutting is at an unsafe light groove width: 39.2
+2026-11-11 12:47:40,023 [WARNING] Thread-11 (_run): Cutting is at an unsafe light groove width: 39.2
+2026-11-11 12:47:40,241 [INFO] Thread-11 (_run): pos 1.65: 1.2 s left, 21 samples | Groove 11  now 39.2 um  avg(5/5) 39.2 um  [35 ms]  (frames: 603 received, 285 analysed)
+2026-11-11 12:47:40,293 [WARNING] Thread-11 (_run): Cutting is at an unsafe light groove width: 39.2
+2026-11-11 12:47:40,955 [WARNING] Thread-11 (_run): Cutting is at an unsafe light groove width: 39.2
+2026-11-11 12:47:41,231 [WARNING] Thread-11 (_run): Cutting is at an unsafe light groove width: 39.2
+2026-11-11 12:47:41,473 [INFO] Thread-11 (_run): piezo 1.65: 24 samples, mean 39.37 um, sd 0.66 um
+2026-11-11 12:47:41,475 [INFO] Thread-11 (_run): piezo sequence complete
+2026-11-11 12:47:41,866 [INFO] camera: Camera streaming stopped
+2026-11-11 12:47:41,868 [INFO] Thread-11 (_run): Cutter resetting
+2026-11-11 12:48:21,208 [INFO] Thread-11 (_run): Cutter reset
+2026-11-11 12:48:21,213 [INFO] Thread-11 (_run): Saved 252 samples to C:\Users\KittyGoodridge\OneDrive - elasticStage\Desktop\Repos\Auto_Cal_Tests\logs\3.2.4_20261111_124137\groove_piezo_20261111_124821.csv
+2026-11-11 12:48:21,365 [INFO] Thread-11 (_run): Side A samples saved to C:\Users\KittyGoodridge\OneDrive - elasticStage\Desktop\Repos\Auto_Cal_Tests\logs\3.2.4_20261111_124137\groove_piezo_20261111_124821.csv
+2026-11-11 12:48:21,365 [INFO] Thread-11 (_run): Running analysis on side A data
+2026-11-11 12:48:22,008 [INFO] Thread-11 (_run): Analysis complete: gradient 0.021825744405718224, intercept 0.877980750501681, manual adjustment required: True
+2026-11-11 12:48:22,048 [INFO] MainThread: Manual adjustment required before setting the default headweight
+2026-11-11 12:48:23,564 [INFO] MainThread: Showing page: manual_adjust
+2026-11-11 12:49:29,159 [INFO] MainThread: Showing page: transition
+2026-11-11 12:49:29,171 [INFO] Thread-12 (_run): Switch over: disc is currently A_side
+2026-11-11 12:49:29,174 [INFO] Thread-12 (_run): Requesting flip for 3.2.4
+2026-11-11 12:49:29,325 [INFO] Thread-12 (_run): AMQP connected, listening on location.uk.factory.1.workstation.3.cluster.2.#
+2026-11-11 12:49:29,386 [INFO] Thread-12 (_run): flip command sent to cutter 4
+2026-11-11 12:49:29,453 [INFO] Thread-12 (_run): Transport event: cutter 4, command flip, result busy
+2026-11-11 12:51:46,710 [INFO] Thread-12 (_run): Transport event: cutter 4, command flip, result success
+2026-11-11 12:51:46,713 [INFO] Thread-12 (_run): flip succeeded on cutter 4
+2026-11-11 12:51:46,759 [INFO] Thread-12 (_run): Switch over complete: disc is now B_side
+2026-11-11 12:51:46,759 [INFO] Thread-12 (_run): Switch over -> Calibration
+2026-11-11 12:51:48,309 [INFO] MainThread: Showing page: Calibration
+2026-11-11 12:51:48,316 [INFO] Thread-14 (_run): Using drop-in position 1.96 from the manual adjustment
+2026-11-11 12:51:48,320 [INFO] Thread-14 (_run): init camerasetup
+2026-11-11 12:51:48,324 [INFO] Thread-14 (_run): printing preamble
+2026-11-11 12:51:48,325 [INFO] Thread-14 (_run): ///////////////////////////////////////////////////
+2026-11-11 12:51:48,325 [INFO] Thread-14 (_run): /// VmbPy Asynchronous Grab with OpenCV Example ///
+2026-11-11 12:51:48,326 [INFO] Thread-14 (_run): ///////////////////////////////////////////////////
+
+2026-11-11 12:51:48,326 [INFO] Thread-14 (_run): parsing args
+2026-11-11 12:51:48,536 [INFO] Thread-14 (_run): Original Config Retrieved: 
+ mm/um:0.012289664475241 
+ Default piezo pos: 2.0956249237060547 
+ Default GW: 50.0
+2026-11-11 12:51:48,537 [INFO] Thread-14 (_run): Change in diamond length from previous calibration: 0.008
+2026-11-11 12:51:48,537 [INFO] Thread-14 (_run): Drop in piezo position: 1.959128722028591Decided based on manual adjustment that was made
+2026-11-11 12:51:52,509 [INFO] camera: Camera opened: DEV_1AB22C06E926
+2026-11-11 12:51:52,510 [INFO] camera: 35 : line number
+2026-11-11 12:51:52,510 [INFO] camera: cutter number: 3.2.4, cutter_no: 3.2.4
+2026-11-11 12:51:52,514 [INFO] camera: Exposure time set to 2000 µs
+2026-11-11 12:51:52,517 [INFO] camera: Camera setup complete
+2026-11-11 12:51:52,537 [INFO] camera: Camera pixel format setup complete
+2026-11-11 12:51:52,581 [INFO] camera: Camera streaming started
+2026-11-11 12:51:52,843 [INFO] Thread-14 (_run): Camera running
+2026-11-11 12:51:53,005 [INFO] Thread-14 (_run): Drop in pitch set from 147.4 to 75.0
+2026-11-11 12:51:54,262 [INFO] Thread-14 (_run): Cutter already in setup mode
+2026-11-11 12:51:54,402 [INFO] Thread-14 (_run): Cutter resetting
+2026-11-11 12:52:00,410 [INFO] Thread-14 (_run): Cutter reset
+2026-11-11 12:52:00,417 [INFO] Thread-14 (_run): Moving piezo to starting position: 1.959128722028591
+2026-11-11 12:52:01,830 [INFO] Thread-14 (_run): Piezo moved to starting pos
+2026-11-11 12:52:03,291 [INFO] Thread-14 (_run): Starting cutter
+2026-11-11 12:52:03,495 [INFO] Thread-14 (_run): Starting setup cut
+2026-11-11 12:52:03,496 [INFO] Thread-14 (_run): Setup cut has started
+2026-11-11 12:52:35,537 [INFO] Thread-14 (_run): Head has reached cutting position
+2026-11-11 12:52:41,148 [INFO] Thread-14 (_run): Groove found at piezo 2.1, measuring for 9.0 s
+2026-11-11 12:52:42,615 [INFO] Thread-14 (_run): pos 2.1: 7.5 s left, 7 samples | Groove 2  now 82.6 um  avg(5/5) 84.2 um  [17 ms]  (frames: 205 received, 15 analysed)
+2026-11-11 12:52:46,274 [INFO] Thread-14 (_run): pos 2.1: 3.9 s left, 22 samples | Groove 2  now 81.7 um  avg(5/5) 84.0 um  [18 ms]  (frames: 220 received, 30 analysed)
+2026-11-11 12:52:49,934 [INFO] Thread-14 (_run): pos 2.1: 0.2 s left, 37 samples | Groove 2  now 81.8 um  avg(5/5) 84.1 um  [20 ms]  (frames: 235 received, 45 analysed)
+2026-11-11 12:52:50,183 [INFO] Thread-14 (_run): piezo 2.1: 38 samples, mean 83.91 um, sd 0.64 um
+2026-11-11 12:52:50,315 [INFO] Thread-14 (_run): moving piezo to 2.295624923706055
+2026-11-11 12:52:53,595 [INFO] Thread-14 (_run): Groove found at piezo 2.3, measuring for 9.0 s
+2026-11-11 12:52:55,799 [INFO] Thread-14 (_run): pos 2.3: 6.8 s left, 10 samples | Groove 3  now 91.6 um  avg(5/5) 90.9 um  [33 ms]  (frames: 259 received, 60 analysed)
+2026-11-11 12:52:59,450 [INFO] Thread-14 (_run): pos 2.3: 3.1 s left, 25 samples | Groove 3  now 92.0 um  avg(5/5) 91.2 um  [24 ms]  (frames: 274 received, 75 analysed)
+2026-11-11 12:53:02,632 [INFO] Thread-14 (_run): piezo 2.3: 38 samples, mean 91.41 um, sd 0.39 um
+2026-11-11 12:53:02,708 [INFO] Thread-14 (_run): moving piezo to 2.500374984741211
+2026-11-11 12:53:05,302 [INFO] Thread-14 (_run): pos 2.5: waiting for groove (0 s) | waiting for 5 frames  (frames: 298 received, 90 analysed)
+2026-11-11 12:53:06,040 [INFO] Thread-14 (_run): Groove found at piezo 2.5, measuring for 9.0 s
+2026-11-11 12:53:08,966 [INFO] Thread-14 (_run): pos 2.5: 6.1 s left, 13 samples | Groove 4  now 100.3 um  avg(5/5) 100.1 um  [28 ms]  (frames: 313 received, 105 analysed)
+2026-11-11 12:53:12,627 [INFO] Thread-14 (_run): pos 2.5: 2.4 s left, 28 samples | Groove 4  now 99.7 um  avg(5/5) 100.2 um  [31 ms]  (frames: 328 received, 120 analysed)
+2026-11-11 12:53:15,058 [INFO] Thread-14 (_run): piezo 2.5: 38 samples, mean 99.79 um, sd 0.42 um
+2026-11-11 12:53:15,154 [INFO] Thread-14 (_run): moving piezo to 2.6990000724792482
+2026-11-11 12:53:18,722 [INFO] Thread-14 (_run): Groove found at piezo 2.7, measuring for 9.0 s
+2026-11-11 12:53:18,723 [INFO] Thread-14 (_run): pos 2.7: 9.0 s left, 1 samples | Groove 5  now 106.6 um  avg(5/5) 108.4 um  [31 ms]  (frames: 353 received, 135 analysed)
+2026-11-11 12:53:22,388 [INFO] Thread-14 (_run): pos 2.7: 5.3 s left, 16 samples | Groove 5  now 107.2 um  avg(5/5) 108.6 um  [37 ms]  (frames: 368 received, 150 analysed)
+2026-11-11 12:53:26,034 [INFO] Thread-14 (_run): pos 2.7: 1.7 s left, 31 samples | Groove 5  now 108.0 um  avg(5/5) 108.1 um  [27 ms]  (frames: 383 received, 165 analysed)
+2026-11-11 12:53:27,746 [INFO] Thread-14 (_run): piezo 2.7: 38 samples, mean 108.76 um, sd 0.81 um
+2026-11-11 12:53:27,879 [INFO] Thread-14 (_run): moving piezo to 2.9002499103546144
+2026-11-11 12:53:31,412 [INFO] Thread-14 (_run): Groove found at piezo 2.9, measuring for 9.0 s
+2026-11-11 12:53:31,892 [WARNING] Thread-14 (_run): merged groove detected (114.9 -> 249.5 um in 0.23 s) at piezo 2.9 - treating as heavy limit
+2026-11-11 12:53:32,028 [INFO] Thread-14 (_run): moving piezo to 1.759128722028591
+2026-11-11 12:53:39,217 [INFO] Thread-14 (_run): pos 1.76: waiting for groove (0 s) | waiting for 5 frames  (frames: 437 received, 180 analysed)
+2026-11-11 12:53:40,923 [INFO] Thread-14 (_run): Groove found at piezo 1.76, measuring for 9.0 s
+2026-11-11 12:53:42,882 [INFO] Thread-14 (_run): pos 1.76: 7.0 s left, 9 samples | Groove 10  now 75.2 um  avg(5/5) 72.1 um  [42 ms]  (frames: 452 received, 195 analysed)
+2026-11-11 12:53:46,538 [INFO] Thread-14 (_run): pos 1.76: 3.4 s left, 24 samples | Groove 10  now 72.2 um  avg(5/5) 70.6 um  [40 ms]  (frames: 467 received, 210 analysed)
+2026-11-11 12:53:49,950 [INFO] Thread-14 (_run): piezo 1.76: 38 samples, mean 70.96 um, sd 0.71 um
+2026-11-11 12:53:50,095 [INFO] Thread-14 (_run): moving piezo to 1.5604999542236329
+2026-11-11 12:53:52,633 [INFO] Thread-14 (_run): pos 1.56: waiting for groove (0 s) | waiting for 5 frames  (frames: 492 received, 225 analysed)
+2026-11-11 12:53:53,608 [INFO] Thread-14 (_run): Groove found at piezo 1.56, measuring for 9.0 s
+2026-11-11 12:53:56,296 [INFO] Thread-14 (_run): pos 1.56: 6.3 s left, 12 samples | Groove 11  now 57.1 um  avg(5/5) 60.0 um  [43 ms]  (frames: 507 received, 240 analysed)
+2026-11-11 12:53:59,954 [INFO] Thread-14 (_run): pos 1.56: 2.7 s left, 27 samples | Groove 11  now 56.7 um  avg(5/5) 59.9 um  [40 ms]  (frames: 522 received, 255 analysed)
+2026-11-11 12:54:02,632 [INFO] Thread-14 (_run): piezo 1.56: 38 samples, mean 58.97 um, sd 0.87 um
+2026-11-11 12:54:02,726 [INFO] Thread-14 (_run): moving piezo to 1.3601249933242798
+2026-11-11 12:54:06,047 [INFO] Thread-14 (_run): pos 1.36: waiting for groove (1 s) | waiting for 5 frames  (frames: 547 received, 270 analysed)
+2026-11-11 12:54:06,294 [INFO] Thread-14 (_run): Groove found at piezo 1.36, measuring for 9.0 s
+2026-11-11 12:54:09,713 [INFO] Thread-14 (_run): pos 1.36: 5.6 s left, 15 samples | Groove 12  now 44.7 um  avg(5/5) 42.6 um  [45 ms]  (frames: 562 received, 285 analysed)
+2026-11-11 12:54:13,369 [INFO] Thread-14 (_run): pos 1.36: 1.9 s left, 30 samples | Groove 12  now 46.6 um  avg(5/5) 43.1 um  [45 ms]  (frames: 577 received, 300 analysed)
+2026-11-11 12:54:15,316 [INFO] Thread-14 (_run): piezo 1.36: 38 samples, mean 43.79 um, sd 0.92 um
+2026-11-11 12:54:15,471 [INFO] Thread-14 (_run): moving piezo to 1.1597500324249268
+2026-11-11 12:54:18,499 [WARNING] Thread-14 (_run): Cutting is at an unsafe light groove width: 26.3
+2026-11-11 12:54:23,721 [WARNING] Thread-14 (_run): Cutting is at an unsafe light groove width: 28.0
+2026-11-11 12:54:24,199 [WARNING] Thread-14 (_run): Cutting is at an unsafe light groove width: 28.1
+2026-11-11 12:54:24,653 [WARNING] Thread-14 (_run): Cutting is at an unsafe light groove width: 28.0
+2026-11-11 12:54:24,958 [INFO] Thread-14 (_run): Groove found at piezo 1.16, measuring for 9.0 s
+2026-11-11 12:54:24,958 [WARNING] Thread-14 (_run): Cutting is at an unsafe light groove width: 28.0
+2026-11-11 12:54:25,212 [WARNING] Thread-14 (_run): Cutting is at an unsafe light groove width: 28.0
+2026-11-11 12:54:25,557 [WARNING] Thread-14 (_run): Cutting is at an unsafe light groove width: 28.0
+2026-11-11 12:54:26,027 [INFO] Thread-14 (_run): pos 1.16: 8.4 s left, 3 samples | Groove 13  now 28.0 um  avg(5/5) 28.0 um  [36 ms]  (frames: 629 received, 315 analysed)
+2026-11-11 12:54:26,091 [WARNING] Thread-14 (_run): Cutting is at an unsafe light groove width: 28.0
+2026-11-11 12:54:26,504 [WARNING] Thread-14 (_run): Cutting is at an unsafe light groove width: 28.0
+2026-11-11 12:54:26,868 [WARNING] Thread-14 (_run): Cutting is at an unsafe light groove width: 28.0
+2026-11-11 12:54:27,189 [WARNING] Thread-14 (_run): Cutting is at an unsafe light groove width: 28.0
+2026-11-11 12:54:28,088 [WARNING] Thread-14 (_run): Cutting is at an unsafe light groove width: 28.0
+2026-11-11 12:54:28,376 [WARNING] Thread-14 (_run): Cutting is at an unsafe light groove width: 28.0
+2026-11-11 12:54:29,069 [WARNING] Thread-14 (_run): Cutting is at an unsafe light groove width: 28.0
+2026-11-11 12:54:29,327 [WARNING] Thread-14 (_run): Cutting is at an unsafe light groove width: 28.0
+2026-11-11 12:54:29,680 [WARNING] Thread-14 (_run): Cutting is at an unsafe light groove width: 28.0
+2026-11-11 12:54:30,123 [WARNING] Thread-14 (_run): Cutting is at an unsafe light groove width: 28.0
+2026-11-11 12:54:30,430 [WARNING] Thread-14 (_run): Cutting is at an unsafe light groove width: 28.0
+2026-11-11 12:54:30,925 [WARNING] Thread-14 (_run): Cutting is at an unsafe light groove width: 28.0
+2026-11-11 12:54:31,308 [WARNING] Thread-14 (_run): Cutting is at an unsafe light groove width: 28.0
+2026-11-11 12:54:31,801 [WARNING] Thread-14 (_run): Cutting is at an unsafe light groove width: 28.0
+2026-11-11 12:54:32,291 [WARNING] Thread-14 (_run): Cutting is at an unsafe light groove width: 28.0
+2026-11-11 12:54:32,720 [INFO] Thread-14 (_run): pos 1.16: 1.7 s left, 18 samples | Groove 13  now 28.0 um  avg(5/5) 28.0 um  [47 ms]  (frames: 656 received, 330 analysed)
+2026-11-11 12:54:32,773 [WARNING] Thread-14 (_run): Cutting is at an unsafe light groove width: 28.0
+2026-11-11 12:54:33,053 [WARNING] Thread-14 (_run): Cutting is at an unsafe light groove width: 28.0
+2026-11-11 12:54:33,556 [WARNING] Thread-14 (_run): Cutting is at an unsafe light groove width: 28.0
+2026-11-11 12:54:33,860 [WARNING] Thread-14 (_run): Cutting is at an unsafe light groove width: 28.0
+2026-11-11 12:54:34,269 [WARNING] Thread-14 (_run): Cutting is at an unsafe light groove width: 28.0
+2026-11-11 12:54:34,740 [INFO] Thread-14 (_run): piezo 1.16: 23 samples, mean 27.99 um, sd 0.06 um
+2026-11-11 12:54:34,740 [INFO] Thread-14 (_run): piezo sequence complete
+2026-11-11 12:54:35,087 [INFO] camera: Camera streaming stopped
+2026-11-11 12:54:35,394 [INFO] Thread-14 (_run): Cutter resetting
+2026-11-11 12:55:17,106 [INFO] Thread-14 (_run): Cutter reset
+2026-11-11 12:55:17,111 [INFO] Thread-14 (_run): Saved 291 samples to C:\Users\KittyGoodridge\OneDrive - elasticStage\Desktop\Repos\Auto_Cal_Tests\logs\3.2.4_20261111_124137\groove_piezo_20261111_125517.csv
+2026-11-11 12:55:17,547 [INFO] Thread-14 (_run): Side A samples saved to C:\Users\KittyGoodridge\OneDrive - elasticStage\Desktop\Repos\Auto_Cal_Tests\logs\3.2.4_20261111_124137\groove_piezo_20261111_125517.csv
+2026-11-11 12:55:17,549 [INFO] Thread-14 (_run): Running analysis on side A data
+2026-11-11 12:55:18,083 [INFO] Thread-14 (_run): Analysis complete: gradient 0.023058735467371718, intercept 0.19011256583454958, manual adjustment required: False
+2026-11-11 12:55:19,650 [INFO] MainThread: Showing page: dataCalcs
+2026-11-11 12:55:19,657 [WARNING] MainThread: Found 2 PNG files in C:\Users\KittyGoodridge\OneDrive - elasticStage\Desktop\Repos\Auto_Cal_Tests\logs\3.2.4_20261111_124137, using the newest
+2026-11-11 12:56:05,170 [INFO] Thread-15 (_run): New calibration values set on cutter: {'HEAD_DROP_AND_CALIBRATION_CFG_DEFAULT_WEIGHT': 6.11810302734375, 'HEAD_DROP_AND_CALIBRATION_CFG_GRAMS_PER_MICRON': 0.023058735467371718, 'HEAD_DROP_AND_CALIBRATION_CFG_MM_PER_GRAM': 1}
+2026-11-11 12:56:05,200 [WARNING] MainThread: Found 2 PNG files in C:\Users\KittyGoodridge\OneDrive - elasticStage\Desktop\Repos\Auto_Cal_Tests\logs\3.2.4_20261111_124137, using the newest
+2026-11-11 12:56:06,751 [INFO] MainThread: Showing page: transition
+2026-11-11 12:56:06,758 [INFO] Thread-16 (_run): Switch over: disc is currently B_side
+2026-11-11 12:56:06,761 [INFO] Thread-16 (_run): Disc has been used on both sides - manual reject required
+2026-11-11 12:56:06,768 [INFO] Thread-16 (_run): Waiting for operator: Please manually remove and reject the disc currently in the cutter.
+
+Press CONFIRM once it has been removed.
+2026-11-11 12:56:33,041 [INFO] Thread-16 (_run): Operator confirmed
+2026-11-11 12:56:33,045 [INFO] Thread-16 (_run): Requesting supply for 3.2.4
+2026-11-11 12:56:33,367 [INFO] Thread-16 (_run): AMQP connected, listening on location.uk.factory.1.workstation.3.cluster.2.#
+2026-11-11 12:56:33,481 [INFO] Thread-16 (_run): supply command sent to cutter 4
+2026-11-11 12:56:33,618 [INFO] Thread-16 (_run): Transport event: cutter 4, command supply, result busy
+2026-11-11 12:58:47,063 [INFO] Thread-16 (_run): Transport event: cutter 4, command supply, result success
+2026-11-11 12:58:47,064 [INFO] Thread-16 (_run): supply succeeded on cutter 4
+2026-11-11 12:58:47,105 [INFO] Thread-16 (_run): Disc 2 placed on side A
+2026-11-11 12:58:47,106 [INFO] Thread-16 (_run): Switch over complete: disc is now A_side
+2026-11-11 12:58:47,106 [INFO] Thread-16 (_run): Switch over -> validation
+2026-11-11 12:58:48,680 [INFO] MainThread: Showing page: validation
+2026-11-11 12:58:48,690 [INFO] Thread-18 (_run): init camerasetup
+2026-11-11 12:58:48,692 [INFO] Thread-18 (_run): printing preamble
+2026-11-11 12:58:48,692 [INFO] Thread-18 (_run): ///////////////////////////////////////////////////
+2026-11-11 12:58:48,693 [INFO] Thread-18 (_run): /// VmbPy Asynchronous Grab with OpenCV Example ///
+2026-11-11 12:58:48,698 [INFO] Thread-18 (_run): ///////////////////////////////////////////////////
+
+2026-11-11 12:58:48,701 [INFO] Thread-18 (_run): parsing args
+2026-11-11 12:58:48,702 [INFO] Thread-18 (_run): Starting validation
+2026-11-11 12:58:48,832 [INFO] Thread-18 (_run): For gws: [70, 45, 55, 75, 95, 105]
+2026-11-11 12:58:48,833 [INFO] Thread-18 (_run): Piezo positions: [1.8042240485505698, 1.2277556618662768, 1.458343016539994, 1.9195177258874283, 2.3806924352348626, 2.61127978990858]
+2026-11-11 12:58:48,835 [INFO] Thread-18 (_run): Target 70 um -> piezo 1.804
+2026-11-11 12:58:48,836 [INFO] Thread-18 (_run): Target 45 um -> piezo 1.228
+2026-11-11 12:58:48,836 [INFO] Thread-18 (_run): Target 55 um -> piezo 1.458
+2026-11-11 12:58:48,837 [INFO] Thread-18 (_run): Target 75 um -> piezo 1.920
+2026-11-11 12:58:48,839 [INFO] Thread-18 (_run): Target 95 um -> piezo 2.381
+2026-11-11 12:58:48,850 [INFO] Thread-18 (_run): Target 105 um -> piezo 2.611
+2026-11-11 12:58:52,819 [INFO] camera: Camera opened: DEV_1AB22C06E926
+2026-11-11 12:58:52,820 [INFO] camera: 35 : line number
+2026-11-11 12:58:52,821 [INFO] camera: cutter number: 3.2.4, cutter_no: 3.2.4
+2026-11-11 12:58:52,826 [INFO] camera: Exposure time set to 2000 µs
+2026-11-11 12:58:52,834 [INFO] camera: Camera setup complete
+2026-11-11 12:58:52,862 [INFO] camera: Camera pixel format setup complete
+2026-11-11 12:58:52,915 [INFO] camera: Camera streaming started
+2026-11-11 12:58:53,179 [INFO] Thread-18 (_run): Camera running
+2026-11-11 12:58:53,614 [INFO] Thread-18 (_run): Drop in pitch set to 75.0
+2026-11-11 12:59:05,656 [INFO] Thread-18 (_run): Cutter reset
+2026-11-11 12:59:07,711 [INFO] Thread-18 (_run): Piezo goal: 1.8042240485505698 moved to 1.799875020980835
+2026-11-11 12:59:09,846 [INFO] Thread-18 (_run): Setup cut started
+2026-11-11 12:59:41,324 [INFO] Thread-18 (_run): Head has reached cutting position
+2026-11-11 12:59:41,324 [INFO] Thread-18 (_run): Cutting at 70 um
+2026-11-11 13:00:04,825 [INFO] Thread-18 (_run): Cutting at 45 um
+2026-11-11 13:00:19,551 [INFO] Thread-18 (_run): Cutting at 55 um
+2026-11-11 13:00:38,398 [INFO] Thread-18 (_run): Cutting at 75 um
+2026-11-11 13:00:56,677 [INFO] Thread-18 (_run): Cutting at 95 um
+2026-11-11 13:01:15,162 [INFO] Thread-18 (_run): Cutting at 105 um
+2026-11-11 13:01:34,675 [INFO] Thread-18 (_run): Validation cut complete
+2026-11-11 13:03:36,619 [INFO] Thread-18 (_run): [[109.6, 109.3, 109.5, 108.8, 109.2, 108.7, 108.1, 108.0, 107.8, 108.5, 98.8, 99.3, 98.4, 98.5, 99.2, 98.2, 98.9, 98.3, 98.3, 96.4, 79.9, 78.3, 79.5, 79.3, 79.0, 79.5, 80.2, 79.8, 79.5, 71.5, 52.3, 51.9, 52.0, 52.1, 52.3, 52.4, 52.2, 55.1, 51.9, 52.5, 33.5, 33.9, 33.6, 33.4, 33.8, 33.4, 33.1, 34.1, 46.6, 72.0, 85.8, 85.7, 86.1, 86.2, 86.4, 86.7, 86.7, 86.7, 86.8], [108.8, 108.9, 107.9, 108.3, 108.3, 107.0, 106.9, 107.0, 106.6, 97.8, 99.1, 98.4, 97.7, 97.4, 97.7, 97.4, 97.1, 96.8, 96.3, 83.4, 76.9, 80.9, 77.2, 76.7, 77.5, 77.7, 77.2, 76.9, 74.7, 53.7, 49.6, 49.7, 52.8, 49.6, 49.7, 49.7, 49.8, 50.5, 49.6, 33.0, 30.8, 31.7, 31.0, 30.8, 30.7, 30.6, 30.8, 36.5, 64.8, 81.6, 85.0, 84.5, 84.8, 87.0, 85.1, 85.4, 85.0, 86.2], [109.3, 109.5, 109.4, 109.1, 109.1, 108.7, 108.1, 108.2, 108.0, 107.5, 98.9, 99.2, 98.9, 98.2, 99.1, 98.5, 99.3, 98.3, 98.0, 93.5, 80.5, 78.9, 78.6, 80.7, 79.2, 80.2, 84.1, 83.8, 79.6, 70.4, 52.3, 52.4, 52.7, 52.4, 52.8, 52.6, 52.6, 53.1, 52.6, 52.6, 34.3, 34.0, 35.0, 34.5, 34.5, 34.2, 34.1, 34.1, 51.9, 72.3, 86.2, 85.8, 86.1, 86.0, 86.5, 86.6, 86.8, 86.8, 82.9], [109.5, 110.1, 109.3, 109.2, 109.2, 108.8, 108.3, 108.5, 108.2, 107.4, 99.1, 99.0, 99.3, 98.4, 99.0, 98.9, 99.4, 98.4, 98.2, 92.9, 81.4, 79.1, 78.8, 81.2, 79.2, 80.7, 82.6, 82.2, 79.6, 70.6, 52.4, 52.9, 53.1, 52.7, 53.0, 53.0, 53.0, 53.1, 53.0, 52.9, 34.5, 34.4, 34.8, 35.8, 34.7, 34.5, 34.6, 34.6, 53.0, 72.2, 86.5, 86.1, 86.5, 86.2, 86.8, 86.9, 87.0, 86.8, 83.3]]
+2026-11-11 13:03:36,657 [INFO] Thread-18 (_run): Sample 1 offset from others per plateau: [0.4, -0.7, -0.5, -0.05]
+2026-11-11 13:03:36,658 [INFO] Thread-18 (_run): Sample 2 offset from others per plateau: [-8.4, -3.0, -2.8, -1.3]
+2026-11-11 13:03:36,658 [INFO] Thread-18 (_run): Sample 3 offset from others per plateau: [0.1, 0.7, 0.5, 0.05]
+2026-11-11 13:03:36,659 [INFO] Thread-18 (_run): Sample 4 offset from others per plateau: [-0.1, 1.2, 0.8, 0.35]
+2026-11-11 13:03:36,659 [WARNING] Thread-18 (_run): Sample 2 is bumpy - it doesn't follow the other samples.
+2026-11-11 13:03:36,660 [WARNING] Thread-18 (_run): Removing sample 2 before pass/fail
+2026-11-11 13:03:36,660 [INFO] Thread-18 (_run): Tolerance set to the cutter's error margin 6.51 um
+2026-11-11 13:03:36,693 [INFO] Thread-18 (_run): Validation result: False
+2026-11-11 13:03:38,025 [INFO] Thread-18 (_run): Validation has ended
+2026-11-11 13:03:38,342 [INFO] camera: Camera streaming stopped
+2026-11-11 13:03:39,614 [INFO] Thread-18 (_run): Head drop position restored to 147.4
+2026-11-11 13:03:39,620 [INFO] Thread-18 (_run): Result of validation: FAIL
+2026-11-11 13:03:41,190 [INFO] MainThread: Showing page: complete
+2026-11-11 13:03:45,391 [INFO] MainThread: Showing page: finish
+2026-11-11 14:14:24,861 [INFO] MainThread: Stop requested
+2026-11-11 14:14:24,863 [INFO] MainThread: Stopping cutter on 3.2.4
+2026-11-11 14:14:25,071 [ERROR] MainThread: Error closing MQTT client
+Traceback (most recent call last):
+  File "c:\Users\KittyGoodridge\OneDrive - elasticStage\Desktop\Repos\Auto_Cal_Tests\gui.py", line 399, in _close_mqtt
+    self._mqtt.disconnect()   # or whatever your MQTTClient's shutdown method is
+    ^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'MQTTClient' object has no attribute 'disconnect'
+2026-11-11 14:14:25,072 [INFO] MainThread: Closing wizard

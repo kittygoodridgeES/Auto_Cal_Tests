@@ -547,12 +547,14 @@ class WizardApp(tk.Tk):
         )
 
         # Page 5: Calculate default headweight
+        # -> LoadCellShim if the headweight can't be set at the current load cell height,
+        #    otherwise straight to transition
         self.pages["dataCalcs"] = ImageTaskPage(
             self.container, self,
             title="Calibration Analysis",
             body="Calculating mm/um value and default headweight for cutter config...",
             task=measure_and_set_headweight,
-            next_target="transition",
+            next_target=choose_after_headweight,
             image_path=get_image,  
         )
 
@@ -610,7 +612,7 @@ class WizardApp(tk.Tk):
             self.container, self,
             title="END",
             body=finish_text,
-            image_path=None,
+            image_path=validation_image,
             next_target=None,              # last page: Next becomes Finish
         )
 
@@ -920,6 +922,7 @@ class SelectionPage(BasePage):
 
     def _on_cutter(self, value):
         self.app.selection.cutter = value
+        self.app.logger.info(f"Machine ID: {self.app.selection.machine_id}")
         # Changing cutter keeps the yes/no answers; they're only asked once per location
         if not self._condition_groups:
             self._add_condition("Is transport operational?", self._on_transport)
@@ -949,9 +952,10 @@ class SelectionPage(BasePage):
         self.app.logger.info(f"Selection: {sel.summary()}")
         self.app.logger.info(f"First calibration after diamond change: {sel.first_after_diamond_change}")
         self.app.show_page(self.next_target)
-
 class InfoPage(BasePage):
-    """Text plus optional images that resize to fit the window."""
+    """Text plus optional images that resize to fit the window.
+    body and image_path can each be a fixed value or a function (ctx) -> value,
+    looked up each time the page is shown."""
 
     MIN_IMAGE_HEIGHT = 120
 
@@ -960,36 +964,49 @@ class InfoPage(BasePage):
         self.next_target = next_target
         self._pil_images, self._photos, self.image_labels = [], [], []
         self._resize_job = None
-        
 
         container = ttk.Frame(self.content)
         container.pack(expand=True, fill="both")
 
         self.body_source = body
         self.body_label = ttk.Label(container, text="" if callable(body) else body,
-                                            font=gui.FONT_BODY, justify="left", wraplength=900)
+                                    font=gui.FONT_BODY, justify="left", wraplength=900)
         self.body_label.pack(pady=(0, 15))
 
+        self.image_source = image_path
+        self.images_frame = None
         if image_path:
-            paths = image_path if isinstance(image_path, (list, tuple)) else [image_path]
             self.images_frame = ttk.Frame(container)
             self.images_frame.pack(pady=10, fill="both", expand=True)
-            for path in paths:
-                label = ttk.Label(self.images_frame)
-                label.pack(side="left", padx=10, expand=True)
-                self.image_labels.append(label)
-                try:
-                    img = Image.open(path)
-                    img.load()
-                    self._pil_images.append(img)
-                except Exception:
-                    self.app.logger.exception(f"Could not load image {path}")
-                    self._pil_images.append(None)
-                    label.configure(text=f"[image not found: {Path(path).name}]")
             self.bind("<Configure>", self._on_configure)
+            if not callable(image_path):
+                self._set_images(image_path)
 
         if next_target is None:
             self.next_button.configure(text="FINISH", command=self.app.stop_program)
+
+    def _set_images(self, image_path):
+        """Replace whatever images are shown with the ones at image_path."""
+        for label in self.image_labels:
+            label.destroy()
+        self._pil_images, self._photos, self.image_labels = [], [], []
+        if not image_path:
+            return
+
+        paths = image_path if isinstance(image_path, (list, tuple)) else [image_path]
+        for path in paths:
+            label = ttk.Label(self.images_frame)
+            label.pack(side="left", padx=10, expand=True)
+            self.image_labels.append(label)
+            try:
+                img = Image.open(path)
+                img.load()
+                self._pil_images.append(img)
+            except Exception:
+                self.app.logger.exception(f"Could not load image {path}")
+                self._pil_images.append(None)
+                label.configure(text=f"[image not found: {Path(path).name}]")
+        self._on_configure(None)       # size them once the layout has settled
 
     def _on_configure(self, _event):
         if self._resize_job is not None:
@@ -998,6 +1015,8 @@ class InfoPage(BasePage):
 
     def _resize_images(self):
         self._resize_job = None
+        if not self._pil_images:
+            return
         self.update_idletasks()
         available_h = max(self.content.winfo_height() - self.body_label.winfo_height() - 60,
                           self.MIN_IMAGE_HEIGHT)
@@ -1013,15 +1032,24 @@ class InfoPage(BasePage):
             photo = ImageTk.PhotoImage(img)
             self._photos.append(photo)
             label.configure(image=photo, text="")
-    
+
     def on_show(self):
+        ctx = self.app.make_context()
         if callable(self.body_source):
             try:
-                text = self.body_source(self.app.make_context())
+                text = self.body_source(ctx)
             except Exception:
                 self.app.logger.exception("Could not build page text")
                 text = "Could not load instructions - check the log."
             self.body_label.configure(text=text)
+
+        if callable(self.image_source):
+            try:
+                path = self.image_source(ctx)
+            except Exception:
+                self.app.logger.exception("Could not find image")
+                path = None
+            self._set_images(path)
 
     def on_next(self):
         if self.next_target:
@@ -1144,7 +1172,9 @@ class CheckPage(BasePage):
 class ImageTaskPage(BasePage):
     """Shows an image and runs a task as soon as the page appears.
     Moves on automatically when the task succeeds; shows RETRY if it fails.
-    The image resizes to fit the space above the status area."""
+    The image resizes to fit the space above the status area.
+    next_target can be a page name, or a function (ctx) -> page name that is
+    called after the task has run (so it can use values the task set)."""
 
     MIN_IMAGE_HEIGHT = 120
 
@@ -1237,14 +1267,23 @@ class ImageTaskPage(BasePage):
         self.app.run_in_background(self._run)
 
     def _run(self):
+        ctx = self.app.make_context()
         try:
-            self.task(self.app.make_context())
-            self.app.call_in_ui(self._finished, True, None)
+            self.task(ctx)
+            target = self._resolve_next(ctx)
+            self.app.call_in_ui(self._finished, True, None, target)
         except Exception as e:
             self.app.logger.exception(f"{self.task.__name__} failed")
-            self.app.call_in_ui(self._finished, False, str(e))
+            self.app.call_in_ui(self._finished, False, str(e), None)
 
-    def _finished(self, ok, error):
+    def _resolve_next(self, ctx):
+        """next_target can be a page name or a function (ctx) -> page name."""
+        target = self.next_target(ctx) if callable(self.next_target) else self.next_target
+        if target not in self.app.pages:
+            raise RuntimeError(f"unknown page '{target}'")
+        return target
+
+    def _finished(self, ok, error, target):
         self._running = False
         self.progress.stop()
         if self.app.stop_event.is_set():
@@ -1252,7 +1291,7 @@ class ImageTaskPage(BasePage):
         if ok:
             self.status_label.configure(text="Complete. Moving on...", fg=gui.COLOR_SUCCESS)
             self._load_image()
-            self.after(timeouts.AUTO_ADVANCE_DELAY_MS, self.app.show_page, self.next_target)
+            self.after(timeouts.AUTO_ADVANCE_DELAY_MS, self.app.show_page, target)
         else:
             self.status_label.configure(text=f"Failed: {error}", fg=gui.COLOR_DANGER)
             self.retry_button.pack(pady=5)
@@ -2135,16 +2174,13 @@ def measure_and_set_headweight(ctx: WorkerContext) -> bool:
     """Find the default headweight. If it can be set at the default groove width, post and
     apply the new config and return True. Otherwise store the readings for the
     LoadCellShim page and return False."""
+    # Results from any earlier attempt no longer apply
     ctx.values["shim_required"] = False
     ctx.values["shim_headweight"] = None
     ctx.values["shim_piezo_pos"] = None
 
     api = ctx.get_api()
     mqtt = ctx.get_mqtt()
-
-    # Results from any earlier attempt no longer apply
-    for key in ("shim_required", "shim_headweight", "shim_piezo_pos"):
-        ctx.values.pop(key, None)
 
     mmum = float(ctx.values["mmum"])
     y_int = float(ctx.values["y_int"])
@@ -2187,6 +2223,16 @@ def measure_and_set_headweight(ctx: WorkerContext) -> bool:
     # api.post_config(data)
     # api.command("conifg_apply")
     # ctx.logger.info(f"New calibration values set on cutter: {data}")
+
+
+def choose_after_headweight(ctx: WorkerContext):
+    """After the default headweight calculation: load cell shim page if the headweight
+    couldn't be set at the default groove width, otherwise straight to the switch over."""
+    if ctx.values.get("shim_required"):
+        ctx.log("Load cell shim required before continuing")
+        return "LoadCellShim"
+    return "transition"
+
 
 def get_image(ctx: WorkerContext):
     """Return the png image in the file of the linear regession with error margins"""
@@ -2273,24 +2319,33 @@ def load_cell_shim_text(ctx: WorkerContext):
     shim_dist = round(abs(piezo_pos - default_piezo_pos), cutter.ROUND_SHIM) + cutter.SHIM_OFFSET
     append_maintenance_narrative("Loadcell shim", float(shim_dist))
     return ("The default headweight could not be set at the current loadcell height.\n\n"
-            f"Please shim the loadcell upwards by {shim_dist} from its current position\n"
-            "Please shim the load cell, then press OK to measure again.")
+            f"Please shim the loadcell upwards by {shim_dist}mm or more from its current position\n"
+            "Once you are done please press OK to measure again.")
 
 def finish_text(ctx: WorkerContext):
     result = ctx.values.get("validation_result")
     machine = ctx.selection.machine_id
     if result == "PASS":
         return (f"Calibration of cutter {machine} is complete.\n\n"
-                f"Validation: PASS - all groove widths are within ±{cutter.ABS_ERROR_MARGIN} um.\n\n"
+                f"Validation:\n\n PASS \n\n All groove widths are within ±{cutter.ABS_ERROR_MARGIN}um.\n\n"
                 "Press Finish to close.")
     if result == "FAIL":
         return (f"Calibration of cutter {machine} did not pass validation.\n\n"
-                f"Validation: FAIL - one or more groove widths were more than ±{cutter.ABS_ERROR_MARGIN} um "
+                f"Validation:\n\n FAIL \n\n One or more groove widths were more than ±{cutter.ABS_ERROR_MARGIN}um "
                 "from target. See the log for details.\n\n"
-                "Do not return this cutter to production. Press Finish to close.")
+                "Please complete another calibration. Press Finish to close.")
     return "Validation did not run, so the calibration result is unknown."
 
-
+def validation_image(ctx: WorkerContext):
+    """Path to the validation plot in this run's log folder, or None if it isn't there."""
+    folder = getattr(ctx.selection, "log_folder", None)
+    if folder is None:
+        return None
+    path = Path(folder) / "groove_width_validation.png"
+    if not path.exists():
+        ctx.logger.warning(f"Validation image not found: {path}")
+        return None
+    return path
 
 def latest_groove_plot(folder: Path | None) -> Path | None:
     """Return the groove_piezo_<YYYYMMDD_HHMMSS>_plot.png in folder with the most
@@ -2325,9 +2380,9 @@ if __name__ == "__main__":
 
 # #INPUT VARIABLES HERE
 # DEBUG_PRESET = {
-#     "selection": {"factory": "1", "station": "2", "cluster": "1", "cutter": "2",
+#     "selection": {"factory": "1", "station": "3", "cluster": "2", "cutter": "1",
 #                   "transport_ok": False},
-#     "values": {"mmum":0.01644, "y_int": 0.383340},   # use the fit from a real run
+#     "values": {"mmum":0.023266, "y_int": 0.1116},   # use the fit from a real run
 # }
 
 

@@ -236,7 +236,7 @@ class CalibrationSide:
             self.logger.info(f"Piezo moved to starting pos")
 
                 #start the cutter
-            self.api.command("Start")
+            self.api.command("start")
             self.logger.info("Starting cutter")
 
 

@@ -177,7 +177,7 @@ class ValidationSide:
         finished = False
         try:
             # make the validation cut and sample with photos
-            # self._cut_and_sample(piezo_positions, latest, saved_samples)
+            self._cut_and_sample(piezo_positions, latest, saved_samples)
 
             #iterate through the photo list and perform stationary analysis
             width_array = []
@@ -201,9 +201,9 @@ class ValidationSide:
             #ensure groove widths across all array are within tolerance
             val_widths = cutter.VALIDATION_WIDTHS
 
-            pass_fail, data = self.check_all_sides(width_array, val_targets)
+            pass_fail, data, tolerance = self.check_all_sides(width_array, val_targets)
             self.logger.info(f"Validation result: {pass_fail}")
-            fig = self.plot_results(width_array, data, tolerance=cutter.ABS_ERROR_MARGIN,
+            fig = self.plot_results(width_array, data, tolerance,
                                     side_names=sample_names,
                                     save_path=f"{self.log_folder}/groove_width_validation.png")
                     
@@ -585,7 +585,7 @@ class ValidationSide:
             t = targets[i] if per_side else targets
             out[i] = self.check_against_targets(side, t, tolerance=tolerance, average=average,
                                                 **segment_kwargs)
-        return all(p for p, _ in out.values()), out
+        return all(p for p, _ in out.values()), out, tolerance
 
     def plot_rows(self, data, labels=None, xlabel="Index", ylabel="GW", title="Validation gw measurements"):
         """Plot each row of a 4 x N array (rows may differ in length) as its own line."""
@@ -606,7 +606,7 @@ class ValidationSide:
         return fig, ax
 
 
-    def plot_results(self, width_array, per_side, tolerance=cutter.ABS_ERROR_MARGIN, side_names="1234", save_path=None):
+    def plot_results(self, width_array, per_side, tolerance, side_names="1234", save_path=None):
         """
         Plot every side's readings against its block targets.
         Each block gets its target line and a shaded ±tolerance band over its span.

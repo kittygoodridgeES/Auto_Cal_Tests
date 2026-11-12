@@ -94,7 +94,7 @@ def find_default_headweight(api, mqtt, default_piezo_pos):
     else:
         pos = default_piezo_pos + 0.2
         #head is not far enough on weight continue iteratively downward until head is greater than 3g
-        while headweight < 3:
+        while float(headweight) < 3:
             move_piezo(api, mqtt, pos)
             time.sleep(cutter.HEAD_SETTLE_TIME)
             headweight = mqtt.monitor("head_weight")
@@ -112,7 +112,9 @@ def find_default_headweight(api, mqtt, default_piezo_pos):
     wait_for(lambda: api.get("packml_state") == 4, "reset to finish (IDLE)", api)
     return return_value
 
-# api = APIRequests("1", "2.1.2")
-# mqtt= MQTTClient("1", "2.1.2")
-# print(move_piezo(api, mqtt, 1.53))
-# # move_piezo(api, mqtt, 2.65)
+# api = APIRequests("1", "3.1.3")
+# mqtt= MQTTClient("1", "3.1.3")
+# print(find_default_headweight(api, mqtt, 1.86024))
+# #print(move_piezo(api, mqtt, 1.53))
+# print(mqtt.monitor("head_weight"))
+# # move_piezo(api, mqtt, 1.275)
