@@ -25,7 +25,7 @@ from constants import camera_constants as cam_const
 
 
 
-def analyse_frame(frame, blank=None, um_per_px=cam_const.UM_PER_PX):
+def analyse_frame(frame, centre, blank=None, um_per_px=cam_const.UM_PER_PX):
     """
     frame  : image array (grayscale or BGR, any dtype)
     centre : (x, y) disc centre in frame pixels; estimated if None
@@ -35,7 +35,7 @@ def analyse_frame(frame, blank=None, um_per_px=cam_const.UM_PER_PX):
     crop = _crop_bmp(frame)
     img = _gray(crop)
     ratio = _flatten(img, None if blank is None else _gray(blank))
-    c = np.asarray(cam_const.CENTRE, float)
+    c = np.asarray(centre, float)
     P = _unwrap(ratio, c)
     E = _track([_grooves_in_section(P, j) for j in range(P.shape[1] // cam_const.SECTION_PX)])
 

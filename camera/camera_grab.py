@@ -111,7 +111,7 @@ class CameraSetup:
             line_number = 11 + 16 + 4*(int(self.cutter_no[2:3])-1) + int(self.cutter_no[4:5])
             self.logger.info(f"{line_number} : line number")
         else:
-            line_number = int(self.cutter_no) -1
+            line_number = int(self.cutter_no[2:3]) -1
             self.logger.info(f"{line_number} : line number")
 
         with open(self.settings_path, encoding="utf-8") as f:

@@ -4,8 +4,11 @@ import time
 
 import pika
 from dotenv import load_dotenv
+import sys
+from pathlib import Path
 
-from api_requests import APIRequests
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
+from src.api_requests import APIRequests
 from constants import timeouts
 
 class AMQP_Transport:

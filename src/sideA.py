@@ -27,12 +27,13 @@ from datetime import datetime
 from pathlib import Path
 
 
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 from camera.camera_grab import Stream
 from camera.gw_analysis_live import GrooveMonitor
-from api_requests import APIRequests
-from mqtt_retrieval import MQTTClient
-from cutter_functions import move_piezo
-from airtable_retrieval import AirtableReader
+from src.api_requests import APIRequests
+from src.mqtt_retrieval import MQTTClient
+from src.cutter_functions import move_piezo
+from src.airtable_retrieval import AirtableReader
 
 from constants import cutter_positioning as cutter
 from constants import timeouts as timeouts
@@ -161,7 +162,7 @@ class CalibrationSide:
 
         if self.new_drop_in != None:
             drop_in_piezo_pos = self.new_drop_in
-            self.logger.info(f"Drop in piezo position: {round(drop_in_piezo_pos, 2)} "
+            self.logger.info(f"Drop in piezo position: {round(drop_in_piezo_pos, 2)}\n"
                              f"Decided based on manual adjustment that was made")
 
         else:
@@ -259,7 +260,12 @@ class CalibrationSide:
                 #wait for cut to reach the camera
             time.sleep(cutter.DELAY_CUT_TO_FRAME)
                 #start analysis of frames
-            mon = GrooveMonitor()
+            if cutter_no[0:1] == "1":
+                i = 0
+            else:
+                i = 1
+            c = cam_const.CENTRE[i]
+            mon = GrooveMonitor(c)
             analysed = 0
 
             t_start = time.perf_counter()

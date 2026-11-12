@@ -37,7 +37,7 @@ from constants import cutter_positioning as cutter
 
 
 class GrooveMonitor:
-    def __init__(self, centre=cam_const.CENTRE, um_per_px=cam_const.UM_PER_PX, n_avg=cam_const.N_AVG, crop=cam_const.CROP,
+    def __init__(self, centre, um_per_px=cam_const.UM_PER_PX, n_avg=cam_const.N_AVG, crop=cam_const.CROP,
                  band_um=cam_const.BAND_UM, min_coverage=cam_const.MIN_COVERAGE, new_groove_px=None):
         """
         centre        : disc centre (x, y) in FULL-frame pixels (the crop does not change it)
@@ -170,13 +170,17 @@ class GrooveMonitor:
 
 
 # -------------------------------------------------------------------- live loop
-def main(source=0):
+def main(cutter_no, source=0):
     cap = cv2.VideoCapture(source)
     if not cap.isOpened():
         raise SystemExit(f"could not open camera/source {source!r}")
     cap.set(cv2.CAP_PROP_BUFFERSIZE, 1)     # always process the newest frame
-
-    mon = GrooveMonitor()
+    if cutter_no[0:1] == "1":
+        i = 0
+    else:
+        i = 1
+    c = cam_const.CENTRE[i]
+    mon = GrooveMonitor(c)
     while True:
         ok, frame = cap.read()
         if not ok:

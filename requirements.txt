@@ -1,0 +1,12 @@
+matplotlib
+numpy
+opencv-python
+Pillow
+PyYAML
+python-dotenv
+pika
+paho-mqtt
+psycopg2-binary
+requests
+scipy
+vmbpy

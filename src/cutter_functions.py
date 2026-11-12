@@ -1,6 +1,11 @@
 import time
-from api_requests import APIRequests
-from mqtt_retrieval import MQTTClient
+import sys
+from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
+
+from src.api_requests import APIRequests
+from src.mqtt_retrieval import MQTTClient
 
 from constants import cutter_positioning as cutter
 from constants import timeouts

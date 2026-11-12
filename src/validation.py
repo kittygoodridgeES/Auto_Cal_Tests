@@ -11,20 +11,23 @@ import threading
 import time
 from pathlib import Path
 import matplotlib.pyplot as plt
-import warnings
 import cv2
 import numpy as np
+import sys
+
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
 from camera.camera_grab import Stream
 from camera.gw_analysis_stationary import analyse_frame
-from cutter_functions import move_piezo
+from src.cutter_functions import move_piezo
 
 from constants import cutter_positioning as cutter
 from constants import timeouts as timeout
 from constants import general as gen
+from constants import camera_constants as cam_const
 
-from api_requests import APIRequests
-from mqtt_retrieval import MQTTClient
+from src.api_requests import APIRequests
+from src.mqtt_retrieval import MQTTClient
 
 
 # PackML numbers used by the cutter - check these match your PLC
@@ -141,6 +144,8 @@ class ValidationSide:
         self._cutter_running = False
         pass_fail = False
 
+        centre = cam_const.CENTRE[0] if cutter_no[0:1] == "1" else cam_const.CENTRE[1]
+
         self.logger.info("Starting validation")
         config = self.api.get("config")
         original_head_drop_pos = float(config["PROCESS_POSITIONS_HEADDROPPOSITION"])
@@ -186,7 +191,7 @@ class ValidationSide:
             for i in range(1, gen.SAMPLE_NO + 1):
                 image_pathway = f"{self.log_folder}/val_sample_{i}.png"
                 frame = cv2.imread(image_pathway)
-                widths, land = analyse_frame(frame)
+                widths, land = analyse_frame(frame, centre)
                 width_array.append(np.asarray(widths).tolist())
             self.logger.info(width_array)
 

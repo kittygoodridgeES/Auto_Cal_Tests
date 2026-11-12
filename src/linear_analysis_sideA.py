@@ -30,6 +30,11 @@ from pathlib import Path
 import matplotlib.pyplot as plt
 import numpy as np
 
+import sys
+from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
+
 from constants import general as gen
 from constants import cutter_positioning as cutter
 

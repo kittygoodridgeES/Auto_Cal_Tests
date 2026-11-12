@@ -1,5 +1,9 @@
 import paho.mqtt.subscribe as subscribe
 import time
+import sys
+from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
 from constants import endpoints
 class MQTTClient:

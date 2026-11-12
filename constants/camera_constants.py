@@ -5,4 +5,5 @@ MIN_COVERAGE = 0.5   # fraction of the visible arc a groove must span to be meas
 
 UM_PER_PX = 2.74 / 0.5      # pixel size on the disc (µm)
 SECTION_PX = 40            # length of each cross-section along the grooves (px)
-CENTRE = (13010, -1478)      # disc centre in pixels (x, y) - found by least-squares intersection of groove normals
+CENTRE = [(880, -10_640),
+          (13010, -1478)]      # disc centre in pixels (x, y) - found by least-squares intersection of groove normals

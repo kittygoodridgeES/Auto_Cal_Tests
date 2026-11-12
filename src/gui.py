@@ -12,16 +12,7 @@ from tkinter import ttk
 from tkinter.scrolledtext import ScrolledText
 from typing import Callable
 from datetime import datetime
-
-from airtable_retrieval import AirtableReader
-from mqtt_retrieval import MQTTClient
-from transport_commands import AMQP_Transport
-from api_requests import APIRequests
-from sideA import CalibrationSide
-from linear_analysis_sideA import LinearAnalysis
-from cutter_functions import find_default_headweight
-from validation import ValidationSide
-
+import sys
 import cv2
 import numpy as np
 from PIL import Image, ImageTk
@@ -30,6 +21,16 @@ import os, json, sys
 import dotenv
 import psycopg2
 
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
+
+from src.airtable_retrieval import AirtableReader
+from src.mqtt_retrieval import MQTTClient
+from src.transport_commands import AMQP_Transport
+from src.api_requests import APIRequests
+from src.sideA import CalibrationSide
+from src.linear_analysis_sideA import LinearAnalysis
+from src.cutter_functions import find_default_headweight
+from src.validation import ValidationSide
 
 # ===== import constants  ===== #
 from constants import gui_presentation as gui
@@ -70,7 +71,7 @@ length_change = None
 dotenv.load_dotenv()
 
 #import yaml file for config
-with open("config.yaml", "r") as file:
+with open("src/config.yaml", "r") as file:
     config = yaml.safe_load(file)
 
 
@@ -315,7 +316,7 @@ class WizardApp(tk.Tk):
         self.stop_event = threading.Event()
         self.threads: list[threading.Thread] = []
         self._ui_queue: queue.Queue = queue.Queue()
-        self.assets_dir = Path(__file__).resolve().parent / "assets"
+        self.assets_dir = Path(__file__).resolve().parent.parent / "assets"
         self._mqtt = None
         self._mqtt_lock = threading.Lock()
         self._transport = None
@@ -2357,14 +2358,6 @@ def latest_groove_plot(folder: Path | None) -> Path | None:
         if newest_time is None or stamp > newest_time:
             newest_path, newest_time = path, stamp
     return newest_path
-
-def run_gui(logger):
-    app = WizardApp(logger)
-    app.mainloop()
-
-
-if __name__ == "__main__":
-    run_gui(setup_logging())
 
 # #test from validation onwards
 # # Set to a page name to skip ahead for testing, or None for the normal flow

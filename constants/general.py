@@ -2,7 +2,7 @@ from pathlib import Path
 import re
 
 
-LOG_DIR = Path(__file__).resolve().parent.parent / "logs"
+LOG_DIR = Path.home() / "Desktop" / "logs"
 LOG_FORMAT = "%(asctime)s [%(levelname)s] %(threadName)s: %(message)s"
 
 #analysis constants
