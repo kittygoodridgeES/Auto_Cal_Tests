@@ -161,14 +161,15 @@ class CalibrationSide:
 
         if self.new_drop_in != None:
             drop_in_piezo_pos = self.new_drop_in
-            self.logger.info(f"Drop in piezo position: {drop_in_piezo_pos}"
+            self.logger.info(f"Drop in piezo position: {round(drop_in_piezo_pos, 2)} "
                              f"Decided based on manual adjustment that was made")
 
         else:
             if first_after_diamond_change:
 
                 drop_in_piezo_pos = self.calculate_drop_in_pos(default_piezo_pos, grams_per_micron,default_groove_width, self.change_in_diamond_length)
-                self.logger.info(f"Drop in piezo pos decided: {drop_in_piezo_pos}"
+                drop_in_piezo_pos = round(drop_in_piezo_pos, 2)
+                self.logger.info(f"Drop in piezo pos decided: {round(drop_in_piezo_pos, 2)}"
                                 f"Drop in position estimated from change in diamond length")
 
                 if (drop_in_piezo_pos < cutter.PIEZO_LOWER_LIMIT) or (drop_in_piezo_pos > cutter.PIEZO_UPPER_LIMIT):
@@ -231,7 +232,7 @@ class CalibrationSide:
             self.logger.info("Cutter reset")
 
                 # move piezo to starting position post cut
-            self.logger.info(f"Moving piezo to starting position: {drop_in_piezo_pos}")
+            self.logger.info(f"Moving piezo to starting position: {round(drop_in_piezo_pos, 2)}")
             move_piezo(self.api, self.mqtt, drop_in_piezo_pos)
             self.logger.info(f"Piezo moved to starting pos")
 

@@ -393,15 +393,6 @@ class WizardApp(tk.Tk):
                 self._mqtt = MQTTClient(sel.factory, sel.machine_id)
             return self._mqtt
 
-    def _close_mqtt(self):
-        if self._mqtt is None:
-            return
-        try:
-            self._mqtt.disconnect()   # or whatever your MQTTClient's shutdown method is
-        except Exception:
-            self.logger.exception("Error closing MQTT client")
-        self._mqtt = None
-
     def report_callback_exception(self, exc, val, tb):
         """Tkinter normally just prints errors from button clicks and after() callbacks
         to the console. Send them to the log file instead."""
@@ -688,8 +679,6 @@ class WizardApp(tk.Tk):
                          name="db_post").start()
 
     def _wait_for_threads(self, elapsed):
-        with self._mqtt_lock:
-            self._close_mqtt()
         with self._transport_lock:
             self._close_transport()
         alive = [t for t in self.threads if t.is_alive()]
