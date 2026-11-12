@@ -3,6 +3,7 @@ import logging.handlers
 import queue
 import threading
 import time
+import math
 import webbrowser
 import tkinter as tk
 from dataclasses import dataclass
@@ -506,7 +507,7 @@ class WizardApp(tk.Tk):
         self.pages["live_value"] = ReloadValuePage(
             self.container, self,
             title="Headweight",
-            body=f"Adjust until the value is between {lo} and {hi} g, then press Reload.",
+            body=f"Adjust until the value is between {lo} and {hi} g, then press Reload. \nPlease do not shim the loadcell at this point",
             value_label="Head weight",
             unit=" g",
             decimals=2,
@@ -2274,11 +2275,13 @@ def manual_adjust_text(ctx: WorkerContext):
     if instruction == None:
         instructions = "Replace the spring: Spring has been overstretched and can no longer keep head in acceptable range"
     elif float(instruction) > 0:
+        turns = math.floor(abs(float(instruction)) / cutter.SCREW_PITCH * 2 + 0.5) / 2
         append_maintenance_narrative("Headweight screw UP", abs(float(instruction)))
-        instructions = f"Please shift the head UPWARDS by approx. {instruction}"
+        instructions = f"Please shift the head UPWARDS by approx. {turns} turns"
     else:
+        turns = math.floor(abs(float(instruction)) / cutter.SCREW_PITCH * 2 + 0.5) / 2
         append_maintenance_narrative("Headweight screw DOWN", abs(float(instruction)))
-        instructions = f"Please shift the head DOWNWARDS by approx. {abs(instruction)}"
+        instructions = f"Please shift the head DOWNWARDS by approx. {turns} turns"
 
     return (f"A manual adjustment is required before continuing:\n\n{instructions}\n\n"
             "Press Next when the adjustment is done.")

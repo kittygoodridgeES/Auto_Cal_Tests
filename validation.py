@@ -619,6 +619,7 @@ class ValidationSide:
         cols = 2 if n > 1 else 1
         rows = (n + cols - 1) // cols
         fig, axes = plt.subplots(rows, cols, figsize=(7 * cols, 4.5 * rows), squeeze=False)
+        tolerance = round(tolerance, 1)
     
         for i, values in enumerate(width_array):
             ax = axes[i // cols][i % cols]

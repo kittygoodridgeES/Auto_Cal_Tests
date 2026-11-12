@@ -35,6 +35,7 @@ HEAD_SETTLE_TIME = 20                   # time taken for headweight to settle on
 HEAD_DROP_TIME = 5                      # rough time taken for head to drop once command is sent
 
 DISC_ERROR_MARGIN = 0.15                 # max allowed |measured - target| (um) for validation disc widths
+SCREW_PITCH = 0.35                        # mm pitch of the headweight screw
  
 # ===== PACKML codes ===== #
 PIEZO_CMD_IDS = {
