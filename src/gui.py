@@ -2264,14 +2264,19 @@ def manual_adjust_text(ctx: WorkerContext):
     
     if instruction == None:
         instructions = "Replace the spring: Spring has been overstretched and can no longer keep head in acceptable range"
+        ctx.log(f"Manual Adjustment Instructions: {instructions}")  
     elif float(instruction) > 0:
         turns = math.floor(abs(float(instruction)) / cutter.SCREW_PITCH * 2 + 0.5) / 2
         append_maintenance_narrative("Headweight screw UP", abs(float(instruction)))
         instructions = f"Please shift the head UPWARDS by approx. {turns} turns"
+        ctx.log(f"Requested to move the head UPWARDS by {round(abs(float(instruction)), 2)}mm, which is approx. {turns} turns")
+        ctx.log(f"Manual Adjustment Instructions: {instructions}")
     else:
         turns = math.floor(abs(float(instruction)) / cutter.SCREW_PITCH * 2 + 0.5) / 2
         append_maintenance_narrative("Headweight screw DOWN", abs(float(instruction)))
         instructions = f"Please shift the head DOWNWARDS by approx. {turns} turns"
+        ctx.log(f"Requested to move the head DOWNWARDS by {round(abs(float(instruction)), 2)}mm, which is approx. {turns} turns")
+        ctx.log(f"Manual Adjustment Instructions: {instructions}")
 
     return (f"A manual adjustment is required before continuing:\n\n{instructions}\n\n"
             "Press Next when the adjustment is done.")
@@ -2302,7 +2307,7 @@ def validation_worker(ctx: WorkerContext):
         raise RuntimeError("Validation was stopped before it finished")
     result = "PASS" if pass_fail else "FAIL"
     ctx.values["validation_result"] = result
-    ctx.log(f"Result of validation: {result}")
+    #ctx.log(f"Result of validation: {result}")
 
 def load_cell_shim_text(ctx: WorkerContext):
     headweight = ctx.values.get("shim_headweight")
@@ -2317,15 +2322,15 @@ def load_cell_shim_text(ctx: WorkerContext):
 
 def finish_text(ctx: WorkerContext):
     result = ctx.values.get("validation_result")
+    ctx.logger.info(f"Validation result: {result}")
     machine = ctx.selection.machine_id
     if result == "PASS":
         return (f"Calibration of cutter {machine} is complete.\n\n"
-                f"Validation:\n\n PASS \n\n All groove widths are within ±{cutter.ABS_ERROR_MARGIN}um.\n\n"
+                f"Validation:\n\n PASS \n\n All groove widths are within acceptable tolerance.\n\n"
                 "Press Finish to close.")
     if result == "FAIL":
         return (f"Calibration of cutter {machine} did not pass validation.\n\n"
-                f"Validation:\n\n FAIL \n\n One or more groove widths were more than ±{cutter.ABS_ERROR_MARGIN}um "
-                "from target. See the log for details.\n\n"
+                f"Validation:\n\n FAIL \n\n Too many groove widths were out of tolerance \n"
                 "Please complete another calibration. Press Finish to close.")
     return "Validation did not run, so the calibration result is unknown."
 

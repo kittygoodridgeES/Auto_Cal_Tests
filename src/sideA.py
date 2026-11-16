@@ -410,9 +410,9 @@ class CalibrationSide:
                     if now_t - pos_start > timeouts.GROOVE_TIMEOUT_S:
                         raise RuntimeError(f"No groove measured at piezo {pos} within "
                                         f"{timeouts.GROOVE_TIMEOUT_S} s - stopping without moving further")
-                    status = f"pos {pos}: waiting for groove ({now_t - pos_start:.0f} s)"
+                    status = f"piezo: {pos}mm: waiting for groove ({now_t - pos_start:.0f} s)"
                 else:
-                    status = f"pos {pos}: {max(window_end - now_t, 0):.1f} s left, {n_here} samples"
+                    status = f"piezo: {pos}mm"
 
                 # ---- move on only after the full window AND enough samples
                 if window_end is not None and now_t >= window_end and n_here >= cutter.MIN_SAMPLES:
@@ -467,8 +467,7 @@ class CalibrationSide:
                     reading = "waiting for 5 frames"
                 else:
                     now = "--" if res["width"] is None else f"{res['width']:.1f}"
-                    reading = (f"Groove {res['groove']}  now {now} um  "
-                            f"avg({res['n']}/{cam_const.N_AVG}) {res['average']:.1f} um  [{ms:.0f} ms]")
+                    reading = (f"Groove {res['groove']} average {res['n']}/{cam_const.N_AVG}) {res['average']:.1f} um")
                 text = f"{status} | {reading}"
                 if analysed % 15 == 0:
                     self.logger.info("%s  (frames: %d received, %d analysed)", text, latest.received, analysed)

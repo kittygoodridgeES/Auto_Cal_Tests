@@ -187,6 +187,7 @@ class ValidationSide:
             self._cut_and_sample(piezo_positions, latest, saved_samples)
 
             # iterate through the photo list and perform stationary analysis
+            self.logger.info("Analysing the validation photos")
             width_array = []
             for i in range(1, gen.SAMPLE_NO + 1):
                 image_pathway = f"{self.log_folder}/val_sample_{i}.png"
@@ -194,6 +195,7 @@ class ValidationSide:
                 widths, land = analyse_frame(frame, centre)
                 width_array.append(np.asarray(widths).tolist())
             self.logger.info(width_array)
+            self.logger.info("Validation analysis complete")
 
             pass_fail = self.analyse_widths(width_array)
             finished = True
@@ -240,17 +242,20 @@ class ValidationSide:
         # reversed; the first band cut (VALIDATION_WIDTHS[0], the drop-in band)
         # is the final block and is ignored
         val_targets = cutter.VALIDATION_WIDTHS[1:][::-1]
+        self.logger.info(f"Validation targets: {val_targets}")
         n_bands = len(cutter.VALIDATION_WIDTHS)
         all_names = [str(i + 1) for i in range(len(width_array))]
 
         # judge every sample first so the complete plot shows them all
         _, all_results, tolerance = self.check_all_sides(width_array, val_targets)
 
+        self.logger.info(f"Tolerance margin based on mmum: ±{tolerance}um")
+
         # remove a sample that doesn't follow the others before pass/fail
         bumpy = self.are_any_bumpy(width_array, n_bands=n_bands)
         removed = {}
         if bumpy is not None:
-            self.logger.warning(f"Removing sample {all_names[bumpy]} before pass/fail")
+            self.logger.info(f"Removing sample {all_names[bumpy]} before pass/fail")
             removed[bumpy] = "removed - bumpy"
         kept = [i for i in range(len(width_array)) if i not in removed]
 
@@ -269,7 +274,7 @@ class ValidationSide:
                 self.logger.info(f"Sample {all_names[i]} target {b['target']:g}: "
                                  f"mean {b['mean']:.1f} ({b['mean_deviation']:+.1f}) over readings "
                                  f"{b['start']}-{b['end'] - 1} -> {'pass' if b['passed'] else 'FAIL'}")
-        self.logger.info(f"Validation result: {pass_fail}")
+        #self.logger.info(f"Validation result: {pass_fail}")
 
         result_text = "PASS" if pass_fail else "FAIL"
         fig_all = self.plot_results(width_array, all_results, tolerance, side_names=all_names,
@@ -365,7 +370,7 @@ class ValidationSide:
             # turn platter for a random amount of time
             api.command("reset")
             self.wait_for(lambda: self._state() == STATE_IDLE, "reset to IDLE before sample")
-
+            self.logger.info("Taking photo %d of %d", i + 1, gen.SAMPLE_NO)
             api.command("start")
             self._cutter_running = True
             r = random.uniform(0, 1.8)
@@ -381,6 +386,7 @@ class ValidationSide:
             path = Path(self.log_folder) / f"val_sample_{i+1}.png"
             photos.append(frame)
             cv2.imwrite(str(path), frame)
+        self.logger.info("Validation photos taken")
         return
 
     # --- band finding --- #
