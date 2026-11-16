@@ -13,14 +13,14 @@ FACTORIES:
   "2":
     name: DC8
     stations:
-      "1":
+      "4":
         clusters: 4
         cutters: 4
-      "2":
+      "5":
         clusters: 4
         cutters: 4
-      "3":
-        clusters: 3
+      "6":
+        clusters: 4
         cutters: 4
 
 DIAMOND_FORM_URL:
