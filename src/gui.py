@@ -127,30 +127,41 @@ def load_laptop_number() -> int:
     except (KeyError, TypeError, ValueError):
         sys.exit('computer.json must contain a whole-number "laptop" entry, e.g. {"laptop": 3}')
 
+def _json_default(value):
+    """For the fallback JSON: replace image data with a short note, anything else as text."""
+    if isinstance(value, psycopg2.extensions.Binary):
+        return f"<image, {len(bytes(value.adapted))} bytes - see the PNGs in the log folder>"
+    return str(value)
+
+
+
 def post_calibration_record(record: dict, log_folder: Path | None, logger: logging.Logger):
     """Insert one row for this run. If the database can't be reached, save the
     record as JSON in the run's log folder so it isn't lost."""
-    conn = psycopg2.connect(
-
-            user=str(os.getenv("DB_USER")),
-            password= str(os.getenv("DB_PASSWORD")),
-            host= (os.getenv("DB_HOST")),
-            hostaddr= str(os.getenv("DB_HOST")),
-            port= os.getenv("DB_PORT"),
-            database= str(os.getenv("DB_DATABASE"))
-            )
+    conn = None
     try:
-        conn.execute(gen.CALIBRATION_INSERT_SQL, record)   # commits when the 'with' block exits
+        db_link = os.getenv("DB_LINK")
+        if not db_link:
+            raise RuntimeError("DB_LINK environment variable is not set")
+
+        conn = psycopg2.connect(db_link, connect_timeout=10)
+        with conn:                      # commits on success, rolls back on error
+            with conn.cursor() as cur:
+                cur.execute(gen.CALIBRATION_INSERT_SQL, record)
         logger.info(f"Calibration record saved to database: {record}")
     except Exception:
         logger.exception("Could not save calibration record to database")
         if log_folder is not None:
             try:
                 fallback = Path(log_folder) / "calibration_record_unsent.json"
-                fallback.write_text(json.dumps(record, default=str, indent=2), encoding="utf-8")
+                fallback.write_text(json.dumps(record, default=_json_default, indent=2),
+                                    encoding="utf-8")
                 logger.info(f"Calibration record written to {fallback} instead")
             except Exception:
                 logger.exception("Could not write fallback calibration record")
+    finally:
+        if conn is not None:
+            conn.close()
 
 
 # ===== Logging ===== #
@@ -637,19 +648,28 @@ class WizardApp(tk.Tk):
                 if self._api.get("packml_state") != 2:
                     self._api.command("stop")
 
-        ####TODO: prepare database
-        # self._post_calibration_record()
+        self._post_calibration_record()
 
         self.after(25, self._wait_for_threads, 0)
 
+    def read_image_bytes(self, path, logger: logging.Logger) -> bytes | None:
+        """Contents of the image at path, or None if there's no file there."""
+        if path is None:
+            return None
+        path = Path(path)
+        if not path.is_file():
+            logger.warning(f"Image not found, not attached to the record: {path}")
+            return None
+        return path.read_bytes()
+    
     def _post_calibration_record(self):
         """Post one row to the calibration table, but only once the machine has been selected."""
         if not self.machine_selected:
             self.logger.info("Stopped before a machine was selected - no database record posted")
             return
         sel, v = self.selection, self.values
-        img_1 = latest_groove_plot(sel.log_folder)   # or sel.log_folder    
-        img_2 = f"{sel.log_folder}/groove_width_validation.png"
+        img_1 = self.read_image_bytes(latest_groove_plot(sel.log_folder), self.logger)   # or sel.log_folder    
+        img_2 = self.read_image_bytes(f"{sel.log_folder}/groove_width_validation.png", self.logger)
         correlation_graph = psycopg2.Binary(img_1) if img_1 is not None else None
         validation_graph = psycopg2.Binary(img_2) if img_2 is not None else None
         time_taken = round(time.monotonic() - self.start_time, 1)
@@ -673,7 +693,11 @@ class WizardApp(tk.Tk):
             'validation_graph': validation_graph,
             'maintenance_narrative': maintenance_nar
         }
-        self.logger.info(f"Posting calibration record: {record}")
+            
+        loggable = {k: v for k, v in record.items()
+                    if k not in ("correlation_graph", "validation_graph")}
+        self.logger.info(f"Posting calibration record: {loggable}")
+
         # Non-daemon so Python waits for the insert to finish even after the window closes
         threading.Thread(target=post_calibration_record,
                          args=(record, getattr(sel, "log_folder", None), self.logger),
@@ -804,6 +828,11 @@ class BasePage(ttk.Frame):
         raise NotImplementedError
 
 
+def transport_available(machine_id: str | None) -> bool:
+    """Machines on station 1 (machine ID '1.x' / '1.x.x') have no transport -
+    disc changes there are always manual."""
+    return machine_id is not None and not machine_id.startswith("1.")
+
     
 class SelectionPage(BasePage):
     """Page 1: one question at a time.
@@ -912,11 +941,23 @@ class SelectionPage(BasePage):
         self._add_step("Cutter", cutters, self._on_cutter)
 
     def _on_cutter(self, value):
-        self.app.selection.cutter = value
-        self.app.logger.info(f"Machine ID: {self.app.selection.machine_id}")
+        sel = self.app.selection
+        sel.cutter = value
+        self.app.logger.info(f"Machine ID: {sel.machine_id}")
         # Changing cutter keeps the yes/no answers; they're only asked once per location
         if not self._condition_groups:
-            self._add_condition("Is transport operational?", self._on_transport)
+            if transport_available(sel.machine_id):
+                self._add_condition("Is transport operational?", self._on_transport)
+            else:
+                sel.transport_ok = False
+                self.app.logger.info(f"{sel.machine_id} has no transport - "
+                                     "disc changes will be manual")
+                note = ttk.Label(self.conditions_frame,
+                                 text="No transport on this machine.\n"
+                                      "Disc changes will be done manually.",
+                                 font=gui.FONT_BODY_BOLD, justify="left")
+                note.pack(anchor="w", pady=(0, 16))
+                self._condition_groups.append(note)   # cleared with the questions
             self._add_condition("Is this the first calibration after a diamond change?",
                                 self._on_diamond_change)
         self._refresh()
@@ -2266,13 +2307,13 @@ def manual_adjust_text(ctx: WorkerContext):
         instructions = "Replace the spring: Spring has been overstretched and can no longer keep head in acceptable range"
         ctx.log(f"Manual Adjustment Instructions: {instructions}")  
     elif float(instruction) > 0:
-        turns = math.floor(abs(float(instruction)) / cutter.SCREW_PITCH * 2 + 0.5) / 2
+        turns = (math.floor(abs(float(instruction)) / cutter.SCREW_PITCH * 2 + 0.5) / 2) - 0.5 #subtracting 0.5 here because we dont want to shift too far into the elastic limit --> out of the linear range
         append_maintenance_narrative("Headweight screw UP", abs(float(instruction)))
         instructions = f"Please shift the head UPWARDS by approx. {turns} turns"
         ctx.log(f"Requested to move the head UPWARDS by {round(abs(float(instruction)), 2)}mm, which is approx. {turns} turns")
         ctx.log(f"Manual Adjustment Instructions: {instructions}")
     else:
-        turns = math.floor(abs(float(instruction)) / cutter.SCREW_PITCH * 2 + 0.5) / 2
+        turns = (math.floor(abs(float(instruction)) / cutter.SCREW_PITCH * 2 + 0.5) / 2) - 0.5 #subtracting 0.5 here because we dont want to shift too far into the elastic limit --> out of the linear range
         append_maintenance_narrative("Headweight screw DOWN", abs(float(instruction)))
         instructions = f"Please shift the head DOWNWARDS by approx. {turns} turns"
         ctx.log(f"Requested to move the head DOWNWARDS by {round(abs(float(instruction)), 2)}mm, which is approx. {turns} turns")
@@ -2364,15 +2405,15 @@ def latest_groove_plot(folder: Path | None) -> Path | None:
             newest_path, newest_time = path, stamp
     return newest_path
 
-# #test from validation onwards
-# # Set to a page name to skip ahead for testing, or None for the normal flow
+#test from validation onwards
+# Set to a page name to skip ahead for testing, or None for the normal flow
 # DEBUG_START_PAGE = "validation"
 
 # #INPUT VARIABLES HERE
 # DEBUG_PRESET = {
-#     "selection": {"factory": "1", "station": "3", "cluster": "2", "cutter": "1",
+#     "selection": {"factory": "1", "station": "2", "cluster": "4", "cutter": "2",
 #                   "transport_ok": False},
-#     "values": {"mmum":0.023266, "y_int": 0.1116},   # use the fit from a real run
+#     "values": {"mmum":0.02755, "y_int": -0.3955},   # use the fit from a real run
 # }
 
 

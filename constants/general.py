@@ -24,7 +24,7 @@ GROOVE_PLOT_PATTERN = re.compile(r"groove_piezo_(\d{8}_\d{6})_plot\.png")
 
 # ===== Database ===== #
 # Change this if the table has a different name
-CALIBRATION_TABLE = "calibration"
+CALIBRATION_TABLE = "CalibrationTracker"
 
 # end_time is filled in by the database, so it isn't sent
 CALIBRATION_INSERT_SQL = f"""

@@ -65,6 +65,81 @@ class LatestFrame:
             self._new.clear()
             return self._img
 
+
+class StaleGrooveCheck:
+    """
+    Detects when the camera has stopped seeing new grooves, without needing
+    a prior grams-per-micron value. Per frame: add() is a list append.
+    Per piezo step: one comparison in end_step().
+    """
+
+    def __init__(self, logger, min_dw_um=1.0, frac=0.3, r_tol_px=2.0, max_stale_steps=2):
+        self.logger = logger
+        self.min_dw = min_dw_um          # width change (um) always counted as "real"
+        self.frac = frac                 # fraction of slope-predicted change that counts as "changed"
+        self.r_tol = r_tol_px            # radius change (px) that counts as "moved"
+        self.max_stale = max_stale_steps
+        self._r = []                     # groove radius per sample, this step only
+        self.prev = None                 # (pos, mean, sd, median_r) of last measured step
+        self.good = []                   # (pos, mean) of steps that clearly changed -> slope fit
+        self.stale_steps = 0
+
+    def add(self, r):
+        if r is not None:
+            self._r.append(r)
+
+    def discard(self):
+        self._r.clear()
+
+    def _slope(self):
+        if len(self.good) < 3:
+            return None
+        p, w = np.array(self.good).T
+        if np.ptp(p) == 0:
+            return None
+        return np.polyfit(p, w, 1)[0]    # um of width per mm of piezo, from this run
+
+    def end_step(self, pos, vals):
+        """vals: the step's 5-frame averages. Returns True if grooves look stale."""
+        mean = float(np.mean(vals))
+        sd = float(np.std(vals, ddof=1)) if len(vals) > 1 else 0.0
+        r_med = float(np.median(self._r)) if self._r else None
+        self._r.clear()
+
+        stale = False
+        if self.prev is None:
+            self.good.append((pos, mean))
+        else:
+            p0, w0, sd0, r0 = self.prev
+            dw = abs(mean - w0)
+            slope = self._slope()
+            if slope is not None:
+                threshold = self.frac * abs(slope * (pos - p0))
+                basis = f"expected ~{abs(slope * (pos - p0)):.2f} um from run slope"
+            else:
+                threshold = max(sd, sd0, self.min_dw)
+                basis = f"noise threshold {threshold:.2f} um"
+
+            width_stuck = dw < threshold
+            pos_stuck = (r_med is not None and r0 is not None and abs(r_med - r0) < self.r_tol)
+
+            if width_stuck and pos_stuck:
+                self.stale_steps += 1
+                self.logger.warning(
+                    "Groove may be stale: piezo %.2f->%.2f, width change %.2f um (%s), "
+                    "radius change %.1f px [%d/%d]",
+                    p0, pos, dw, basis, abs(r_med - r0), self.stale_steps, self.max_stale)
+            else:
+                self.stale_steps = 0
+                if not width_stuck:
+                    self.good.append((pos, mean))
+            stale = self.stale_steps >= self.max_stale
+
+        self.prev = (pos, mean, sd, r_med)
+        return stale
+
+
+    
 class CalibrationSide:
     def __init__(self, logger, log_folder, stop_event, api, mqtt, change_in_diamond_length, frame_sink=None, new_drop_in = None):
         self.logger = logger
@@ -75,6 +150,7 @@ class CalibrationSide:
         self.change_in_diamond_length = change_in_diamond_length
         self.new_drop_in = new_drop_in
         self.frame_sink = frame_sink      # called with each annotated BGR frame for display
+        self.stale = StaleGrooveCheck(self.logger)
 
 
     def save_samples(self, samples):
@@ -255,7 +331,12 @@ class CalibrationSide:
                 time.sleep(0.1)
             self.logger.info("Head has reached cutting position")
             t_head = time.perf_counter()      # start of the NO_GROOVE_S window
-            
+
+
+            # check if piezo is at the correct starting position, if not move it there
+            move_piezo(self.api, self.mqtt, drop_in_piezo_pos)
+            self.logger.info(f"(2) Piezo moved to starting pos")
+
             #4. start analysis
                 #wait for cut to reach the camera
             time.sleep(cutter.DELAY_CUT_TO_FRAME)
@@ -386,6 +467,7 @@ class CalibrationSide:
                     drop_in_piezo_pos = new_pos
                     continue                  # don't record the too-light frame
 
+                
                 # ---- record; the measuring clock only starts once a groove is being measured
                 if res["n"] == cam_const.N_AVG and res["width"] is not None:
                     if window_end is None:
@@ -420,6 +502,12 @@ class CalibrationSide:
                     if len(vals):
                         self.logger.info("piezo %s: %d samples, mean %.2f um, sd %.2f um",
                                     pos, len(vals), vals.mean(), vals.std(ddof=1) if len(vals) > 1 else 0.0)
+                        if self.stale.end_step(pos, vals):
+                            self.logger.info("It appears that the groove width has stopped changing with piezo position \n"
+                                             "Grooves have travelled off screen - continuing with collected data")
+                            endflag = True
+                            moving_lighter = False
+                            moving_heavier = False
                     else:
                         self.logger.warning("piezo %s: no complete 5-frame averages recorded", pos)
                     step += 1

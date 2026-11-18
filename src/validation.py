@@ -51,6 +51,7 @@ GROOVES_PER_BAND = int(round(cutter.VALIDATION_S / cutter.REV_S))        # 10
 SAMPLES_PER_BAND = round(GROOVES_PER_BAND / 2)        # 5 measured grooves per band
 BAND_SLACK = 2        # readings either side of GROOVES_PER_BAND a band may span (missed / extra grooves)
 
+IGNORED_TARGETS = (40,)         # Targets (um) that are measured and plotted but don't count towards pass/fail
 
 if cutter.PIEZO_GROOVES + SAMPLES_PER_BAND > GROOVES_PER_BAND:
     raise ValueError("Not enough grooves in each band - increase cutter.VALIDATION_S or reduce cutter.PIEZO_GROOVES")
@@ -271,9 +272,15 @@ class ValidationSide:
 
         for i in kept:
             for b in all_results[i][1]:
+                verdict = "pass" if b["passed"] else "FAIL"
+                if b["ignored"]:
+                    verdict += " (ignored for pass/fail)"
                 self.logger.info(f"Sample {all_names[i]} target {b['target']:g}: "
                                  f"mean {b['mean']:.1f} ({b['mean_deviation']:+.1f}) over readings "
-                                 f"{b['start']}-{b['end'] - 1} -> {'pass' if b['passed'] else 'FAIL'}")
+                                 f"{b['start']}-{b['end'] - 1} -> {verdict}")
+
+
+        
         #self.logger.info(f"Validation result: {pass_fail}")
 
         result_text = "PASS" if pass_fail else "FAIL"
@@ -328,6 +335,15 @@ class ValidationSide:
                 return
             time.sleep(0.1)
         self.logger.info("Head has reached cutting position")
+
+
+        time.sleep(cutter.REV_S)                      # let the drop sequence finish
+        actual = float(mqtt.monitor("piezo_actual"))
+        if abs(actual - piezo_positions[0]) > 0.01:   # tolerance in piezo units - adjust
+            self.logger.info(f"Piezo drifted to {actual:.4f} during head drop - moving back")
+            move_piezo(api, mqtt, piezo_positions[0])
+        else:
+            self.logger.info(f"Piezo still at {actual:.4f} - no move needed")
 
         # cut each band for VALIDATION_S.
         # The band timer starts when the move is requested (not when it finishes),
@@ -585,6 +601,8 @@ class ValidationSide:
             else:
                 bad = np.where(np.abs(block - target) > tolerance)[0] + s
                 passed = bad.size == 0
+
+            ignored = any(np.isclose(target, t) for t in IGNORED_TARGETS)
             results.append({
                 "block": i,
                 "start": s,
@@ -596,9 +614,10 @@ class ValidationSide:
                 "max_deviation": float(np.max(np.abs(block - target))),
                 "failing_indices": bad.tolist(),
                 "passed": bool(passed),
+                "ignored": ignored,            # True -> doesn't affect pass/fail
             })
 
-        all_passed = all(r["passed"] for r in results)
+        all_passed = all(r["passed"] for r in results if not r["ignored"])
         return all_passed, results
 
     def check_all_sides(self, width_array, targets, tolerance=cutter.ABS_ERROR_MARGIN, average=True,
@@ -681,15 +700,23 @@ class ValidationSide:
                 ax.hlines(t, s - 0.5, e - 0.5, colors="tab:blue", linewidth=2)
                 ax.text((s + e - 1) / 2, t - tolerance - 1, f"target {t:g}", ha="center",
                         va="top", fontsize=8, color="tab:blue")
-                mc = "tab:green" if b["passed"] else "tab:red"
+                if b.get("ignored"):
+                    mc = "tab:orange"
+                    label = f"mean {b['mean']:.1f} (not judged)"
+                else:
+                    mc = "tab:green" if b["passed"] else "tab:red"
+                    label = f"mean {b['mean']:.1f}"
                 ax.hlines(b["mean"], s - 0.5, e - 0.5, colors=mc, linestyles="--", linewidth=1.5)
                 ax.text((s + e - 1) / 2, max(t + tolerance, np.max(values[s:e])) + 1,
-                        f"mean {b['mean']:.1f}", ha="center", va="bottom", fontsize=8, color=mc)
+                        label, ha="center", va="bottom", fontsize=8, color=mc)
 
                 idx = np.arange(s, e)
-                fail = np.isin(idx, b["failing_indices"])
-                ax.scatter(idx[~fail], values[s:e][~fail], c="tab:green", s=18, zorder=3)
-                ax.scatter(idx[fail], values[s:e][fail], c="tab:red", s=18, zorder=3)
+                if b.get("ignored"):
+                    ax.scatter(idx, values[s:e], c="tab:orange", s=18, zorder=3)
+                else:
+                    fail = np.isin(idx, b["failing_indices"])
+                    ax.scatter(idx[~fail], values[s:e][~fail], c="tab:green", s=18, zorder=3)
+                    ax.scatter(idx[fail], values[s:e][fail], c="tab:red", s=18, zorder=3)
 
             ax.scatter(x[~in_block], values[~in_block], c="lightgrey", s=18, zorder=2)
             ax.plot(x, values, color="grey", linewidth=0.6, alpha=0.5, zorder=1)
