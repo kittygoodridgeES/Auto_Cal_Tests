@@ -6,5 +6,5 @@ TIMEOUT = 10.0                      # seconds; stops a request hanging forever i
 GROOVE_TIMEOUT_S = 500              # stop (don't move) if a position gets no groove within this long
 NO_GROOVE_S = 30.0                  # no groove seen this long after the head reaches cutting position...
 PIEZO_MOVE_TIMEOUT = 30             # timeout for piezo to reach required position on an individual move
-PIEZO_CMD_TIMEOUT = 10              # timeout for response when sending command to piezo
-TRANSPORT_TIMEOUT = 9 * 60          # timeout if transport is not completed within this time (assumes max 3 commands ahead in queue and each command takes 2 mins)
+PIEZO_CMD_TIMEOUT = 20              # timeout for response when sending command to piezo
+TRANSPORT_TIMEOUT = 600          # timeout if transport is not completed within this time (assumes max 3 commands ahead in queue and each command takes 2 mins)

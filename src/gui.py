@@ -689,13 +689,13 @@ class WizardApp(tk.Tk):
             "discs_used": discs_used,
             "default_headweight": v.get("default_headweight"),
             "time_taken": time_taken,
-            'correlation_graph': correlation_graph,
+            'linear_graph': correlation_graph,
             'validation_graph': validation_graph,
             'maintenance_narrative': maintenance_nar
         }
             
         loggable = {k: v for k, v in record.items()
-                    if k not in ("correlation_graph", "validation_graph")}
+                    if k not in ("linear_graph", "validation_graph")}
         self.logger.info(f"Posting calibration record: {loggable}")
 
         # Non-daemon so Python waits for the insert to finish even after the window closes
@@ -2061,7 +2061,7 @@ def read_live_value(ctx: WorkerContext):
 
 def supply_task(ctx: WorkerContext):
     ctx.log(f"Preparing for supply to {ctx.selection.machine_id}")
-    ctx.get_transport().run_command("supply", ctx.stop_event, timeout=300)
+    ctx.get_transport().run_command("supply", ctx.stop_event, timeout=timeouts.TRANSPORT_TIMEOUT)
     ctx.log("Supply complete")
     set_disk_position("A_side", ctx.logger)
 
@@ -2077,12 +2077,12 @@ def transition_task(ctx: WorkerContext):
 
     if disk_position == "No Disk":
         ctx.logger.warning(f"No disc recorded in {machine} at switch over - requesting supply")
-        transport.run_command("supply", ctx.stop_event, timeout=300)
+        transport.run_command("supply", ctx.stop_event, timeout=timeouts.TRANSPORT_TIMEOUT)
         set_disk_position("A_side", ctx.logger)
 
     elif disk_position == "A_side":
         ctx.log(f"Requesting flip for {machine}")
-        transport.run_command("flip", ctx.stop_event, timeout=300)
+        transport.run_command("flip", ctx.stop_event, timeout=timeouts.TRANSPORT_TIMEOUT)
         set_disk_position("B_side", ctx.logger)
 
     elif disk_position == "B_side":
@@ -2092,7 +2092,7 @@ def transition_task(ctx: WorkerContext):
         # Recorded straight away, so if the supply fails, RETRY supplies without asking again
         set_disk_position("No Disk", ctx.logger)
         ctx.log(f"Requesting supply for {machine}")
-        transport.run_command("supply", ctx.stop_event, timeout=300)
+        transport.run_command("supply", ctx.stop_event, timeout=timeouts.TRANSPORT_TIMEOUT)
         set_disk_position("A_side", ctx.logger)
 
     else:
@@ -2307,13 +2307,13 @@ def manual_adjust_text(ctx: WorkerContext):
         instructions = "Replace the spring: Spring has been overstretched and can no longer keep head in acceptable range"
         ctx.log(f"Manual Adjustment Instructions: {instructions}")  
     elif float(instruction) > 0:
-        turns = (math.floor(abs(float(instruction)) / cutter.SCREW_PITCH * 2 + 0.5) / 2) - 0.5 #subtracting 0.5 here because we dont want to shift too far into the elastic limit --> out of the linear range
+        turns = (math.floor(abs(float(instruction)) / cutter.SCREW_PITCH * 2 + 0.5) / 2) - 1 #subtracting 0.5 here because we dont want to shift too far into the elastic limit --> out of the linear range
         append_maintenance_narrative("Headweight screw UP", abs(float(instruction)))
         instructions = f"Please shift the head UPWARDS by approx. {turns} turns"
         ctx.log(f"Requested to move the head UPWARDS by {round(abs(float(instruction)), 2)}mm, which is approx. {turns} turns")
         ctx.log(f"Manual Adjustment Instructions: {instructions}")
     else:
-        turns = (math.floor(abs(float(instruction)) / cutter.SCREW_PITCH * 2 + 0.5) / 2) - 0.5 #subtracting 0.5 here because we dont want to shift too far into the elastic limit --> out of the linear range
+        turns = (math.floor(abs(float(instruction)) / cutter.SCREW_PITCH * 2 + 0.5) / 2) - 1 #subtracting 0.5 here because we dont want to shift too far into the elastic limit --> out of the linear range
         append_maintenance_narrative("Headweight screw DOWN", abs(float(instruction)))
         instructions = f"Please shift the head DOWNWARDS by approx. {turns} turns"
         ctx.log(f"Requested to move the head DOWNWARDS by {round(abs(float(instruction)), 2)}mm, which is approx. {turns} turns")

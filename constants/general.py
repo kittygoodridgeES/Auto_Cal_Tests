@@ -23,14 +23,16 @@ MIN_FIT_GROOVES = 3
 GROOVE_PLOT_PATTERN = re.compile(r"groove_piezo_(\d{8}_\d{6})_plot\.png")
 
 # ===== Database ===== #
-# Change this if the table has a different name
+# Change this if the table has a different name (exactly as in the database, capitals included)
 CALIBRATION_TABLE = "CalibrationTracker"
 
 # end_time is filled in by the database, so it isn't sent
 CALIBRATION_INSERT_SQL = f"""
-    INSERT INTO {CALIBRATION_TABLE}
-        (laptop, slot, transport_on, diamond_id, mmum, y_int, "pass", discs_used, default_headweight, time_taken, correlation_graph, validation_graph, maintenance_narrative)
+    INSERT INTO public."{CALIBRATION_TABLE}"
+        (laptop, slot, transport_on, diamond_id, mmum, y_int, "pass", discs_used, default_headweight,
+         time_taken, linear_graph, validation_graph, maintenance_narrative)
     VALUES
         (%(laptop)s, %(slot)s, %(transport_on)s, %(diamond_id)s, %(mmum)s, %(y_int)s, %(pass)s,
-         %(discs_used)s, %(default_headweight)s, %(time_taken)s, %(correlation_graph)s, %(validation_graph)s, %(maintenance_narrative)s)
+         %(discs_used)s, %(default_headweight)s, %(time_taken)s, %(linear_graph)s,
+         %(validation_graph)s, %(maintenance_narrative)s)
 """
