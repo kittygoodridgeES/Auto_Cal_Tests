@@ -51,7 +51,7 @@ GROOVES_PER_BAND = int(round(cutter.VALIDATION_S / cutter.REV_S))        # 10
 SAMPLES_PER_BAND = round(GROOVES_PER_BAND / 2)        # 5 measured grooves per band
 BAND_SLACK = 2        # readings either side of GROOVES_PER_BAND a band may span (missed / extra grooves)
 
-IGNORED_TARGETS = (40,)         # Targets (um) that are measured and plotted but don't count towards pass/fail
+IGNORED_TARGETS = (45,)         # Targets (um) that are measured and plotted but don't count towards pass/fail
 
 if cutter.PIEZO_GROOVES + SAMPLES_PER_BAND > GROOVES_PER_BAND:
     raise ValueError("Not enough grooves in each band - increase cutter.VALIDATION_S or reduce cutter.PIEZO_GROOVES")

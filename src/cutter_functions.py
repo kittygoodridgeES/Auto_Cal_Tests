@@ -79,7 +79,11 @@ def find_default_headweight(api, mqtt, default_piezo_pos):
     #reset cutter
     api.command("reset")
     wait_for(lambda: api.get("packml_state") == 4, "reset to finish (IDLE)", api)
-    
+
+    #rehome the piezo pre calibration
+    api.set("piezo_cmd_id", 1)
+    time.sleep(30)
+
     #drop head
     api.set("head_ctrl", 1)
     time.sleep(cutter.HEAD_DROP_TIME)
@@ -112,14 +116,19 @@ def find_default_headweight(api, mqtt, default_piezo_pos):
     api.set("head_ctrl", 0)
     time.sleep(cutter.HEAD_DROP_TIME)
 
+    
+    #rehome the piezo
+    api.set("piezo_cmd_id", 1)
+    time.sleep(30)
+
     #reset cutter
     api.command("reset")
     wait_for(lambda: api.get("packml_state") == 4, "reset to finish (IDLE)", api)
     return return_value
 
-# api = APIRequests("1", "3.1.3")
-# mqtt= MQTTClient("1", "3.1.3")
-# print(find_default_headweight(api, mqtt, 1.86024))
-# #print(move_piezo(api, mqtt, 1.53))
-# print(mqtt.monitor("head_weight"))
-# # move_piezo(api, mqtt, 1.275)
+api = APIRequests("1", "3.1.3")
+mqtt= MQTTClient("1", "3.1.3")
+print(find_default_headweight(api, mqtt, 1.84))
+#print(move_piezo(api, mqtt, 1.53))
+print(mqtt.monitor("head_weight"))
+# move_piezo(api, mqtt, 1.275)

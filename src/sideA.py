@@ -218,7 +218,13 @@ class CalibrationSide:
         stream = Stream(self.logger, cutter_no)
         camera_error = []
         self.csv_path = None
-        
+
+        #rehome the piezo pre calibration
+        self.logger("Rehoming the piezo motor")
+        self.api.set("piezo_cmd_id", 1)
+        time.sleep(30)
+        self.logger("Rehoming the piezo complete")
+
         
         #1. collect previous config information
         config = self.api.get("config")
@@ -419,7 +425,7 @@ class CalibrationSide:
                             and width >= last_width * cutter.MERGE_RATIO):
                         heavy_reason = (f"merged groove detected ({last_width:.1f} -> {width:.1f} um "
                                         f"in {now_t - last_width_t:.2f} s)")
-                    elif width > cutter.MAX_SAFE_GW:
+                    elif width > cutter.MAX_SAFE_GW_CUT:
                         heavy_reason = f"unsafe heavy groove width: {width:.1f} um"
                     else:
                         last_width, last_width_t = width, now_t

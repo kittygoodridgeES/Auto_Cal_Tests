@@ -23,6 +23,8 @@ PIEZO_LOWER_LIMIT = 0.5                # minimum mm position of the piezo
 
 MAX_SAFE_GW = 130                       # maximum groove width requested on cutter
 MIN_SAFE_GW = 40                        # minimum groove width requested on cutter
+MAX_SAFE_GW_CUT = 120                   #max safe groove width to cut with no modulation (to avoid swarf)
+
 
 HEAVY_STEP = 0.2                      # after a heavy-limit hit, go this far below the drop-in position
 NO_GROOVE_STEP = 0.5                  # if no grooves are seen for a set window (timeouts) increase the piezo by this much (capped at PIEZO_UPPER_LIMIT), once

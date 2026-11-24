@@ -617,6 +617,7 @@ class WizardApp(tk.Tk):
             title="END",
             body=finish_text,
             image_path=validation_image,
+            image_side="right",
             next_target=None,              # last page: Next becomes Finish
         )
 
@@ -676,6 +677,7 @@ class WizardApp(tk.Tk):
         diamond = v.get("diamond_id")
         mmum = v.get("mmum")
         y_int = v.get("y_int")
+        diamond_length = airtable.get_diamond_length(diamond)
         maintenance_nar = maintenance_narrative if maintenance_narrative else None
         record = {
             "laptop": self.laptop,
@@ -684,6 +686,7 @@ class WizardApp(tk.Tk):
             "diamond_id": str(diamond) if diamond is not None else None,
             "mmum": float(mmum) if mmum is not None else None,
             "y_int": float(y_int) if y_int is not None else None,
+            "diamond_length": diamond_length,
             # PASS -> True; FAIL or validation not run -> False
             "pass": v.get("validation_result") == "PASS",
             "discs_used": discs_used,
@@ -691,7 +694,7 @@ class WizardApp(tk.Tk):
             "time_taken": time_taken,
             'linear_graph': correlation_graph,
             'validation_graph': validation_graph,
-            'maintenance_narrative': maintenance_nar
+            'manual_intervention': maintenance_nar
         }
             
         loggable = {k: v for k, v in record.items()
@@ -984,32 +987,48 @@ class SelectionPage(BasePage):
         self.app.logger.info(f"Selection: {sel.summary()}")
         self.app.logger.info(f"First calibration after diamond change: {sel.first_after_diamond_change}")
         self.app.show_page(self.next_target)
+
+
+
 class InfoPage(BasePage):
     """Text plus optional images that resize to fit the window.
     body and image_path can each be a fixed value or a function (ctx) -> value,
-    looked up each time the page is shown."""
+    looked up each time the page is shown.
+    image_side="right" puts the text on the left and the images on the right,
+    so the images get the full page height."""
 
     MIN_IMAGE_HEIGHT = 120
+    SIDE_TEXT_WIDTH = 380       # wrap width for the text column in the side layout
 
-    def __init__(self, parent, app, title, body, next_target, image_path=None):
+    def __init__(self, parent, app, title, body, next_target, image_path=None,
+                 image_side=None):
         super().__init__(parent, app, title=title)
         self.next_target = next_target
+        self.image_side = image_side
         self._pil_images, self._photos, self.image_labels = [], [], []
         self._resize_job = None
 
         container = ttk.Frame(self.content)
         container.pack(expand=True, fill="both")
 
+        side = image_side == "right"
         self.body_source = body
         self.body_label = ttk.Label(container, text="" if callable(body) else body,
-                                    font=gui.FONT_BODY, justify="left", wraplength=900)
-        self.body_label.pack(pady=(0, 15))
+                                    font=gui.FONT_BODY, justify="left",
+                                    wraplength=self.SIDE_TEXT_WIDTH if side else 900)
+        if side:
+            self.body_label.pack(side="left", anchor="w", padx=(0, 20))
+        else:
+            self.body_label.pack(pady=(0, 15))
 
         self.image_source = image_path
         self.images_frame = None
         if image_path:
             self.images_frame = ttk.Frame(container)
-            self.images_frame.pack(pady=10, fill="both", expand=True)
+            if side:
+                self.images_frame.pack(side="left", fill="both", expand=True)
+            else:
+                self.images_frame.pack(pady=10, fill="both", expand=True)
             self.bind("<Configure>", self._on_configure)
             if not callable(image_path):
                 self._set_images(image_path)
@@ -1050,9 +1069,15 @@ class InfoPage(BasePage):
         if not self._pil_images:
             return
         self.update_idletasks()
-        available_h = max(self.content.winfo_height() - self.body_label.winfo_height() - 60,
-                          self.MIN_IMAGE_HEIGHT)
-        available_w = self.images_frame.winfo_width() or self.content.winfo_width()
+        if self.image_side == "right":
+            # Text is beside the images, so they can use the full height
+            available_h = max(self.content.winfo_height() - 40, self.MIN_IMAGE_HEIGHT)
+            available_w = (self.images_frame.winfo_width()
+                           or self.content.winfo_width() - self.body_label.winfo_width() - 40)
+        else:
+            available_h = max(self.content.winfo_height() - self.body_label.winfo_height() - 60,
+                              self.MIN_IMAGE_HEIGHT)
+            available_w = self.images_frame.winfo_width() or self.content.winfo_width()
         per_image_w = max(available_w // len(self._pil_images), 100)
 
         self._photos = []
@@ -1361,7 +1386,7 @@ class ReloadConfirmPage(BasePage):
         card.pack(anchor="w", fill="x")
         tk.Label(card, text=value_label, font=gui.FONT_BODY_BOLD, bg=gui.COLOR_CARD_BG,
                  fg=gui.COLOR_TEXT).pack()
-        self.value_display = tk.Label(card, text="--", font=gui.FONT_LIVE_VALUE, bg=gui.COLOR_CARD_BG,
+        self.value_display = tk.Label(card, text="--", font=("Segoe UI", 20, "bold"), bg=gui.COLOR_CARD_BG,
                                       fg=gui.COLOR_TEXT)
         self.value_display.pack(pady=(8, 8))
         self.updated_label = tk.Label(card, text="", font=gui.FONT_BODY,
@@ -2300,27 +2325,35 @@ def choose_after_calibration(ctx: WorkerContext):
     return "dataCalcs"
 
 
+TURNS_OFFSET = 1      # back off so we don't shift too far into the elastic limit (out of the linear range)
+MIN_TURNS = 0.25
+
+def _calc_turns(distance_mm: float) -> float:
+    turns = math.floor(distance_mm / cutter.SCREW_PITCH * 4 + 0.5) / 4  # round to nearest 0.25
+    turns -= TURNS_OFFSET
+    return max(turns, MIN_TURNS)  # never ask for 0 (or negative) turns
+
+
 def manual_adjust_text(ctx: WorkerContext):
     instruction = ctx.values.get("manual_ajd_instr")
-    
-    if instruction == None:
+
+    if instruction is None:
         instructions = "Replace the spring: Spring has been overstretched and can no longer keep head in acceptable range"
-        ctx.log(f"Manual Adjustment Instructions: {instructions}")  
-    elif float(instruction) > 0:
-        turns = (math.floor(abs(float(instruction)) / cutter.SCREW_PITCH * 2 + 0.5) / 2) - 1 #subtracting 0.5 here because we dont want to shift too far into the elastic limit --> out of the linear range
-        append_maintenance_narrative("Headweight screw UP", abs(float(instruction)))
-        instructions = f"Please shift the head UPWARDS by approx. {turns} turns"
-        ctx.log(f"Requested to move the head UPWARDS by {round(abs(float(instruction)), 2)}mm, which is approx. {turns} turns")
         ctx.log(f"Manual Adjustment Instructions: {instructions}")
     else:
-        turns = (math.floor(abs(float(instruction)) / cutter.SCREW_PITCH * 2 + 0.5) / 2) - 1 #subtracting 0.5 here because we dont want to shift too far into the elastic limit --> out of the linear range
-        append_maintenance_narrative("Headweight screw DOWN", abs(float(instruction)))
-        instructions = f"Please shift the head DOWNWARDS by approx. {turns} turns"
-        ctx.log(f"Requested to move the head DOWNWARDS by {round(abs(float(instruction)), 2)}mm, which is approx. {turns} turns")
+        value = float(instruction)
+        distance = abs(value)
+        turns = _calc_turns(distance)
+        direction = "UP" if value > 0 else "DOWN"
+
+        append_maintenance_narrative(f"Headweight screw {direction}", distance)
+        instructions = f"Please shift the head {direction}WARDS by approx. {turns} turns"
+        ctx.log(f"Requested to move the head {direction}WARDS by {round(distance, 2)}mm, which is approx. {turns} turns")
         ctx.log(f"Manual Adjustment Instructions: {instructions}")
 
     return (f"A manual adjustment is required before continuing:\n\n{instructions}\n\n"
             "Press Next when the adjustment is done.")
+
 
 def validation_worker(ctx: WorkerContext):
     """Cut the validation grooves and check the measured widths, showing the camera feed."""
@@ -2366,12 +2399,14 @@ def finish_text(ctx: WorkerContext):
     ctx.logger.info(f"Validation result: {result}")
     machine = ctx.selection.machine_id
     if result == "PASS":
-        return (f"Calibration of cutter {machine} is complete.\n\n"
-                f"Validation:\n\n PASS \n\n All groove widths are within acceptable tolerance.\n\n"
+        return (f"Calibration of cutter {machine} is complete.\n"
+                f"Default Headweight: {round(ctx.values["default_headweight"])}\n"
+                f"Validation:\n\n PASS \n\n All groove widths are within acceptable tolerance.\n"
                 "Press Finish to close.")
     if result == "FAIL":
-        return (f"Calibration of cutter {machine} did not pass validation.\n\n"
-                f"Validation:\n\n FAIL \n\n Too many groove widths were out of tolerance \n"
+        return (f"Calibration of cutter {machine} did not pass validation.\n"
+                f"Default Headweight: {ctx.values["default_headweight"]}\n"
+                f"Validation:\n\n FAIL \n\n Too many groove widths were out of tolerance.\n"
                 "Please complete another calibration. Press Finish to close.")
     return "Validation did not run, so the calibration result is unknown."
 

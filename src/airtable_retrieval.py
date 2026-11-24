@@ -87,6 +87,14 @@ class AirtableReader:
         diamond_id = record["fields"]["Diamond ID (from Diamond Records 4)"][0]
         return diamond_id
 
+    def get_diamond_length(self, diamond_id):
+        try:
+            length_record = self.find_by_field("Length Update Events", "Diamond Records 2", diamond_id, view=os.environ["DIAMOND_LENGTH_VIEW_ID"], newest_by="Date")
+            diamond_length = length_record["fields"]["latestLength"]
+            return diamond_length
+        except Exception as e:
+            return None
+
 
     def _base_for(self, table: str) -> str:
         try:
@@ -155,4 +163,4 @@ class AirtableReader:
 #         },
 #     )
 #     #print(reader.get_diamond_ID_from_location("3.1.1"))
-#     print(reader.diamond_length_change("3.2.2"))
+#     print(reader.get_diamond_length("D28112025_N_01.006"))
