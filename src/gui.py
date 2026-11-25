@@ -2400,7 +2400,7 @@ def finish_text(ctx: WorkerContext):
     machine = ctx.selection.machine_id
     if result == "PASS":
         return (f"Calibration of cutter {machine} is complete.\n"
-                f"Default Headweight: {round(ctx.values["default_headweight"])}\n"
+                f"Default Headweight: {round(float(ctx.values["default_headweight"]))}\n"
                 f"Validation:\n\n PASS \n\n All groove widths are within acceptable tolerance.\n"
                 "Press Finish to close.")
     if result == "FAIL":
