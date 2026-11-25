@@ -220,10 +220,10 @@ class CalibrationSide:
         self.csv_path = None
 
         #rehome the piezo pre calibration
-        self.logger("Rehoming the piezo motor")
+        self.logger.info("Rehoming the piezo motor")
         self.api.set("piezo_cmd_id", 1)
         time.sleep(30)
-        self.logger("Rehoming the piezo complete")
+        self.logger.info("Rehoming the piezo complete")
 
         
         #1. collect previous config information
