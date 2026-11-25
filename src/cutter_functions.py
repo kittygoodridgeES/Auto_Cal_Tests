@@ -126,9 +126,9 @@ def find_default_headweight(api, mqtt, default_piezo_pos):
     wait_for(lambda: api.get("packml_state") == 4, "reset to finish (IDLE)", api)
     return return_value
 
-api = APIRequests("1", "3.1.3")
-mqtt= MQTTClient("1", "3.1.3")
-print(find_default_headweight(api, mqtt, 1.84))
-#print(move_piezo(api, mqtt, 1.53))
-print(mqtt.monitor("head_weight"))
-# move_piezo(api, mqtt, 1.275)
+# api = APIRequests("1", "3.1.3")
+# mqtt= MQTTClient("1", "3.1.3")
+# print(find_default_headweight(api, mqtt, 1.84))
+# #print(move_piezo(api, mqtt, 1.53))
+# print(mqtt.monitor("head_weight"))
+# # move_piezo(api, mqtt, 1.275)
